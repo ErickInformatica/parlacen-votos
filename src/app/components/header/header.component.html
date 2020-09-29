@@ -1,0 +1,50 @@
+<clr-header class="header-6 header">
+  <div class="branding">
+    <a class="logo-and-title" routerlink="/" href="/">
+      <span class="clr-icon clarity-logo"><img class="responsive-logo" src="/assets/logo.png" alt=""></span>
+      <span class="title">Parlamento Centroamericano</span>
+    </a>
+  </div>
+  <div class="divider"></div>
+  <div class="header-nav" [clr-nav-level]="1">
+    <a class="nav-link" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+        true}">
+      <span class="nav-text">Bienvenida</span>
+    </a>
+
+    <a class="nav-link" routerLink="/home/voto" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+        true}">
+      <span class="nav-text">Voto</span>
+    </a>
+    <clr-dropdown>
+      <a class="nav-link" clrDropdownTrigger>
+        <span class="nav-text">Papeletas</span>
+      </a>
+      <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+        <a routerLink="/home/papeleta1" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+          true}" clrDropdownItem>Papeleta Presidente</a>
+        <a routerLink="/home/papeleta2" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+          true}" clrDropdownItem>Papeleta Vicepresidente</a>
+        <a routerLink="/home/papeleta3" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+          true}" clrDropdownItem>Papeleta Secretario</a>
+      </clr-dropdown-menu>
+    </clr-dropdown>
+    <a class="nav-link" routerLink="/home/graficas" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+        true}">
+      <span class="nav-text">Graficas</span>
+    </a>
+  </div>
+  <div class="header-actions">
+    <clr-dropdown>
+      <button class="nav-text" clrDropdownTrigger aria-label="open user profile">
+        nombre
+        <clr-icon shape="caret down"></clr-icon>
+      </button>
+      <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+        <a href="..." clrDropdownItem>Preferences</a>
+        <a href="..." clrDropdownItem>Log out</a>
+      </clr-dropdown-menu>
+    </clr-dropdown>
+  </div>
+
+</clr-header>

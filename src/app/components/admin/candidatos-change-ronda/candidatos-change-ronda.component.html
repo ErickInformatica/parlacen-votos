@@ -1,0 +1,97 @@
+<div class="clr-row clr-justify-content-center">
+  <div class="clr-col-12 clr-align-self-center">
+    <div class="pAlingCenter">
+      <h1>Cambio de Ronda Candidatos<img class="imageTitulo" src="assets/guate.jpg" alt=""></h1>
+    </div>
+    <br>
+    <div class="clr-row clr-justify-content-center">
+      <div class="clr-col-12 clr-align-self-center">
+        <clr-accordion>
+          <clr-accordion-panel *ngFor="let ps of paisTypeArray"
+            (clrAccordionPanelOpenChange)="filterByPais($event,ps.pais)">
+            <clr-accordion-title>{{ps.pais}}</clr-accordion-title>
+            <clr-accordion-content *clrIfExpanded>
+              <clr-select-container>
+                <label>Cambiar a:</label>
+                <select clrSelect name="options" [(ngModel)]="rondaSelectedChange">
+                  <option *ngFor="let ct of tiposRondas" [value]="ct.nombre">{{ct.nombre}}</option>>
+                </select>
+              </clr-select-container>
+              <clr-radio-container clrInline>
+                <label>Seleccione Pais</label>
+                <clr-radio-wrapper *ngFor="let rd of tiposRondas">
+                  <input type="radio" clrRadio name="options" (change)="rondaSelect(rd.nombre)" required
+                    [value]="rd.nombre" [(ngModel)]="rondaRadioButton" />
+                  <label>{{rd.nombre}}</label>
+                </clr-radio-wrapper>
+              </clr-radio-container>
+              <div class="clr-row clr-justify-content-center">
+                <div class="clr-col-lg-3 clr-align-self-center clr-col-6"
+                  *ngFor="let canXRonda of filterCandidatoXRonda; let i = index">
+                  <!-- <label>
+                    <input type="checkbox" name="product" class="card-input-element" required [value]="canXRonda.nombre"
+                      [(ngModel)]="selectedPresidente" (change)="getSelected($event)" />
+                    <div class="card clickable card-input">
+                      <div class="card-header">
+                        {{canXRonda.ronda}}
+                      </div>
+                      <div class="card-block">
+                        <div class="card-title">
+                          {{canXRonda.nombre}}
+                        </div>
+                        <div class="card-text">
+                          {{canXRonda.texto}}
+                        </div>
+                      </div>
+                      <div class="card-footer">
+                        <p class="p1">Puesto</p>
+                      </div>
+                    </div>
+                  </label> -->
+                  <div class="card clickable">
+                    <input class="c-card" type="checkbox"   [id]="canXRonda.nombre" [value]="canXRonda.nombre"
+                     (change)="getSelected($event)" >
+                    <div class="card-content">
+                      <div class="card-state-icon"></div>
+                      <label [for]="canXRonda.nombre">
+                        <div class="image"></div>
+                        <h4>Presidente</h4>
+                        <h5>{{canXRonda.nombre}} &bull; {{canXRonda.texto}}</h5>
+                        <p class="small-meta dim">{{canXRonda.ronda}}</p>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary floatLeftButton">Siguiente</button>
+            </clr-accordion-content>
+          </clr-accordion-panel>
+        </clr-accordion>
+      </div>
+
+
+    </div>
+    <!-- <form clrForm>
+      <clr-input-container>
+        <label>Token Id</label>
+        <input placeholder="Token Id" clrInput name="name" required />
+        <clr-control-helper>1234</clr-control-helper>
+        <clr-control-error>This field is required!</clr-control-error>
+      </clr-input-container>
+      <clr-radio-container clrInline>
+        <label>Voto</label>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio name="En Blanco" required value="En Blanco" [(ngModel)]="selectedPresidente" (change)="getSelected($event)" />
+          <label>En Blanco</label>
+        </clr-radio-wrapper>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio name="Nulo" required value="Nulo" [(ngModel)]="selectedPresidente" (change)="getSelected($event)" />
+          <label>Nulo</label>
+        </clr-radio-wrapper>
+        <clr-control-helper>Selecciona uno</clr-control-helper>
+        <clr-control-error>This field is required!</clr-control-error>
+      </clr-radio-container>
+      <button class="btn btn-primary floatLeftButton">Siguiente</button>
+    </form> -->
+  </div>
+</div>

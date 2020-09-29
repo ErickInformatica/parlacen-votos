@@ -1,0 +1,54 @@
+<div class="clr-row clr-justify-content-center">
+  <div class="clr-col-12 clr-align-self-center">
+    <div class="clr-col-lg-12 clr-align-self-center clr-col-12">
+
+    <div class="pAlingCenter">
+      <img class="responsive-image" src="assets/logo.png" alt="">
+      <span class="vertical-line"></span>
+      <img class="responsive-image" src="assets/logo.png" alt="">
+    </div>
+
+      <div class="card card-input pAlingCenter">
+        <div class="card-block">
+          <div class="card-text">
+            <p>I am trying to place a 1 pixel wide by 300 pixels high vertical line centered in between two divs floated left and right and a footer div clearing both, all within a wrapper (not displayed in code below).
+
+              This works fine when I use an HR and style it with CSS in every web browser but IE 6/7. I read somewhere that you can’t use HRs in this way with IE and the work around was to use a div. When I attempt to use a div to do this everything breaks down completely and my footer div merges with the vertLine div in between the floats.
+
+              When I change the #vertLine to a div from HR, thumbWrapper collapses and merges into the vertLine div in the center of the floats, effectively ignoring the clear.
+
+              I can’t figure out any solution that works in IE7 whatsoever, and the only thing that I can get working for the other browsers is the HR.</p>
+
+            <button class="btn btn-primary" (click)="variablesModals.inicio = true">Iniciar </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<clr-modal [(clrModalOpen)]="variablesModals.inicio">
+  <h3 class="modal-title">Advertencia</h3>
+  <div class="modal-body">
+    <div class="alert alert-danger" role="alert">
+      <div class="alert-items">
+          <div class="alert-item static">
+              <div class="alert-icon-wrapper">
+                <clr-icon shape="exclamation-circle"></clr-icon>
+              </div>
+              <span class="alert-text">
+                  ¡¡¡Atención!!!
+              </span>
+
+          </div>
+      </div>
+    </div>
+    <p class="p1">Esta a punto de iniciar su votación. Una vez inicado no podra volver a comenzar y el token quedara inutilizable. Al momento de terminar su sesión se cerrara.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="variablesModals.inicio = false">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="variablesModals.inicio = false">Listo!</button>
+  </div>
+</clr-modal>

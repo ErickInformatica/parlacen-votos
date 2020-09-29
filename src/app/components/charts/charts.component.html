@@ -1,0 +1,31 @@
+<div class="clr-row clr-justify-content-center">
+
+  <div class="clr-col-6 clr-align-self-center">
+    <clr-radio-container clrInline>
+      <label>Seleccione Tipo de Grafica</label>
+      <clr-radio-wrapper *ngFor="let ct of chartTypeArray">
+        <input type="radio" clrRadio name="options" (change)="changeChart($event)" required [value]="ct.type" [(ngModel)]="cType" />
+        <label>{{ct.text}}</label>
+      </clr-radio-wrapper>
+      <clr-control-helper>Helper text</clr-control-helper>
+      <clr-control-error>This field is required!</clr-control-error>
+    </clr-radio-container>
+
+
+
+    <div style="display: block;">
+      <canvas baseChart width="400" height="400"
+        [chartType]="cType"
+        [datasets]="chartData"
+        [labels]="chartLabels"
+        [options]="chartOptions"
+        [colors]="chartColors"
+        [legend]="chartLegend"
+        [plugins]="chartPlugins">
+      </canvas>
+    </div>
+  </div>
+
+
+</div>
+

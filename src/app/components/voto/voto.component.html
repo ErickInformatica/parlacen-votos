@@ -1,0 +1,72 @@
+<div class="clr-row clr-justify-content-center">
+  <div class="clr-col-12 clr-align-self-center">
+    <div class="pAlingCenter">
+      <h1>Secretarias</h1>
+      <br>
+      <div class="clr-col-lg-4 clr-align-self-center clr-col-6">
+        <div class="card clickable card-input">
+          <div class="card-header">
+            Header
+          </div>
+          <div class="card-block">
+
+            <div class="card-text">
+              <img
+                src="https://lh3.googleusercontent.com/proxy/DcBmTKLlssnoM91K8MWfH9RffvBowTzD5mQZcwppmKQXBgoQ61z_RxPYnZ0YSN49mdBtIagmY_O5CQAkUViV5sfhqaKOTwtmRia8sBRp9l54P3FnNXBFYAOsqVm3xJlPWywJAGzqnNqMZyvQWoV-xec6PJvdQJzGwOKb"
+                alt="">
+            </div>
+          </div>
+          <div class="card-footer">
+            <h2>Puesto</h2>
+          </div>
+        </div>
+      </div>
+      <div class="clr-row clr-justify-content-center">
+        <div class="clr-col-lg-4 clr-align-self-center clr-col-6" *ngFor="let ct of votosPruebas">
+          <label>
+            <input type="radio" name="product" class="card-input-element" required [value]="ct.nombre"
+              [(ngModel)]="ct.nombre" />
+            <div class="card clickable card-input">
+              <div class="card-header">
+                Header
+              </div>
+              <div class="card-block">
+                <div class="card-title">
+                  {{ct.nombre}}
+                </div>
+                <div class="card-text">
+                  {{ct.texto}}
+                </div>
+              </div>
+              <div class="card-footer">
+                <h2>Puesto</h2>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+      <form clrForm>
+        <clr-input-container>
+          <label>Token Id</label>
+          <input placeholder="Token Id" clrInput name="name" required />
+          <clr-control-helper>1234</clr-control-helper>
+          <clr-control-error>This field is required!</clr-control-error>
+        </clr-input-container>
+        <clr-radio-container clrInline>
+          <label>Voto</label>
+          <clr-radio-wrapper>
+            <input type="radio" clrRadio name="options" required value="option1" />
+            <label>Blanco</label>
+          </clr-radio-wrapper>
+          <clr-radio-wrapper>
+            <input type="radio" clrRadio name="options" required value="option2" />
+            <label>Nulo</label>
+          </clr-radio-wrapper>
+          <clr-control-helper>Selecciona uno</clr-control-helper>
+          <clr-control-error>This field is required!</clr-control-error>
+        </clr-radio-container>
+        <button class="btn btn-primary floatLeftButton">Siguiente</button>
+      </form>
+
+    </div>
+  </div>

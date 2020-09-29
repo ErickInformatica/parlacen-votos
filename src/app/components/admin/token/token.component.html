@@ -1,0 +1,135 @@
+<div class="clr-row clr-justify-content-center">
+  <div class="clr-col-12 clr-align-self-center">
+    <h1 class="pAlingCenter">Tokens</h1>
+    <button type="button" class="btn btn-icon btn-primary" aria-label="settings"
+      (click)="variablesModals.add = true">
+      <clr-icon shape="plus"></clr-icon>
+    </button>
+    <clr-datagrid>
+      <clr-dg-column>ID Token</clr-dg-column>
+      <clr-dg-column clrDgField="datos.numeroToken">Numero</clr-dg-column>
+      <clr-dg-column clrDgField="datos.vecesUso">Veces a Usar</clr-dg-column>
+      <clr-dg-column clrDgField="datos.fechaCreacion">Fecha Creación</clr-dg-column>
+      <clr-dg-column clrDgField="datos.ronda">Ronda</clr-dg-column>
+      <clr-dg-column>Acciones</clr-dg-column>
+
+      <clr-dg-row *clrDgItems="let tok of tokensData" [clrDgItem]="tok">
+        <clr-dg-cell>{{tok.id}}</clr-dg-cell>
+        <clr-dg-cell>{{tok.datos.numeroToken}}</clr-dg-cell>
+        <clr-dg-cell>{{tok.datos.vecesUso}}</clr-dg-cell>
+        <clr-dg-cell>{{tok.datos.fechaCreacion}}</clr-dg-cell>
+        <clr-dg-cell>{{tok.datos.ronda}}</clr-dg-cell>
+        <clr-dg-cell>
+          <div class="btn-group btn-link btn-icon btn-sm">
+            <button class="btn" (click)=" variablesModals.edit = true">
+              <clr-icon shape="pencil"></clr-icon>
+            </button>
+            <button class="btn" (click)="variablesModals.delete = true">
+              <clr-icon shape="trash"></clr-icon>
+            </button>
+          </div>
+        </clr-dg-cell>
+      </clr-dg-row>
+
+      <clr-dg-detail *clrIfDetail="let detail">
+        <clr-dg-detail-header>Informacion Completa</clr-dg-detail-header>
+        <clr-dg-detail-body>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-8 clr-align-self-center">
+              <div class="card">
+                <div class="card-block">
+                  <div class="card-title">
+                    {{detail.datos.email}}
+                  </div>
+                  <div class="card-text">
+                    {{detail.datos.rol}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </clr-dg-detail-body>
+      </clr-dg-detail>
+
+      <clr-dg-footer>
+        <clr-dg-pagination #pagination [clrDgPageSize]="10">
+          <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Datos por pagina</clr-dg-page-size>
+          {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+          de {{pagination.totalItems}} datos
+        </clr-dg-pagination>
+      </clr-dg-footer>
+    </clr-datagrid>
+  </div>
+</div>
+
+<!-- Add Modal -->
+<clr-modal [(clrModalOpen)]="variablesModals.add">
+  <h3 class="modal-title">Agrega Datos</h3>
+  <div class="modal-body">
+    <form clrForm >
+      <clr-input-container>
+        <label>Numero Token</label>
+        <input clrInput type="number" [(ngModel)]="addToken.numeroToken" name="example" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>Veces Uso</label>
+        <input clrInput type="number" [(ngModel)]="addToken.vecesUso" name="example" />
+      </clr-input-container>
+      <clr-select-container>
+        <label>Ronda</label>
+        <select clrSelect name="options"  [(ngModel)]="addToken.ronda">
+          <option *ngFor="let tr of tiposRondas" [value]="tr.nombre" >{{tr.nombre}}</option>
+        </select>
+      </clr-select-container>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="variablesModals.add = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="newToken();variablesModals.add= false">Agregar</button>
+  </div>
+</clr-modal>
+
+<!-- Editar Modal -->
+<clr-modal [(clrModalOpen)]="variablesModals.edit">
+  <h3 class="modal-title">Editar Datos</h3>
+  <div class="modal-body" *ngIf="getUpdateUser">
+    <form clrForm  >
+      <clr-input-container>
+        <label>Nombres</label>
+        <input clrInput type="text" [(ngModel)]="getUpdateUser.datos.nombres" name="nombres" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>Apellidos</label>
+        <input clrInput type="text" [(ngModel)]="getUpdateUser.datos.apellidos" name="apellidos" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>Email</label>
+        <input clrInput type="text" [(ngModel)]="getUpdateUser.datos.email" name="email" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>Vancada</label>
+        <input clrInput type="text" [(ngModel)]="getUpdateUser.datos.vancada" name="vancada" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>Pais</label>
+        <input clrInput type="text" [(ngModel)]="getUpdateUser.datos.idPais" name="idPais" />
+      </clr-input-container>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="variablesModals.edit = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="variablesModals.edit = false">Ok</button>
+  </div>
+</clr-modal>
+
+<!-- Eliminar Modal -->
+<clr-modal [(clrModalOpen)]="variablesModals.delete">
+  <h3 class="modal-title">Eliminar Datos</h3>
+  <div class="modal-body">
+    <p>But not much to say...</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="variablesModals.delete = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="variablesModals.delete = false">Ok</button>
+  </div>
+</clr-modal>

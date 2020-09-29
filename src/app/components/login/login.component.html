@@ -1,0 +1,41 @@
+<div class="login-wrapper">
+  <form class="login" >
+      <section class="title pAlingCenter">
+          <img class="responsive-logo" src="/assets/parlacen-logo.png" alt="">
+          <h3 class="welcome">Bievenidos al</h3>
+          Parlamento Centroamericano
+          <h5 class="hint">Utiliza las credenciales que te han proporcionado</h5>
+      </section>
+      <div class="login-group">
+          <clr-input-container>
+              <label class="clr-sr-only">Correo Electronico</label>
+              <input type="text" #email="ngModel" [(ngModel)]="user.email" name="email" clrInput placeholder="Correo Electronico" />
+          </clr-input-container>
+          <clr-password-container>
+              <label class="clr-sr-only">Contraseña</label>
+              <input type="password" #password="ngModel" [(ngModel)]="user.password" name="password" clrPassword placeholder="Contraseña" />
+          </clr-password-container>
+          <!-- <clr-checkbox-wrapper>
+              <label>Recuerdame</label>
+              <input type="checkbox" name="rememberMe" clrCheckbox />
+          </clr-checkbox-wrapper> -->
+          <button type="submit" class="btn btn-primary" (click)="variablesModals.token = true">Ingresar</button>
+      </div>
+  </form>
+</div>
+<!-- TokenModal -->
+<clr-modal [(clrModalOpen)]="variablesModals.token">
+  <h3 class="modal-title">Agrega Datos</h3>
+  <div class="modal-body">
+    <form clrForm >
+      <clr-input-container>
+        <label>Token</label>
+        <input clrInput type="text" #token="ngModel" [(ngModel)]="user.token" name="token" />
+      </clr-input-container>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="variablesModals.token = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="login();variablesModals.token= false">Ingresar</button>
+  </div>
+</clr-modal>

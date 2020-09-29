@@ -1,0 +1,53 @@
+.responsive-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+.imageTitulo {
+  width: 100%;
+  max-width: 100px;
+  height: auto;
+}
+
+.floatLeftButton {
+  float: right;
+}
+
+.pAlingCenter {
+  text-align: center;
+}
+
+div.imageCaption {
+  vertical-align: top;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+.caption {
+  display: block;
+}
+
+// Card Radio Button
+label {
+  width: 100%;
+}
+
+.card-input-element {
+  display: none;
+}
+
+.card-input {
+  margin: 10px;
+  padding: 00px;
+}
+
+.card-input:hover {
+  cursor: pointer;
+}
+
+.card-input-element:checked + .card-input {
+   box-shadow: 0 0 1px 1px #2ecc71;
+}
+
+

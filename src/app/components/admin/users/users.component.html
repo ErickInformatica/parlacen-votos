@@ -1,0 +1,127 @@
+<div class="clr-row clr-justify-content-center">
+  <div class="clr-col-12 clr-align-self-center">
+    <h1 class="pAlingCenter">Usuarios</h1>
+    <button type="button" class="btn btn-icon btn-primary" aria-label="settings"
+      (click)="variablesModals.add = true">
+      <clr-icon shape="plus"></clr-icon>
+    </button>
+    <clr-datagrid>
+      <clr-dg-column>ID Usuario</clr-dg-column>
+      <clr-dg-column clrDgField="datos.email">Email</clr-dg-column>
+      <clr-dg-column clrDgField="datos.rol">Rol</clr-dg-column>
+      <clr-dg-column clrDgField="datos.vancada">Vancada</clr-dg-column>
+      <clr-dg-column>Acciones</clr-dg-column>
+
+      <clr-dg-row *clrDgItems="let user of users" [clrDgItem]="user">
+        <clr-dg-cell>{{user.id}}</clr-dg-cell>
+        <clr-dg-cell>{{user.datos.email}}</clr-dg-cell>
+        <clr-dg-cell>{{user.datos.rol}}</clr-dg-cell>
+        <clr-dg-cell>{{user.datos.vancada}}</clr-dg-cell>
+        <clr-dg-cell>
+          <div class="btn-group btn-link btn-icon btn-sm">
+            <button class="btn" (click)="getUserId(user.id); variablesModals.edit = true">
+              <clr-icon shape="pencil"></clr-icon>
+            </button>
+            <button class="btn" (click)="variablesModals.delete = true">
+              <clr-icon shape="trash"></clr-icon>
+            </button>
+          </div>
+        </clr-dg-cell>
+      </clr-dg-row>
+
+      <clr-dg-detail *clrIfDetail="let detail">
+        <clr-dg-detail-header>Informacion Completa</clr-dg-detail-header>
+        <clr-dg-detail-body>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-8 clr-align-self-center">
+              <div class="card">
+                <div class="card-block">
+                  <div class="card-title">
+                    {{detail.datos.email}}
+                  </div>
+                  <div class="card-text">
+                    {{detail.datos.rol}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </clr-dg-detail-body>
+      </clr-dg-detail>
+
+      <clr-dg-footer>
+        <clr-dg-pagination #pagination [clrDgPageSize]="10">
+          <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Datos por pagina</clr-dg-page-size>
+          {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+          de {{pagination.totalItems}} datos
+        </clr-dg-pagination>
+      </clr-dg-footer>
+    </clr-datagrid>
+  </div>
+</div>
+
+<!-- Add Modal -->
+<clr-modal [(clrModalOpen)]="variablesModals.add">
+  <h3 class="modal-title">Agrega Datos</h3>
+  <div class="modal-body">
+    <form clrForm >
+      <clr-input-container>
+        <label>Email</label>
+        <input clrInput type="text" [(ngModel)]="addUser.email" name="example" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>Password</label>
+        <input clrInput type="password" [(ngModel)]="addUser.password" name="example" />
+      </clr-input-container>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="variablesModals.add = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="variablesModals.add= false; newUser()">Ok</button>
+  </div>
+</clr-modal>
+
+<!-- Editar Modal -->
+<clr-modal [(clrModalOpen)]="variablesModals.edit">
+  <h3 class="modal-title">Editar Datos</h3>
+  <div class="modal-body" *ngIf="getUpdateUser">
+    <form clrForm  >
+      <clr-input-container>
+        <label>Nombres</label>
+        <input clrInput type="text" [(ngModel)]="getUpdateUser.datos.nombres" name="nombres" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>Apellidos</label>
+        <input clrInput type="text" [(ngModel)]="getUpdateUser.datos.apellidos" name="apellidos" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>Email</label>
+        <input clrInput type="text" [(ngModel)]="getUpdateUser.datos.email" name="email" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>Vancada</label>
+        <input clrInput type="text" [(ngModel)]="getUpdateUser.datos.vancada" name="vancada" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>Pais</label>
+        <input clrInput type="text" [(ngModel)]="getUpdateUser.datos.idPais" name="idPais" />
+      </clr-input-container>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="variablesModals.edit = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="updateUser();variablesModals.edit = false">Ok</button>
+  </div>
+</clr-modal>
+
+<!-- Eliminar Modal -->
+<clr-modal [(clrModalOpen)]="variablesModals.delete">
+  <h3 class="modal-title">Eliminar Datos</h3>
+  <div class="modal-body">
+    <p>But not much to say...</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="variablesModals.delete = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="variablesModals.delete = false">Ok</button>
+  </div>
+</clr-modal>

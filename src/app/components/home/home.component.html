@@ -1,0 +1,14 @@
+<clr-main-container>
+
+  <app-header></app-header>
+  <div class="content-container">
+
+      <main class="content-area">
+        <router-outlet></router-outlet>
+      </main>
+      <nav class="sidenav" [clr-nav-level]="2">
+          <app-sidebar></app-sidebar>
+      </nav>
+  </div>
+
+</clr-main-container>
