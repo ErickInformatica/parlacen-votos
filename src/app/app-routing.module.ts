@@ -7,9 +7,11 @@ import { UsersComponent } from './components/admin/users/users.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { PaisComponent } from './components/pais/pais.component';
 import { Papeleta1Component } from './components/papeletas/papeleta1/papeleta1.component';
 import { Papeleta2Component } from './components/papeletas/papeleta2/papeleta2.component';
 import { Papeleta3Component } from './components/papeletas/papeleta3/papeleta3.component';
+import { RegistroComponent } from './components/registro/registro.component';
 import { VotoComponent } from './components/voto/voto.component';
 import { VotoInformacionComponent } from './components/votos/voto-informacion/voto-informacion.component';
 import { VotoPresidenteComponent } from './components/votos/voto-presidente/voto-presidente.component';
@@ -19,6 +21,7 @@ import { WelcomeUserComponent } from './components/welcome-user/welcome-user.com
 
 const routes: Routes = [
     {path: '', component: LoginComponent},
+    {path: 'registro', component: RegistroComponent},
     {path: '', redirectTo: '', pathMatch: 'full'},
     {path: 'home', component: HomeComponent, children: [
       { path: '', component: WelcomeUserComponent },
@@ -29,6 +32,7 @@ const routes: Routes = [
       { path: 'papeleta3', component: Papeleta3Component },
       { path: 'votoInformacion', component: VotoInformacionComponent },
       { path: 'users', component: UsersComponent },
+      { path: 'pais', component: PaisComponent },
       { path: 'token', component: TokenComponent },
       { path: 'votoP/:puesto/:ronda/:pais', component: VotoPresidenteComponent },
       { path: 'votoV/:puesto/:ronda/:pais', component: VotoVicePresidenteComponent },

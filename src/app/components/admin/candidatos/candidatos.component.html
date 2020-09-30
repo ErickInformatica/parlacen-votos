@@ -3,7 +3,7 @@
     <h1 class="pAlingCenter">Candidatos</h1>
 
     <!-- Paises -->
-    <clr-radio-container clrInline>
+    <!-- <clr-radio-container clrInline>
       <label>Seleccione Pais</label>
       <clr-radio-wrapper *ngFor="let ct of puestosArray;let i = index">
         <input type="radio" clrRadio name="options" (change)="resetData($event)"  required [value]="ct.puesto" [(ngModel)]="cType" />
@@ -14,26 +14,41 @@
     <ng-container *ngIf="cType !== ''" >
       <clr-radio-container clrInline>
         <label>Seleccione Ronda</label>
-        <clr-radio-wrapper  *ngFor="let cta of tiposRondas" >
-              <input  type="radio" clrRadio name="options2" (change)="changePais($event)" required [value]="cta.nombre" [(ngModel)]="rondaPais"/>
-              <label>{{cta.nombre}}</label>
+        <clr-radio-wrapper  *ngFor="let cta of filtrarRondasArray" >
+              <input  type="radio" clrRadio name="options2" (change)="changePais($event)" required [value]="cta.ronda" [(ngModel)]="rondaPais"/>
+              <label>{{cta.ronda}}</label>
         </clr-radio-wrapper>
       </clr-radio-container>
-    </ng-container>
-
+    </ng-container> -->
+  <button type="button" class="btn btn-icon btn-primary" aria-label="settings"
+    (click)="variablesModals.add = true">
+    <clr-icon shape="plus"></clr-icon>
+  </button>
 
 
 
     <clr-datagrid>
       <clr-dg-column>User ID</clr-dg-column>
-      <clr-dg-column clrDgField="name">Name</clr-dg-column>
-      <clr-dg-column clrDgField="age">Age</clr-dg-column>
+      <clr-dg-column clrDgField="datos.nombres">Nombres</clr-dg-column>
+      <clr-dg-column clrDgField="datos.apellidos">Apellidos</clr-dg-column>
+      <clr-dg-column clrDgField="datos.email">Email</clr-dg-column>
+      <clr-dg-column clrDgField="datos.datosPais.nombrePais">Nombre Pais</clr-dg-column>
+      <clr-dg-column clrDgField="datos.ronda">Ronda</clr-dg-column>
+      <clr-dg-column clrDgField="datos.image">Image</clr-dg-column>
+      <clr-dg-column clrDgField="datos.puestoPostulado">Puesto Postulado</clr-dg-column>
+      <clr-dg-column clrDgField="datos.vancada">Vancada</clr-dg-column>
       <clr-dg-column>Acciones</clr-dg-column>
 
-      <clr-dg-row *clrDgItems="let user of users" [clrDgItem]="user">
-        <clr-dg-cell>{{user._id}}</clr-dg-cell>
-        <clr-dg-cell>{{user.name}}</clr-dg-cell>
-        <clr-dg-cell>{{user.age }}</clr-dg-cell>
+      <clr-dg-row *clrDgItems="let can of candidatos" [clrDgItem]="can">
+        <clr-dg-cell>{{can.id}}</clr-dg-cell>
+        <clr-dg-cell>{{can.datos.nombres}}</clr-dg-cell>
+        <clr-dg-cell>{{can.datos.apellidos}}</clr-dg-cell>
+        <clr-dg-cell>{{can.datos.email}}</clr-dg-cell>
+        <clr-dg-cell>{{can.datos.datosPais.nombrePais}}</clr-dg-cell>
+        <clr-dg-cell>{{can.datos.ronda}}</clr-dg-cell>
+        <clr-dg-cell>{{can.datos.image}}</clr-dg-cell>
+        <clr-dg-cell>{{can.datos.puestoPostulado}}</clr-dg-cell>
+        <clr-dg-cell>{{can.datos.vancada}}</clr-dg-cell>
         <clr-dg-cell>
           <div class="btn-group btn-link btn-icon btn-sm">
             <button class="btn" (click)="variablesModals.edit = true">
@@ -76,6 +91,57 @@
     </clr-datagrid>
   </div>
 </div>
+
+<!-- Add Modal -->
+<clr-modal [(clrModalOpen)]="variablesModals.add">
+  <h3 class="modal-title">Agrega Datos</h3>
+  <div class="modal-body">
+    <form clrForm >
+      <clr-input-container>
+        <label>Nombres</label>
+        <input clrInput type="text" [(ngModel)]="newCandidato.nombres" name="nombres" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>Apellidos</label>
+        <input clrInput type="text" [(ngModel)]="newCandidato.apellidos" name="apellidos" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>Correo Electronico</label>
+        <input clrInput type="email" [(ngModel)]="newCandidato.email" name="email" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>Vancada</label>
+        <input clrInput type="text" [(ngModel)]="newCandidato.vancada" name="vancada" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>Imagen</label>
+        <input clrInput type="text" [(ngModel)]="newCandidato.image" name="image" />
+      </clr-input-container>
+      <clr-select-container>
+        <label>Ronda</label>
+        <select clrSelect name="ronda"  [(ngModel)]="newCandidato.ronda">
+          <option *ngFor="let tr of tiposRondas" [value]="tr.nombre" >{{tr.nombre}}</option>
+        </select>
+      </clr-select-container>
+      <clr-select-container>
+        <label>País</label>
+        <select clrSelect name="pais"  [(ngModel)]="newCandidato.pais">
+          <option *ngFor="let ps of paisTypeArray" [value]="ps.pais" >{{ps.pais}}</option>
+        </select>
+      </clr-select-container>
+      <clr-select-container>
+        <label>Puesto a Postularse</label>
+        <select clrSelect name="puestoPostulado"  [(ngModel)]="newCandidato.puestoPostulado">
+          <option *ngFor="let pu of puestos" [value]="pu.puesto" >{{pu.puesto}}</option>
+        </select>
+      </clr-select-container>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="variablesModals.add = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="addCandidato();variablesModals.add= false">Agregar</button>
+  </div>
+</clr-modal>
 
 <!-- Editar Modal -->
 <clr-modal [(clrModalOpen)]="variablesModals.edit">

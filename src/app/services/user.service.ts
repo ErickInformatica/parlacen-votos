@@ -6,10 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class UserService {
   public headers = new HttpHeaders().set('Content-Type', 'application/json');
-  public headersToken = new HttpHeaders().set(
-    'Content-Type',
-    'application/json'
-  );
+
   public url: string;
   public identity;
   public token;
@@ -37,6 +34,14 @@ export class UserService {
     });
   }
 
+  registerAdmin(user): Observable<any> {
+    let params = JSON.stringify(user);
+    // let headersToken = this.headers.set('Authorization', token)
+    return this._http.post(this.url + '/register', params, {
+      headers: this.headers,
+    });
+  }
+
   register(user): Observable<any> {
     let params = JSON.stringify(user);
 
@@ -45,11 +50,10 @@ export class UserService {
     });
   }
 
+
   login(user): Observable<any> {
 
     let params = JSON.stringify(user);
-    console.log(params);
-
     return this._http.post(this.url + '/login', params, {
       headers: this.headers,
     });

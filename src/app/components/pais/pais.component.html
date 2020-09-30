@@ -6,28 +6,22 @@
       <clr-icon shape="plus"></clr-icon>
     </button>
 
-    <button type="button" class="btn btn-icon btn-warning" aria-label="settings"
-      (click)="cerrarTokens()">Cerrar Tokens</button>
     <clr-datagrid>
-      <clr-dg-column>ID Token</clr-dg-column>
-      <clr-dg-column clrDgField="datos.numeroToken">Numero</clr-dg-column>
-      <clr-dg-column clrDgField="datos.vecesUso">Veces a Usar</clr-dg-column>
-      <clr-dg-column clrDgField="datos.fechaCreacion">Fecha Creación</clr-dg-column>
-      <clr-dg-column clrDgField="datos.ronda">Ronda</clr-dg-column>
+      <clr-dg-column>ID Pais</clr-dg-column>
+      <clr-dg-column clrDgField="datos.nombrePais">Nombre Pais</clr-dg-column>
+      <clr-dg-column clrDgField="datos.image">Imagen</clr-dg-column>
       <clr-dg-column>Acciones</clr-dg-column>
 
-      <clr-dg-row *clrDgItems="let tok of tokensData" [clrDgItem]="tok">
-        <clr-dg-cell>{{tok.id}}</clr-dg-cell>
-        <clr-dg-cell>{{tok.datos.numeroToken}}</clr-dg-cell>
-        <clr-dg-cell>{{tok.datos.vecesUso}}</clr-dg-cell>
-        <clr-dg-cell>{{tok.datos.fechaCreacion}}</clr-dg-cell>
-        <clr-dg-cell>{{tok.datos.ronda}}</clr-dg-cell>
+      <clr-dg-row *clrDgItems="let pais of paisesData" [clrDgItem]="pais">
+        <clr-dg-cell>{{pais.id}}</clr-dg-cell>
+        <clr-dg-cell>{{pais.datos.nombrePais}}</clr-dg-cell>
+        <clr-dg-cell>{{pais.datos.image}}</clr-dg-cell>
         <clr-dg-cell>
           <div class="btn-group btn-link btn-icon btn-sm">
-            <button class="btn" (click)="getToken(tok.id);variablesModals.edit = true">
+            <button class="btn" (click)="variablesModals.edit = true">
               <clr-icon shape="pencil"></clr-icon>
             </button>
-            <button class="btn" (click)="getToken(tok.id);variablesModals.delete = true">
+            <button class="btn" (click)="variablesModals.delete = true">
               <clr-icon shape="trash"></clr-icon>
             </button>
           </div>
@@ -40,12 +34,15 @@
           <div class="clr-row clr-justify-content-center">
             <div class="clr-col-8 clr-align-self-center">
               <div class="card">
+                <div class="card-img">
+                  <img [src]="detail.datos.image" alt="">
+              </div>
                 <div class="card-block">
                   <div class="card-title">
-                    {{detail.datos.email}}
+                    {{detail.datos.nombrePais}}
                   </div>
                   <div class="card-text">
-                    {{detail.datos.rol}}
+
                   </div>
                 </div>
               </div>
@@ -71,20 +68,14 @@
   <div class="modal-body">
     <form clrForm >
       <clr-input-container>
-        <label>Numero Token</label>
-        <input clrInput type="number" [(ngModel)]="addToken.numeroToken" name="numeroToken" />
+        <label>Nombre Pais</label>
+        <input clrInput type="text" [(ngModel)]="addPais.nombrePais" name="numeroToken" />
       </clr-input-container>
       <clr-input-container>
-        <label>Veces Uso</label>
-        <input clrInput type="number" [(ngModel)]="addToken.vecesUso" name="vecesUso" />
+        <label>Image</label>
+        <input clrInput type="file" accept=".png, .jpg" (change)="uploadFile($event)" name="image" />
       </clr-input-container>
-      <clr-select-container>
-        <label>Ronda</label>
-        <select clrSelect name="ronda"  [(ngModel)]="addToken.ronda">
-          <option *ngFor="let tr of tiposRondas" [value]="tr.nombre" >{{tr.nombre}}</option>
-        </select>
-      </clr-select-container>
-    </form>
+          </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="variablesModals.add = false">Cancel</button>
@@ -105,7 +96,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="variablesModals.edit = false">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="updateToken(getUpdateToken.id);variablesModals.edit = false">Editar</button>
+    <button type="button" class="btn btn-primary" (click)="variablesModals.edit = false">Editar</button>
   </div>
 </clr-modal>
 
@@ -117,6 +108,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="variablesModals.delete = false">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="deleteToken(getUpdateToken.id);variablesModals.delete = false">Eliminar</button>
+    <button type="button" class="btn btn-primary" (click)="variablesModals.delete = false">Eliminar</button>
   </div>
 </clr-modal>

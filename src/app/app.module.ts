@@ -16,7 +16,7 @@ import { Papeleta2Component } from './components/papeletas/papeleta2/papeleta2.c
 import { Papeleta3Component } from './components/papeletas/papeleta3/papeleta3.component';
 import { ChartsModule } from '@rinminase/ng-charts';
 import { ChartsComponent } from './components/charts/charts.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VotoInformacionComponent } from './components/votos/voto-informacion/voto-informacion.component';
 import { VotoPresidenteComponent } from './components/votos/voto-presidente/voto-presidente.component';
 import { VotoVicePresidenteComponent } from './components/votos/voto-vice-presidente/voto-vice-presidente.component';
@@ -27,6 +27,11 @@ import { CandidatosChangeRondaComponent } from './components/admin/candidatos-ch
 import { UsersComponent } from './components/admin/users/users.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TokenComponent } from './components/admin/token/token.component';
+import { RegistroComponent } from './components/registro/registro.component';
+import { PaisComponent } from './components/pais/pais.component';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -49,7 +54,9 @@ import { TokenComponent } from './components/admin/token/token.component';
     CandidatosXPaisComponent,
     CandidatosChangeRondaComponent,
     UsersComponent,
-    TokenComponent
+    TokenComponent,
+    RegistroComponent,
+    PaisComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +66,10 @@ import { TokenComponent } from './components/admin/token/token.component';
     ClrIconModule,
     BrowserAnimationsModule,
     ChartsModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

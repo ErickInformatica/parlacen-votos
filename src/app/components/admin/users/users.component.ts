@@ -73,7 +73,6 @@ export class UsersComponent implements OnInit {
           timer: 1500
         })
       }, err =>{
-
         Swal.fire({
           position: 'top-end',
           icon: 'error',

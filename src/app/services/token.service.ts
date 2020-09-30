@@ -22,10 +22,39 @@ export class TokenService {
     });
   }
 
-  addTokens(token, datos): Observable<any> {
+  getToken(token, id): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/tokenId/'+id, {
+      headers: headersToken,
+    });
+  }
+
+  addTokens(token,datos): Observable<any> {
     let params = JSON.stringify(datos)
     let headersToken = this.headers.set('Authorization', token)
     return this._http.post(this.url + '/addToken', params,{
+      headers: this.headers,
+    });
+  }
+
+  updateTokens(token,id ,datos): Observable<any> {
+    let params = JSON.stringify(datos)
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.put(this.url + '/updateToken/'+ id, params,{
+      headers: headersToken,
+    });
+  }
+
+  deleteToken(token,id): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.delete(this.url + '/deleteToken/'+ id,{
+      headers: headersToken,
+    });
+  }
+
+  cerrarTokens(token): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/cerrarTokens', {
       headers: headersToken,
     });
   }

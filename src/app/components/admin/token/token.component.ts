@@ -22,7 +22,7 @@ export class TokenComponent implements OnInit {
     ronda: 'Ronda 1'
   }
   public tokensData;
-  public getUpdateUser;
+  public getUpdateToken;
   public token;
 
   tiposRondas =[
@@ -61,13 +61,91 @@ export class TokenComponent implements OnInit {
           timer: 1500
         })
       }, err =>{
-
         Swal.fire({
           position: 'top-end',
           icon: 'error',
           title: err.error.message,
           showConfirmButton: false,
+          timer: 2000
+        })
+      }
+    )
+  }
+
+  getToken(id){
+    this._tokenService.getToken(this.token, id).subscribe(
+      res=>{
+        this.getUpdateToken = res;
+      }
+    )
+  }
+
+
+  updateToken(id){
+    this._tokenService.updateTokens(this.token, id, this.getUpdateToken.datos).subscribe(
+      res => {
+        this.getTokens()
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Token actualizado con exito',
+          showConfirmButton: false,
           timer: 1500
+        })
+      }, err =>{
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: err.error.message,
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+    )
+  }
+
+  deleteToken(id){
+    this._tokenService.deleteToken(this.token, id).subscribe(
+      res => {
+        this.getTokens()
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Token eliminado con exito',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }, err =>{
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: err.error.message,
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+    )
+  }
+
+  cerrarTokens(){
+    this._tokenService.cerrarTokens(this.token).subscribe(
+      res => {
+        this.getTokens()
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Tokens Cerrados con Exito',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      },
+      err =>{
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: err.error.message,
+          showConfirmButton: false,
+          timer: 2000
         })
       }
     )

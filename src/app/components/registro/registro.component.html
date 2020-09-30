@@ -1,0 +1,31 @@
+<div class="login-wrapper">
+  <form class="login pAlingCenter" [formGroup]="registerForm" (ngSubmit)="register()">
+    <section class="title">
+      <img class="responsive-logo" src="/assets/parlacen-logo.png" alt="">
+          <h3 class="welcome">Bievenidos al</h3>
+          Parlamento Centroamericano
+          <h5 class="hint">Registre su Correo aquí</h5>
+    </section>
+    <div class="login-group">
+      <clr-input-container>
+        <label class="clr-sr-only">Correo Electronico</label>
+        <input type="text" formControlName="email" [(ngModel)]="user.email" name="email" clrInput
+          placeholder="Correo Electronico" />
+      </clr-input-container>
+      <clr-password-container>
+        <label class="clr-sr-only">Contraseña</label>
+        <input type="password" formControlName="password" name="password" clrPassword
+          placeholder="Contraseña" />
+      </clr-password-container>
+      <clr-password-container>
+        <label class="clr-sr-only">Confirmar Contraseña</label>
+        <input type="password" formControlName="confirmPassword"  [(ngModel)]="user.password" name="password" clrPassword
+          placeholder="Contraseña" />
+
+            <clr-control-error *ngIf="f.confirmPassword.errors && f.confirmPassword.errors.mustMatch !== null">This field is required!</clr-control-error>
+      </clr-password-container>
+      <button type="submit" class="btn btn-primary">Registrar</button>
+      <button class="btn btn-link" type="button" routerLink="/login">Regresar a Iniciar Sesión</button >
+    </div>
+  </form>
+</div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -32,6 +33,14 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('identity', JSON.stringify(this.identity));
         localStorage.setItem('token', JSON.stringify(this.token));
         this._router.navigate(['/home'])
+      }, err => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: err.error.message,
+          showConfirmButton: false,
+          timer: 4000
+        })
       }
     )
   }

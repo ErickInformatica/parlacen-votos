@@ -20,6 +20,7 @@
               <input type="checkbox" name="rememberMe" clrCheckbox />
           </clr-checkbox-wrapper> -->
           <button type="submit" class="btn btn-primary" (click)="variablesModals.token = true">Ingresar</button>
+          <button class="btn btn-link" type="button" routerLink="/registro">Registrate con tu correo</button >
       </div>
   </form>
 </div>
@@ -30,7 +31,7 @@
     <form clrForm >
       <clr-input-container>
         <label>Token</label>
-        <input clrInput type="text" #token="ngModel" [(ngModel)]="user.token" name="token" />
+        <input clrInput type="number" #token="ngModel" [(ngModel)]="user.token" name="token" />
       </clr-input-container>
     </form>
   </div>

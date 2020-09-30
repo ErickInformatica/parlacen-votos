@@ -8,6 +8,7 @@
     <clr-datagrid>
       <clr-dg-column>ID Usuario</clr-dg-column>
       <clr-dg-column clrDgField="datos.email">Email</clr-dg-column>
+      <clr-dg-column clrDgField="datos.activo">Estado Usuario</clr-dg-column>
       <clr-dg-column clrDgField="datos.rol">Rol</clr-dg-column>
       <clr-dg-column clrDgField="datos.vancada">Vancada</clr-dg-column>
       <clr-dg-column>Acciones</clr-dg-column>
@@ -15,7 +16,9 @@
       <clr-dg-row *clrDgItems="let user of users" [clrDgItem]="user">
         <clr-dg-cell>{{user.id}}</clr-dg-cell>
         <clr-dg-cell>{{user.datos.email}}</clr-dg-cell>
-        <clr-dg-cell>{{user.datos.rol}}</clr-dg-cell>
+        <clr-dg-cell *ngIf="user.datos.activo === true"><span class="label label-info">ACTIVO</span></clr-dg-cell>
+        <clr-dg-cell *ngIf="user.datos.activo === false"><span class="label label-danger">INACTIVO</span></clr-dg-cell>
+        <clr-dg-cell >{{user.datos.rol}}</clr-dg-cell>
         <clr-dg-cell>{{user.datos.vancada}}</clr-dg-cell>
         <clr-dg-cell>
           <div class="btn-group btn-link btn-icon btn-sm">
@@ -106,6 +109,19 @@
         <label>Pais</label>
         <input clrInput type="text" [(ngModel)]="getUpdateUser.datos.idPais" name="idPais" />
       </clr-input-container>
+      <clr-radio-container clrInline>
+        <label>Estado Usuario</label>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio name="activo" required [value]="true" [(ngModel)]="getUpdateUser.datos.activo" />
+          <label>ACTIVO</label>
+        </clr-radio-wrapper>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio name="activo" required [value]="false" [(ngModel)]="getUpdateUser.datos.activo" />
+          <label>INACTIVO</label>
+        </clr-radio-wrapper>
+        <clr-control-helper>Helper text</clr-control-helper>
+        <clr-control-error>This field is required!</clr-control-error>
+      </clr-radio-container>
     </form>
   </div>
   <div class="modal-footer">

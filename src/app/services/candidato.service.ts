@@ -15,9 +15,17 @@ export class CandidatoService {
     this.url = GLOBAL.url;
   }
 
-  getCandidato(token): Observable<any> {
+  getCandidatos(token): Observable<any> {
     let headersToken = this.headers.set('Authorization', token)
     return this._http.get(this.url + '/candidatos', {
+      headers: headersToken,
+    });
+  }
+
+  addCandidatos(token, datos): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    let params = JSON.stringify(datos)
+    return this._http.post(this.url + '/addCandidato', params ,{
       headers: headersToken,
     });
   }
