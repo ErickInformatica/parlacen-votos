@@ -1,27 +1,26 @@
 <div class="clr-row clr-justify-content-center">
   <div class="clr-col-12 clr-align-self-center">
-    <h1 class="pAlingCenter">Tokens</h1>
-    <button type="button" class="btn btn-icon btn-primary" aria-label="settings"
-      (click)="variablesModals.add = true">
+    <h1 class="pAlingCenter">Paises</h1>
+    <button type="button" class="btn btn-icon btn-primary" aria-label="settings" (click)="variablesModals.add = true">
       <clr-icon shape="plus"></clr-icon>
     </button>
 
-    <clr-datagrid>
+    <clr-datagrid #dataGrid>
       <clr-dg-column>ID Pais</clr-dg-column>
       <clr-dg-column clrDgField="datos.nombrePais">Nombre Pais</clr-dg-column>
-      <clr-dg-column clrDgField="datos.image">Imagen</clr-dg-column>
+      <clr-dg-column class="columnaImage" clrDgField="datos.image">Imagen</clr-dg-column>
       <clr-dg-column>Acciones</clr-dg-column>
 
       <clr-dg-row *clrDgItems="let pais of paisesData" [clrDgItem]="pais">
         <clr-dg-cell>{{pais.id}}</clr-dg-cell>
-        <clr-dg-cell>{{pais.datos.nombrePais}}</clr-dg-cell>
-        <clr-dg-cell>{{pais.datos.image}}</clr-dg-cell>
+        <clr-dg-cell class="columnaImage">{{pais.datos.nombrePais}}</clr-dg-cell>
+        <clr-dg-cell><img [src]="pais.datos.image" alt="Avatar" class="avatar"></clr-dg-cell>
         <clr-dg-cell>
           <div class="btn-group btn-link btn-icon btn-sm">
-            <button class="btn" (click)="variablesModals.edit = true">
+            <button class="btn" (click)="getPais(pais.id);variablesModals.edit = true">
               <clr-icon shape="pencil"></clr-icon>
             </button>
-            <button class="btn" (click)="variablesModals.delete = true">
+            <button class="btn" (click)="getPais(pais.id);variablesModals.delete = true">
               <clr-icon shape="trash"></clr-icon>
             </button>
           </div>
@@ -33,16 +32,13 @@
         <clr-dg-detail-body>
           <div class="clr-row clr-justify-content-center">
             <div class="clr-col-8 clr-align-self-center">
-              <div class="card">
-                <div class="card-img">
-                  <img [src]="detail.datos.image" alt="">
-              </div>
+              <div class="card pAlingCenter">
+                <div class="card-img ">
+                  <img class="responsive-image " [src]="detail.datos.image" alt="">
+                </div>
                 <div class="card-block">
                   <div class="card-title">
                     {{detail.datos.nombrePais}}
-                  </div>
-                  <div class="card-text">
-
                   </div>
                 </div>
               </div>
@@ -66,7 +62,7 @@
 <clr-modal [(clrModalOpen)]="variablesModals.add">
   <h3 class="modal-title">Agrega Datos</h3>
   <div class="modal-body">
-    <form clrForm >
+    <form clrForm>
       <clr-input-container>
         <label>Nombre Pais</label>
         <input clrInput type="text" [(ngModel)]="addPais.nombrePais" name="numeroToken" />
@@ -75,7 +71,9 @@
         <label>Image</label>
         <input clrInput type="file" accept=".png, .jpg" (change)="uploadFile($event)" name="image" />
       </clr-input-container>
-          </form>
+      <br>
+      <clr-progress-bar [clrValue]="uploadPercent |async |number: '1.2-2'" clrSuccess clrLabeled></clr-progress-bar>
+    </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="variablesModals.add = false">Cancel</button>
@@ -86,28 +84,37 @@
 <!-- Editar Modal -->
 <clr-modal [(clrModalOpen)]="variablesModals.edit">
   <h3 class="modal-title">Editar Datos</h3>
-  <div class="modal-body" *ngIf="getUpdateToken">
-    <form clrForm  >
+  <div class="modal-body" *ngIf="getUpdateData">
+    <form clrForm>
       <clr-input-container>
-        <label>Veces Uso</label>
-        <input clrInput type="text" [(ngModel)]="getUpdateToken.datos.vecesUso" name="vecesUso" />
+        <label>Nombre País</label>
+        <input clrInput type="text" [(ngModel)]="getUpdateData.datos.nombrePais" name="nombrePais" />
       </clr-input-container>
+      <clr-input-container>
+        <label>Image</label>
+        <input #imagePais [value]="urlImage | async" type="text">
+        <input clrInput type="file" accept=".png, .jpg" (change)="uploadFile($event)" name="image" />
+      </clr-input-container>
+      <br>
+      <clr-progress-bar [clrValue]="uploadPercent |async |number: '1.2-2'" clrSuccess clrLabeled></clr-progress-bar>
+
     </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="variablesModals.edit = false">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="variablesModals.edit = false">Editar</button>
+    <button type="button" class="btn btn-primary" (click)="updatePais(getUpdateData.id)">Editar</button>
   </div>
 </clr-modal>
 
 <!-- Eliminar Modal -->
 <clr-modal [(clrModalOpen)]="variablesModals.delete">
   <h3 class="modal-title">Eliminar Datos</h3>
-  <div class="modal-body" *ngIf="getUpdateToken">
-    <p>Seguro que desea eliminar el Token: {{getUpdateToken.datos.numeroToken}}</p>
+  <div class="modal-body" *ngIf="getUpdateData">
+    <p>Seguro que desea eliminar el Pais: {{getUpdateData.datos.nombrePais}}</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="variablesModals.delete = false">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="variablesModals.delete = false">Eliminar</button>
+    <button type="button" class="btn btn-primary"
+      (click)="deletePais(getUpdateData.id);variablesModals.delete = false">Eliminar</button>
   </div>
 </clr-modal>

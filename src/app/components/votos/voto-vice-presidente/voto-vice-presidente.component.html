@@ -1,58 +1,154 @@
 <div class="clr-row clr-justify-content-center">
   <div class="clr-col-12 clr-align-self-center">
     <div class="pAlingCenter">
-      <h1>Vicepresidente <img class="imageTitulo"
-          src="https://lh3.googleusercontent.com/proxy/DcBmTKLlssnoM91K8MWfH9RffvBowTzD5mQZcwppmKQXBgoQ61z_RxPYnZ0YSN49mdBtIagmY_O5CQAkUViV5sfhqaKOTwtmRia8sBRp9l54P3FnNXBFYAOsqVm3xJlPWywJAGzqnNqMZyvQWoV-xec6PJvdQJzGwOKb"
-          alt=""></h1>
+      <h1>Vicepresidente <img class="responsive-logo" [src]="imagenTitulo" alt=""></h1>
     </div>
     <br>
-    <div class="clr-row clr-justify-content-center">
-      <div class="clr-col-lg-3 clr-align-self-center clr-col-6" *ngFor="let ct of votosPruebas">
+    <!-- Panama Cards -->
+    <div class="clr-row clr-justify-content-center" *ngIf="filterXPaisPanama.length > 0">
+      <div class="clr-col-lg-3 clr-align-self-center clr-col-6" *ngFor="let fxp of filterXPaisPanama">
         <label>
-          <input type="radio" name="product" class="card-input-element" required [value]="ct.nombre"
-            [(ngModel)]="selectedPresidente" (change)="getSelected($event)"/>
-          <div class="card clickable card-input">
+          <input type="radio" name="product" class="card-input-element" required [value]="fxp.id"
+            [(ngModel)]="votoModel.idCandidato" (change)="getSelected($event, fxp.datos)"/>
+          <div class="card clickable card-input pAlingCenter">
             <div class="card-header">
-              Header
+              {{fxp.datos.nombres}} {{fxp.datos.apellidos}} - <img class="responsive-logo" [src]="fxp.datos.datosPais.imagenPais" alt="">
             </div>
             <div class="card-block">
               <div class="card-title">
-                {{ct.nombre}}
+
               </div>
               <div class="card-text">
-                {{ct.texto}}
+                <img class="responsive-image" [src]="fxp.datos.image" alt="">
               </div>
             </div>
             <div class="card-footer">
-              <p class="p1">Puesto</p>
+              {{fxp.datos.puestoPostulado}}
             </div>
           </div>
         </label>
       </div>
     </div>
+    <!-- Nicaragua Cards -->
+    <div class="clr-row clr-justify-content-center" *ngIf="filterXPaisNicaragua.length > 0">
+      <div class="clr-col-lg-3 clr-align-self-center clr-col-6" *ngFor="let fxn of filterXPaisNicaragua">
+        <label>
+          <input type="radio" name="product" class="card-input-element" required [value]="fxn.id"
+            [(ngModel)]="votoModel.idCandidato" (change)="getSelected($event, fxn.datos)"/>
+          <div class="card clickable card-input pAlingCenter">
+            <div class="card-header">
+              {{fxn.datos.nombres}} {{fxn.datos.apellidos}} - <img class="responsive-logo" [src]="fxn.datos.datosPais.imagenPais" alt="">
+            </div>
+            <div class="card-block">
+              <div class="card-title">
+
+              </div>
+              <div class="card-text">
+                <img class="responsive-image" [src]="fxn.datos.image" alt="">
+              </div>
+            </div>
+            <div class="card-footer">
+              {{fxn.datos.puestoPostulado}}
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+    <!-- El Salvador Cards -->
+    <div class="clr-row clr-justify-content-center" *ngIf="filterXPaisSalvador.length > 0">
+      <div class="clr-col-lg-3 clr-align-self-center clr-col-6" *ngFor="let fxs of filterXPaisSalvador">
+        <label>
+          <input type="radio" name="product" class="card-input-element" required [value]="fxs.id"
+            [(ngModel)]="votoModel.idCandidato" (change)="getSelected($event, fxs.datos)"/>
+          <div class="card clickable card-input pAlingCenter">
+            <div class="card-header">
+              {{fxs.datos.nombres}} {{fxs.datos.apellidos}} - <img class="responsive-logo" [src]="fxs.datos.datosPais.imagenPais" alt="">
+            </div>
+            <div class="card-block">
+              <div class="card-title">
+
+              </div>
+              <div class="card-text">
+                <img class="responsive-image" [src]="fxs.datos.image" alt="">
+              </div>
+            </div>
+            <div class="card-footer">
+              {{fxs.datos.puestoPostulado}}
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+    <!-- Guatemala Cards -->
+    <div class="clr-row clr-justify-content-center" *ngIf="filterXPaisGuatemala.length > 0">
+      <div class="clr-col-lg-3 clr-align-self-center clr-col-6" *ngFor="let fxg of filterXPaisGuatemala">
+        <label>
+          <input type="radio" name="product" class="card-input-element" required [value]="fxg.id"
+            [(ngModel)]="votoModel.idCandidato" (change)="getSelected($event, fxg.datos)"/>
+          <div class="card clickable card-input pAlingCenter">
+            <div class="card-header">
+              {{fxg.datos.nombres}} {{fxg.datos.apellidos}} - <img class="responsive-logo" [src]="fxg.datos.datosPais.imagenPais" alt="">
+            </div>
+            <div class="card-block">
+              <div class="card-title">
+
+              </div>
+              <div class="card-text">
+                <img class="responsive-image" [src]="fxg.datos.image" alt="">
+              </div>
+            </div>
+            <div class="card-footer">
+              {{fxg.datos.puestoPostulado}}
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+    <!-- Dominicana Cards -->
+    <div class="clr-row clr-justify-content-center" *ngIf="filterXPaisDominicana.length > 0">
+      <div class="clr-col-lg-3 clr-align-self-center clr-col-6" *ngFor="let fxd of filterXPaisDominicana">
+        <label>
+          <input type="radio" name="product" class="card-input-element" required [value]="fxd.id"
+            [(ngModel)]="votoModel.idCandidato" (change)="getSelected($event, fxd.datos)"/>
+          <div class="card clickable card-input pAlingCenter">
+            <div class="card-header">
+              {{fxd.datos.nombres}} {{fxd.datos.apellidos}} - <img class="responsive-logo" [src]="fxd.datos.datosPais.imagenPais" alt="">
+            </div>
+            <div class="card-block">
+              <div class="card-title">
+
+              </div>
+              <div class="card-text">
+                <img class="responsive-image" [src]="fxd.datos.image" alt="">
+              </div>
+            </div>
+            <div class="card-footer">
+              {{fxd.datos.puestoPostulado}}
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+
+
     <form clrForm>
-      <!-- <clr-input-container>
-        <label>Token Id</label>
-        <input placeholder="Token Id" clrInput name="name" required />
-        <clr-control-helper>1234</clr-control-helper>
-        <clr-control-error>This field is required!</clr-control-error>
-      </clr-input-container> -->
       <clr-radio-container clrInline>
         <label>Voto</label>
         <clr-radio-wrapper>
-          <input type="radio" clrRadio name="En Blanco" required value="En Blanco" [(ngModel)]="selectedPresidente" (change)="getSelected($event)" />
+          <input type="radio" clrRadio name="En Blanco" required value="En Blanco" [(ngModel)]="votoModel.tipoVoto" (change)="getSelectedNoW($event)" />
           <label>En Blanco</label>
         </clr-radio-wrapper>
         <clr-radio-wrapper>
-          <input type="radio" clrRadio name="Nulo" required value="Nulo" [(ngModel)]="selectedPresidente" (change)="getSelected($event)" />
+          <input type="radio" clrRadio name="Nulo" required value="Nulo" [(ngModel)]="votoModel.tipoVoto" (change)="getSelectedNoW($event)" />
           <label>Nulo</label>
         </clr-radio-wrapper>
         <clr-control-helper>Selecciona uno</clr-control-helper>
         <clr-control-error>This field is required!</clr-control-error>
       </clr-radio-container>
-      <button class="btn btn-primary floatLeftButton">Siguiente</button>
-    </form>
 
+    </form>
+    <button class="button" class="btn btn-primary floatLeftButton" (click)="addVoto()">Siguiente</button>
 
   </div>
 </div>

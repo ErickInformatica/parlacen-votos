@@ -1,3 +1,23 @@
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  background-position: top center;
+  border-radius: 50%;
+}
+
+.responsive-image {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+
+}
+
+.card.card-img>img, .card>.card-img:first-child:last-child>img, .card-img>img {
+  display: initial;
+}
 .pAlingCenter {
   text-align: center;
 }
+

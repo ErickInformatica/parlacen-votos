@@ -4,69 +4,64 @@
       <h1>Cambio de Ronda Candidatos<img class="imageTitulo" src="assets/guate.jpg" alt=""></h1>
     </div>
     <br>
+
+    <clr-radio-container clrInline>
+      <label>Seleccione Pais</label>
+      <clr-radio-wrapper *ngFor="let ct of puestos">
+        <input type="radio" clrRadio name="options" (change)="resetData($event)" required [value]="ct.puesto"
+          [(ngModel)]="updateCandidato.puestoPostulado" />
+        <label>{{ct.puesto}}</label>
+      </clr-radio-wrapper>
+    </clr-radio-container>
+
     <div class="clr-row clr-justify-content-center">
       <div class="clr-col-12 clr-align-self-center">
-        <clr-accordion>
-          <clr-accordion-panel *ngFor="let ps of paisTypeArray"
-            (clrAccordionPanelOpenChange)="filterByPais($event,ps.pais)">
-            <clr-accordion-title>{{ps.pais}}</clr-accordion-title>
-            <clr-accordion-content *clrIfExpanded>
+        <clr-tabs>
+          <clr-tab *ngFor="let ps of paisTypeArray">
+            <button clrTabLink [id]="ps.pais" (click)="filterByPais($event,ps.pais)">{{ps.pais}}</button>
+            <clr-tab-content [id]="ps.pais" *clrIfActive>
               <clr-select-container>
                 <label>Cambiar a:</label>
-                <select clrSelect name="options" [(ngModel)]="rondaSelectedChange">
+                <select clrSelect name="options2" [(ngModel)]="updateCandidato.ronda">
                   <option *ngFor="let ct of tiposRondas" [value]="ct.nombre">{{ct.nombre}}</option>>
                 </select>
               </clr-select-container>
               <clr-radio-container clrInline>
                 <label>Seleccione Pais</label>
-                <clr-radio-wrapper *ngFor="let rd of tiposRondas">
-                  <input type="radio" clrRadio name="options" (change)="rondaSelect(rd.nombre)" required
-                    [value]="rd.nombre" [(ngModel)]="rondaRadioButton" />
-                  <label>{{rd.nombre}}</label>
+                <clr-radio-wrapper *ngFor="let rd of filtrarRondasArray">
+                  <input *ngIf="filtrarRondasArray.length > 0" type="radio" clrRadio name="options3"
+                    (change)="changeCandidato($event)" required [value]="rd.ronda"
+                    [(ngModel)]="updateCandidato.rondaAntigua" />
+                  <label *ngIf="filtrarRondasArray.length > 0">{{rd.ronda}}</label>
                 </clr-radio-wrapper>
               </clr-radio-container>
-              <div class="clr-row clr-justify-content-center">
-                <div class="clr-col-lg-3 clr-align-self-center clr-col-6"
-                  *ngFor="let canXRonda of filterCandidatoXRonda; let i = index">
-                  <!-- <label>
-                    <input type="checkbox" name="product" class="card-input-element" required [value]="canXRonda.nombre"
-                      [(ngModel)]="selectedPresidente" (change)="getSelected($event)" />
-                    <div class="card clickable card-input">
-                      <div class="card-header">
-                        {{canXRonda.ronda}}
+              <form [formGroup]="form">
+                <div class="clr-row clr-justify-content-center">
+                  <div class="clr-col-lg-3 clr-align-self-center clr-col-6"
+                    *ngFor="let canXRonda of ArrayFinal; let i = index">
+
+                    <div class="card clickable" *ngIf='ArrayFinal.length > 0' formArrayName="orders">
+                      <input class="c-card" type="checkbox" [id]="canXRonda.id" [value]="canXRonda.id"
+                        (change)="getSelected($event)" [formControlName]="i">
+                      <div class="card-content">
+                        <div class="card-state-icon"></div>
+                        <label [for]="canXRonda.id">
+                          <div class="image"></div>
+                          <h4>{{canXRonda.datos.puestoPostulado}}</h4>
+                          <h5>{{canXRonda.datos.nombres}} &bull; {{canXRonda.datos.apellidos}}</h5>
+                          <p class="small-meta dim">{{canXRonda.datos.ronda}}</p>
+                        </label>
                       </div>
-                      <div class="card-block">
-                        <div class="card-title">
-                          {{canXRonda.nombre}}
-                        </div>
-                        <div class="card-text">
-                          {{canXRonda.texto}}
-                        </div>
-                      </div>
-                      <div class="card-footer">
-                        <p class="p1">Puesto</p>
-                      </div>
-                    </div>
-                  </label> -->
-                  <div class="card clickable">
-                    <input class="c-card" type="checkbox"   [id]="canXRonda.nombre" [value]="canXRonda.nombre"
-                     (change)="getSelected($event)" >
-                    <div class="card-content">
-                      <div class="card-state-icon"></div>
-                      <label [for]="canXRonda.nombre">
-                        <div class="image"></div>
-                        <h4>Presidente</h4>
-                        <h5>{{canXRonda.nombre}} &bull; {{canXRonda.texto}}</h5>
-                        <p class="small-meta dim">{{canXRonda.ronda}}</p>
-                      </label>
                     </div>
                   </div>
                 </div>
-              </div>
-              <button class="btn btn-primary floatLeftButton">Siguiente</button>
-            </clr-accordion-content>
-          </clr-accordion-panel>
-        </clr-accordion>
+              </form>
+              <button type="button" class="btn btn-primary floatLeftButton" (click)="updateRonda()">Siguiente</button>
+            </clr-tab-content>
+          </clr-tab>
+        </clr-tabs>
+
+
       </div>
 
 

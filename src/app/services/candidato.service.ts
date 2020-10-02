@@ -15,6 +15,21 @@ export class CandidatoService {
     this.url = GLOBAL.url;
   }
 
+  getCandidato(token, id): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/candidatoId/' + id, {
+      headers: headersToken,
+    });
+  }
+
+  deleteCandidato(token, id): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.delete(this.url + '/deleteCandidato/' + id, {
+      headers: headersToken,
+    });
+  }
+
+
   getCandidatos(token): Observable<any> {
     let headersToken = this.headers.set('Authorization', token)
     return this._http.get(this.url + '/candidatos', {
@@ -26,6 +41,14 @@ export class CandidatoService {
     let headersToken = this.headers.set('Authorization', token)
     let params = JSON.stringify(datos)
     return this._http.post(this.url + '/addCandidato', params ,{
+      headers: headersToken,
+    });
+  }
+
+  updateRonda(token, datos): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    let params = JSON.stringify(datos)
+    return this._http.put(this.url + '/updateRound', params ,{
       headers: headersToken,
     });
   }

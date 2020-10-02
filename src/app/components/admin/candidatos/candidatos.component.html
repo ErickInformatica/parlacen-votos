@@ -3,9 +3,9 @@
     <h1 class="pAlingCenter">Candidatos</h1>
 
     <!-- Paises -->
-    <!-- <clr-radio-container clrInline>
+    <clr-radio-container clrInline>
       <label>Seleccione Pais</label>
-      <clr-radio-wrapper *ngFor="let ct of puestosArray;let i = index">
+      <clr-radio-wrapper *ngFor="let ct of puestos;let i = index">
         <input type="radio" clrRadio name="options" (change)="resetData($event)"  required [value]="ct.puesto" [(ngModel)]="cType" />
         <label>{{ct.puesto}}</label>
       </clr-radio-wrapper>
@@ -15,11 +15,11 @@
       <clr-radio-container clrInline>
         <label>Seleccione Ronda</label>
         <clr-radio-wrapper  *ngFor="let cta of filtrarRondasArray" >
-              <input  type="radio" clrRadio name="options2" (change)="changePais($event)" required [value]="cta.ronda" [(ngModel)]="rondaPais"/>
+              <input  type="radio" clrRadio name="options2" (change)="changeCandidato($event)" required [value]="cta.ronda" [(ngModel)]="rondaPais"/>
               <label>{{cta.ronda}}</label>
         </clr-radio-wrapper>
       </clr-radio-container>
-    </ng-container> -->
+    </ng-container>
   <button type="button" class="btn btn-icon btn-primary" aria-label="settings"
     (click)="variablesModals.add = true">
     <clr-icon shape="plus"></clr-icon>
@@ -39,14 +39,14 @@
       <clr-dg-column clrDgField="datos.vancada">Vancada</clr-dg-column>
       <clr-dg-column>Acciones</clr-dg-column>
 
-      <clr-dg-row *clrDgItems="let can of candidatos" [clrDgItem]="can">
+      <clr-dg-row *clrDgItems="let can of ArrayFinal" [clrDgItem]="can">
         <clr-dg-cell>{{can.id}}</clr-dg-cell>
         <clr-dg-cell>{{can.datos.nombres}}</clr-dg-cell>
         <clr-dg-cell>{{can.datos.apellidos}}</clr-dg-cell>
         <clr-dg-cell>{{can.datos.email}}</clr-dg-cell>
         <clr-dg-cell>{{can.datos.datosPais.nombrePais}}</clr-dg-cell>
         <clr-dg-cell>{{can.datos.ronda}}</clr-dg-cell>
-        <clr-dg-cell>{{can.datos.image}}</clr-dg-cell>
+        <clr-dg-cell><img [src]="can.datos.image" alt="Avatar" class="avatar"></clr-dg-cell>
         <clr-dg-cell>{{can.datos.puestoPostulado}}</clr-dg-cell>
         <clr-dg-cell>{{can.datos.vancada}}</clr-dg-cell>
         <clr-dg-cell>
@@ -54,7 +54,7 @@
             <button class="btn" (click)="variablesModals.edit = true">
               <clr-icon shape="pencil"></clr-icon>
             </button>
-            <button class="btn" (click)="variablesModals.delete = true">
+            <button class="btn" (click)="getCandidato(can.id);variablesModals.delete = true">
               <clr-icon shape="trash"></clr-icon>
             </button>
           </div>
@@ -114,9 +114,11 @@
         <input clrInput type="text" [(ngModel)]="newCandidato.vancada" name="vancada" />
       </clr-input-container>
       <clr-input-container>
-        <label>Imagen</label>
-        <input clrInput type="text" [(ngModel)]="newCandidato.image" name="image" />
+        <label>Image</label>
+        <input clrInput type="file" accept=".png, .jpg" (change)="uploadFile($event)" name="image" />
       </clr-input-container>
+      <br>
+      <clr-progress-bar [clrValue]="uploadPercent |async |number: '1.2-2'" clrSuccess clrLabeled></clr-progress-bar>
       <clr-select-container>
         <label>Ronda</label>
         <select clrSelect name="ronda"  [(ngModel)]="newCandidato.ronda">
@@ -158,11 +160,11 @@
 <!-- Eliminar Modal -->
 <clr-modal [(clrModalOpen)]="variablesModals.delete">
   <h3 class="modal-title">Eliminar Datos</h3>
-  <div class="modal-body">
-    <p>But not much to say...</p>
+  <div class="modal-body" *ngIf="candidatoDeleteModel">
+    <p>Seguro que desea eliminar al Candidato: {{candidatoDeleteModel.datos.nombres}} {{candidatoDeleteModel.datos.apellidos}}</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="variablesModals.delete = false">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="variablesModals.delete = false">Ok</button>
+    <button type="button" class="btn btn-primary" (click)="deleteCandidato(candidatoDeleteModel.id);variablesModals.delete = false">Eliminar</button>
   </div>
 </clr-modal>

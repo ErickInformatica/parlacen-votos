@@ -22,10 +22,33 @@ export class PaisService {
     });
   }
 
+  getPais(token, id): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/paisId/'+id, {
+      headers: headersToken,
+    });
+  }
+
+
   addPais(token, datos): Observable<any> {
     let headersToken = this.headers.set('Authorization', token)
     let params = JSON.stringify(datos)
     return this._http.post(this.url + '/addPais', params ,{
+      headers: headersToken,
+    });
+  }
+
+  updatePais(token, id ,datos): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    let params = JSON.stringify(datos)
+    return this._http.put(this.url + '/updatePais/' + id, params ,{
+      headers: headersToken,
+    });
+  }
+
+  deletePais(token, id): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.delete(this.url + '/deletePais/' + id ,{
       headers: headersToken,
     });
   }
