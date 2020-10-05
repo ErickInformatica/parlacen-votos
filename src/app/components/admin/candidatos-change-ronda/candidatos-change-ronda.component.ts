@@ -28,18 +28,21 @@ export class CandidatosChangeRondaComponent implements OnInit {
     { pais: 'Nicaragua' },
     { pais: 'Panama' },
     { pais: 'Republica Dominicana' },
+    { pais: 'Honduras' },
   ];
 
   tiposRondas = [
-    { nombre: 'Ronda 1' },
-    { nombre: 'Ronda 2' },
-    { nombre: 'Nuevo Votacion Ronda 1' },
-    { nombre: 'Nuevo Votacion Ronda 2' },
+    { nombre: 'Vuelta 1' },
+    { nombre: 'Vuelta 2' },
+    { nombre: 'Nuevo Votacion Vuelta 1' },
+    { nombre: 'Nuevo Votacion Vuelta 2' },
+    { nombre: 'Segunda Votacion Vuelta 1' },
+    { nombre: 'Segunda Votacion Vuelta 2' },
     { nombre: 'Ganador' },
   ];
 
   public filterPais = [];
-  public rondaSelectedChange = 'Ronda 1';
+  public rondaSelectedChange = 'Vuelta 1';
 
   public filterCandidatoXRonda = [];
   public rondaRadioButton;
@@ -48,7 +51,7 @@ export class CandidatosChangeRondaComponent implements OnInit {
   public updateCandidato = {
     candidatosId: [],
     rondaAntigua: '',
-    ronda: '',
+    ronda: 'Vuelta 1',
     pais: '',
     puestoPostulado: '',
   };
@@ -88,8 +91,6 @@ export class CandidatosChangeRondaComponent implements OnInit {
       this.ArrayFinal.forEach(() => {
         this.ordersFormArray.push(new FormControl(false));
       });
-
-      console.log(arr.controls);
     }
   }
 
@@ -99,6 +100,8 @@ export class CandidatosChangeRondaComponent implements OnInit {
   getCandidatos() {
     this._candidatoService.getCandidatos(this.token).subscribe((res) => {
       this.candidatos = res.datos;
+      console.log(res.datos);
+
     });
   }
 
@@ -108,7 +111,6 @@ export class CandidatosChangeRondaComponent implements OnInit {
         this.updateCandidato.candidatosId = this.form.value.orders
           .map((checked, i) => (checked ? this.ArrayFinal[i].id : null))
           .filter((v) => v !== null);
-        console.log(this.form.value.orders);
       }
       this._candidatoService
         .updateRonda(this.token, this.updateCandidato)
@@ -147,7 +149,6 @@ export class CandidatosChangeRondaComponent implements OnInit {
     this.ArrayFinal = this.filterPais.filter((elem) => {
       return elem.datos.ronda == this.updateCandidato.rondaAntigua;
     });
-    console.log(this.ArrayFinal);
 
     this.addCheckboxes();
   }
@@ -207,6 +208,5 @@ export class CandidatosChangeRondaComponent implements OnInit {
       return elem.datos.ronda == this.updateCandidato.rondaAntigua;
     });
     this.addCheckboxes();
-    console.log(this.form.controls.orders.value, this.form.value.orders);
   }
 }

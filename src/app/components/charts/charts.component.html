@@ -1,31 +1,182 @@
 <div class="clr-row clr-justify-content-center">
+  <div class="clr-col-12 clr-align-self-center">
 
-  <div class="clr-col-6 clr-align-self-center">
-    <clr-radio-container clrInline>
+    <!-- <clr-radio-container clrInline>
       <label>Seleccione Tipo de Grafica</label>
       <clr-radio-wrapper *ngFor="let ct of chartTypeArray">
-        <input type="radio" clrRadio name="options" (change)="changeChart($event)" required [value]="ct.type" [(ngModel)]="cType" />
+        <input type="radio" clrRadio name="options" (change)="changeChart($event)" required [value]="ct.type"
+          [(ngModel)]="cType" />
         <label>{{ct.text}}</label>
       </clr-radio-wrapper>
       <clr-control-helper>Helper text</clr-control-helper>
       <clr-control-error>This field is required!</clr-control-error>
+    </clr-radio-container> -->
+
+    <clr-radio-container clrInline>
+      <label>Seleccione Ronda</label>
+      <clr-radio-wrapper  *ngFor="let cta of tiposRondas" >
+            <input  type="radio" clrRadio name="options2" required [value]="cta.nombre" [(ngModel)]="rondaSeleccionada"/>
+            <label>{{cta.nombre}}</label>
+      </clr-radio-wrapper>
     </clr-radio-container>
 
+    <clr-tabs>
+      <clr-tab>
+        <button clrTabLink id="link1" (click)="getVotosPresi()">Presidente(a)</button>
+        <clr-tab-content id="link1" *clrIfActive>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
+              *ngIf="chartDataPresidente.length > 0 && chartLabelsPresidente.length >0">
+              <h1 class="pAlingCenter">Honduras</h1>
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataPresidente"
+                  [labels]="chartLabelsPresidente" [options]="chartOptions" [colors]="chartColors" [legend]="chartLegend"
+                  [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </clr-tab-content>
+      </clr-tab>
+      <clr-tab>
+        <button clrTabLink id="link2" (click)="getVotosVice()">Vicepresidente(a)</button>
+        <clr-tab-content id="link2" *clrIfActive>
+          <div class="clr-row clr-justify-content-center">
+            <!-- Dominicana -->
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
+              *ngIf="chartDataViceDominicana.length > 0 && chartLabelsViceDominicana.length >0">
+              <h1 class="pAlingCenter">Republica Dominicana</h1>
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataViceDominicana"
+                  [labels]="chartLabelsViceDominicana" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+            <!-- Salvador -->
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
+              *ngIf="chartDataViceSalvador.length > 0 && chartLabelsViceSalvador.length >0">
+              <h1 class="pAlingCenter">El Salvador</h1>
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataViceSalvador"
+                  [labels]="chartLabelsViceSalvador" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+            <!-- Nicaragua -->
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
+              *ngIf="chartDataViceNicaragua.length > 0 && chartLabelsViceNicaragua.length >0">
+              <h1 class="pAlingCenter">Nicaragua</h1>
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataViceNicaragua"
+                  [labels]="chartLabelsViceNicaragua" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+            <!-- Guatemala -->
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
+              *ngIf="chartDataViceGuatemala.length > 0 && chartLabelsViceGuatemala.length >0">
+              <h1 class="pAlingCenter">Guatemala</h1>
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataViceGuatemala"
+                  [labels]="chartLabelsViceGuatemala" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+            <!-- Panama -->
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
+              *ngIf="chartDataVicePanama.length > 0 && chartLabelsVicePanama.length >0">
+              <h1 class="pAlingCenter">Panama</h1>
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataVicePanama"
+                  [labels]="chartLabelsVicePanama" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </clr-tab-content>
+      </clr-tab>
+      <clr-tab>
+        <button clrTabLink id="link3" (click)="getVotosSec()">Secretario(a)</button>
+        <clr-tab-content id="link3" *clrIfActive>
+          <div class="clr-row clr-justify-content-center">
+            <!-- Dominicana -->
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
+              *ngIf="chartDataSecDominicana.length > 0 && chartLabelsSecDominicana.length >0">
+              <h1 class="pAlingCenter">Republica Dominicana</h1>
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecDominicana"
+                  [labels]="chartLabelsSecDominicana" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+            <!-- Salvador -->
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
+              *ngIf="chartDataSecSalvador.length > 0 && chartLabelsSecSalvador.length >0">
+              <h1 class="pAlingCenter">El Salvador</h1>
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecSalvador"
+                  [labels]="chartLabelsSecSalvador" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+            <!-- Nicaragua -->
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
+              *ngIf="chartDataSecNicaragua.length > 0 && chartLabelsSecNicaragua.length >0">
+              <h1 class="pAlingCenter">Nicaragua</h1>
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecNicaragua"
+                  [labels]="chartLabelsSecNicaragua" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+            <!-- Honduras -->
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
+              *ngIf="chartDataSecHonduras.length > 0 && chartLabelsSecHonduras.length >0">
+              <h1 class="pAlingCenter">Honduras</h1>
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecHonduras"
+                  [labels]="chartLabelsSecHonduras" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+            <!-- Guatemala -->
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
+              *ngIf="chartDataSecGuatemala.length > 0 && chartLabelsSecGuatemala.length >0">
+              <h1 class="pAlingCenter">Guatemala</h1>
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecGuatemala"
+                  [labels]="chartLabelsSecGuatemala" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+            <!-- Panama -->
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
+              *ngIf="chartDataSecPanama.length > 0 && chartLabelsSecPanama.length >0">
+              <h1 class="pAlingCenter">Panama</h1>
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecPanama"
+                  [labels]="chartLabelsSecPanama" [options]="chartOptions" [colors]="chartColors" [legend]="chartLegend"
+                  [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </clr-tab-content>
+      </clr-tab>
+    </clr-tabs>
 
 
-    <div style="display: block;">
-      <canvas baseChart width="400" height="400"
-        [chartType]="cType"
-        [datasets]="chartData"
-        [labels]="chartLabels"
-        [options]="chartOptions"
-        [colors]="chartColors"
-        [legend]="chartLegend"
-        [plugins]="chartPlugins">
-      </canvas>
-    </div>
   </div>
 
 
 </div>
-

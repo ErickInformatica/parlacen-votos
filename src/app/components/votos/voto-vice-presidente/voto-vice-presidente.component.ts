@@ -10,58 +10,6 @@ import { VotoService } from '../../../services/votos.service';
   providers: [UserService, VotoService]
 })
 export class VotoVicePresidenteComponent implements OnInit {
-  votosPruebas = [
-    {
-      nombre: "Juanito",
-      texto: "esto es una prueba"
-    },
-    {
-      nombre: "Pedriot",
-      texto: "esto es una prueba2"
-    },
-    {
-      nombre: "Cesar",
-      texto: "esto es una prueba3"
-    },
-    {
-      nombre: "luisito",
-      texto: "esto es una prueba4"
-    },
-    {
-      nombre: "Vini",
-      texto: "esto es una prueba5"
-    }
-  ]
-
-  votosHonduras = [
-    {
-      nombre: "Juanito Honduras",
-      texto: "esto es una prueba"
-    },
-    {
-      nombre: "Pedriot Honduras",
-      texto: "esto es una prueba2"
-    },
-    {
-      nombre: "Cesar Honduras",
-      texto: "esto es una prueba3"
-    },
-    {
-      nombre: "luisito Honduras",
-      texto: "esto es una prueba4"
-    },
-    {
-      nombre: "Vini Honduras",
-      texto: "esto es una prueba5"
-    }
-  ]
-
-  paisTypeArray = [
-    { pais: 'Guatemala' },
-    { pais: 'Nicaragua' }
-
-  ];
-
   public votoModel = {
     idCandidato: '',
     tipoVoto: '',
@@ -182,12 +130,12 @@ export class VotoVicePresidenteComponent implements OnInit {
               }
           }
            if(this.filterXPaisPanama.length === 0 && this.filterXPaisNicaragua.length === 0 && this.filterXPaisDominicana.length === 0 && this.filterXPaisGuatemala.length === 0 && this.filterXPaisSalvador.length === 0){
-            this._router.navigate(['/home/votoS/Secretaria/1ra/Guatemala'])
+            this._router.navigate(['/home/votoS/Secretaria/1ra'])
           }
         }
       }, err=>{
         if(err.error.message === "No hay candidatos a votar"){
-          this._router.navigate(['/home/votoS/Secretaria/1ra/Guatemala'])
+          this._router.navigate(['/home/votoS/Secretaria/1ra'])
         }
       }
     )

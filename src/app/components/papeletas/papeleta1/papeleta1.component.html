@@ -3,44 +3,37 @@
     <h1 class="pAlingCenter">Datos Papeleta Presidente</h1>
 
     <!-- Paises -->
-    <clr-radio-container clrInline>
-      <label>Seleccione Pais</label>
-      <clr-radio-wrapper *ngFor="let ct of paisTypeArray;let i = index">
-        <input type="radio" clrRadio name="options" (change)="resetData($event)"  required [value]="i" [(ngModel)]="cType" />
-        <label>{{ct.pais}}</label>
-      </clr-radio-wrapper>
-      <clr-control-helper>Helper text</clr-control-helper>
-      <clr-control-error>This field is required!</clr-control-error>
-    </clr-radio-container>
 
-    <ng-container *ngIf="cType !== null" >
+    <ng-container *ngIf="cType !== ''">
       <clr-radio-container clrInline>
         <label>Seleccione Ronda</label>
-        <clr-radio-wrapper  *ngFor="let cta of paisTypeArray[cType].rondas" >
-              <input  type="radio" clrRadio name="options2" (change)="changePais($event)" required [value]="cta.ronda" [(ngModel)]="rondaPais"/>
-              <label>{{cta.ronda}}</label>
+        <clr-radio-wrapper *ngFor="let cta of filtrarRondasArray">
+          <input type="radio" clrRadio name="options2" (change)="selectRonda()" required [value]="cta.ronda"
+            [(ngModel)]="rondaPais" />
+          <label>{{cta.ronda}}</label>
         </clr-radio-wrapper>
       </clr-radio-container>
     </ng-container>
 
 
 
-
     <clr-datagrid>
-      <clr-dg-column>User ID</clr-dg-column>
-      <clr-dg-column clrDgField="name">Name</clr-dg-column>
-      <clr-dg-column clrDgField="age">Age</clr-dg-column>
+      <clr-dg-column>ID</clr-dg-column>
+      <clr-dg-column clrDgField="datos.datosUsuario.votoIdUsuario">Usuario</clr-dg-column>
+      <clr-dg-column clrDgField="datos.idCandidato">Candidato Votado</clr-dg-column>
+      <clr-dg-column clrDgField="datos.tipoVoto">Tipo Voto</clr-dg-column>
       <clr-dg-column>Acciones</clr-dg-column>
 
-      <clr-dg-row *clrDgItems="let user of users" [clrDgItem]="user">
-        <clr-dg-cell>{{user._id}}</clr-dg-cell>
-        <clr-dg-cell>{{user.name}}</clr-dg-cell>
-        <clr-dg-cell>{{user.age }}</clr-dg-cell>
+      <clr-dg-row *clrDgItems="let voto of ArrayFinal" [clrDgItem]="voto">
+        <clr-dg-cell>{{voto.id}}</clr-dg-cell>
+        <clr-dg-cell>{{voto.datos.datosUsuario.votoIdUsuario}}</clr-dg-cell>
+        <clr-dg-cell>{{voto.datos.idCandidato }}</clr-dg-cell>
+        <clr-dg-cell>{{voto.datos.tipoVoto }}</clr-dg-cell>
         <clr-dg-cell>
           <div class="btn-group btn-link btn-icon btn-sm">
-            <button class="btn" (click)="variablesModals.edit = true">
+            <!-- <button class="btn" (click)="variablesModals.edit = true">
               <clr-icon shape="pencil"></clr-icon>
-            </button>
+            </button> -->
             <button class="btn" (click)="variablesModals.delete = true">
               <clr-icon shape="trash"></clr-icon>
             </button>

@@ -19,17 +19,20 @@ export class TokenComponent implements OnInit {
   public addToken={
     numeroToken: '',
     vecesUso: '',
-    ronda: 'Ronda 1'
+    ronda: 'Vuelta 1'
   }
   public tokensData;
   public getUpdateToken;
   public token;
 
   tiposRondas =[
-    { nombre: 'Ronda 1'},
-    { nombre: 'Ronda 2'},
-    { nombre: 'Nuevo Votacion Ronda 1'},
-    { nombre: 'Nuevo Votacion Ronda 2'}
+    { nombre: 'Vuelta 1' },
+    { nombre: 'Vuelta 2' },
+    { nombre: 'Nuevo Votacion Vuelta 1' },
+    { nombre: 'Nuevo Votacion Vuelta 2' },
+    { nombre: 'Segunda Votacion Vuelta 1' },
+    { nombre: 'Segunda Votacion Vuelta 2' },
+    { nombre: 'Ganador' },
   ]
 
   constructor(private _tokenService: TokenService,private _userService: UserService) {

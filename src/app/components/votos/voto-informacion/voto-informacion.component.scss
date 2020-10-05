@@ -11,8 +11,28 @@
   height: auto;
 }
 
+.responsive-logo {
+  width: 100%;
+  max-width: 100px;
+  height: auto;
+}
+.responsive-title {
+  width: 100%;
+  max-width: 50px;
+  height: auto;
+}
+
+
 .pAlingCenter {
   text-align: center;
 }
 
 
+#content {
+  position: relative;
+}
+#content img {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}

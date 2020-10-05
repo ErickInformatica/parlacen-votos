@@ -1,44 +1,86 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NameFilter } from '../../../filters';
 import { User } from '../../../models/user.model';
-
+import { VotoService } from '../../../services/votos.service';
+import { UserService } from '../../../services/user.service';
+import { ClrDatagrid } from '@clr/angular';
 @Component({
   selector: 'app-papeleta1',
   templateUrl: './papeleta1.component.html',
-  styleUrls: ['./papeleta1.component.scss']
+  styleUrls: ['./papeleta1.component.scss'],
+  providers: [UserService, VotoService],
 })
 export class Papeleta1Component implements OnInit {
+  @ViewChild(ClrDatagrid) dg: ClrDatagrid;
   public variablesModals = {
     edit: false,
-    delete: false
-  }
+    delete: false,
+  };
   indexPais: Number;
-  cType = 0;
+  cType = 'Honduras';
   rondaPais = '';
   paisTypeArray = [
-    { pais: 'Guatemala', rondas: [
-      {ronda: 'Ronda 1'},
-      {ronda: 'Ronda 2'},
-      {ronda: 'Nueva Votacion Ronda 1'}
-    ]}
+    { pais: 'Honduras' }
   ];
 
-  public users: User[]
-  constructor() {
+  public filtrarRondasArray = [];
+  public filtrarXPuestoArray = [];
+  public ArrayFinal = [];
+  public token;
+  public votos;
+  constructor(
+    private _votoService: VotoService,
+    private _userService: UserService
+  )
+  {
+    this.token = this._userService.getToken();
   }
 
   ngOnInit(): void {
+    this.getVotos()
   }
 
-  changePais(evt){
+  removeDuplicates(originalArray, prop) {
+    var newArray = [];
+    var lookupObject = {};
 
-    console.log(this.rondaPais);
+    for (var i in originalArray) {
+      lookupObject[originalArray[i][prop]] = originalArray[i];
+    }
 
+    for (i in lookupObject) {
+      newArray.push(lookupObject[i]);
+    }
+    return newArray;
   }
 
-  resetData(ev){
+  getPromise(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this._votoService.getVotosAPresidente(this.token).subscribe((res) => {
+        this.votos = res;
+        console.log(res);
 
-    this.users = []
+        resolve(res);
+      });
+    });
+  }
+  getVotos(){
+    this.getPromise().then(()=>{
+      this.filtrarXPuestoArray = this.votos.filter((elem) => {
+        if(elem.datos.puestoCandidato === 'Presidente') return elem.datos.datosPais.nombrePais === 'Honduras';
+      });
+      let datosCandidatos = [];
+      this.filtrarXPuestoArray.forEach((element) => {
+        datosCandidatos.push(element.datos);
+      });
+      this.filtrarRondasArray = this.removeDuplicates(datosCandidatos, 'ronda');
+    })
   }
 
+  selectRonda(){
+    this.ArrayFinal = this.filtrarXPuestoArray.filter((elem) => {
+      return elem.datos.ronda == this.rondaPais;
+    });
+    setTimeout(() => this.dg.resize());
+  }
 }

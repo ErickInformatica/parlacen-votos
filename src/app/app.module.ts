@@ -32,6 +32,8 @@ import { PaisComponent } from './components/pais/pais.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { LogeadoGuard } from './models/logeado.guard';
+import { NotLogindGuard } from './models/notLogin.guard';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule
   ],
-  providers: [],
+  providers: [LogeadoGuard, NotLogindGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

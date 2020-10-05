@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ClrDatagrid } from '@clr/angular';
 import { User } from '../../../models/user.model';
-
+import { VotoService } from '../../../services/votos.service';
+import { UserService } from '../../../services/user.service';
 @Component({
   selector: 'app-papeleta2',
   templateUrl: './papeleta2.component.html',
-  styleUrls: ['./papeleta2.component.scss']
+  styleUrls: ['./papeleta2.component.scss'],
+  providers: [UserService, VotoService],
 })
 export class Papeleta2Component implements OnInit {
+  @ViewChild(ClrDatagrid) dg: ClrDatagrid;
   public variablesModals = {
     edit: false,
     delete: false
@@ -15,40 +19,75 @@ export class Papeleta2Component implements OnInit {
   cType = '';
   rondaPais = '';
   paisTypeArray = [
-    { pais: 'Guatemala', rondas: [
-      {ronda: 'Ronda 1'},
-      {ronda: 'Ronda 2'},
-      {ronda: 'Nueva Votacion Ronda 1'}
-    ]},
-    { pais: 'El Salvador', rondas: [
-      {ronda: 'Ronda 1'},
-    ] },
-    { pais: 'Nicaragua', rondas: [
-      {ronda: 'Ronda 1'},
-      {ronda: 'Ronda 2'}
-    ] },
-    { pais: 'Panama', rondas: [
-      {ronda: 'Ronda 1'}
-    ] },
-    { pais: 'Republica Dominicana', rondas: [
-      {ronda: 'Ronda 1'},
-      {ronda: 'Ronda 2'},
-      {ronda: 'Nueva Votacion Ronda 1'}
-    ] }
-  ]
+    { pais: 'Guatemala' },
+    { pais: 'El Salvador' },
+    { pais: 'Nicaragua' },
+    { pais: 'Panama' },
+    { pais: 'Republica Dominicana' },
+  ];
+  public filtrarRondasArray = [];
+  public filtrarXPuestoArray = [];
+  public ArrayFinal = [];
+  public token;
+  public votos;
+  constructor(
+    private _votoService: VotoService,
+    private _userService: UserService
+  )
+  {
+    this.token = this._userService.getToken();
+  }
 
-  public users: User[]
-  constructor() { }
 
   ngOnInit(): void {
-  }
-  changePais(evt){
-
+    this.getPromise()
   }
 
-  resetData(ev){
+  removeDuplicates(originalArray, prop) {
+    var newArray = [];
+    var lookupObject = {};
 
-    this.users = []
+    for (var i in originalArray) {
+      lookupObject[originalArray[i][prop]] = originalArray[i];
+    }
+
+    for (i in lookupObject) {
+      newArray.push(lookupObject[i]);
+    }
+    return newArray;
+  }
+
+  getPromise(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this._votoService.getVotosAVicepresidente(this.token).subscribe((res) => {
+        this.votos = res;
+        console.log(res);
+
+        resolve(res);
+      });
+    });
+  }
+  rondasXPais() {
+    this.rondaPais = ''
+    this.filtrarXPuestoArray = this.votos.filter((elem) => {
+      if(elem.datos.puestoCandidato === 'Vicepresidente') return elem.datos.datosPais.nombrePais === this.cType;
+    });
+    let datosCandidatos = [];
+    console.log();
+
+    this.filtrarXPuestoArray.forEach((element) => {
+      datosCandidatos.push(element.datos);
+    });
+    this.filtrarRondasArray = this.removeDuplicates(datosCandidatos, 'ronda');
+  }
+
+  selectRonda(){
+    this.ArrayFinal = this.filtrarXPuestoArray.filter((elem) => {
+      return elem.datos.ronda == this.rondaPais;
+    });
+    console.log(this.ArrayFinal);
+
+    setTimeout(() => this.dg.resize());
   }
 
 

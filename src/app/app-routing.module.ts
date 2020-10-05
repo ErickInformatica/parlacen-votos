@@ -18,9 +18,11 @@ import { VotoPresidenteComponent } from './components/votos/voto-presidente/voto
 import { VotoSecretarioComponent } from './components/votos/voto-secretario/voto-secretario.component';
 import { VotoVicePresidenteComponent } from './components/votos/voto-vice-presidente/voto-vice-presidente.component';
 import { WelcomeUserComponent } from './components/welcome-user/welcome-user.component';
+import { LogeadoGuard } from './models/logeado.guard';
+import { NotLogindGuard } from './models/notLogin.guard';
 
 const routes: Routes = [
-    {path: '', component: LoginComponent},
+    {path: '', component: LoginComponent, canActivate:[LogeadoGuard]},
     {path: 'registro', component: RegistroComponent},
     {path: '', redirectTo: '', pathMatch: 'full'},
     {path: 'home', component: HomeComponent, children: [
@@ -34,9 +36,9 @@ const routes: Routes = [
       { path: 'users', component: UsersComponent },
       { path: 'pais', component: PaisComponent },
       { path: 'token', component: TokenComponent },
-      { path: 'votoP/:puesto/:ronda/:pais', component: VotoPresidenteComponent },
-      { path: 'votoV/:puesto/:ronda/:pais', component: VotoVicePresidenteComponent },
-      { path: 'votoS/:puesto/:ronda/:pais', component: VotoSecretarioComponent },
+      { path: 'votoP/:puesto/:ronda', component: VotoPresidenteComponent },
+      { path: 'votoV/:puesto/:ronda', component: VotoVicePresidenteComponent },
+      { path: 'votoS/:puesto/:ronda', component: VotoSecretarioComponent },
       { path: 'candidatos', component: CandidatosComponent },
       { path: 'candidatosRound', component: CandidatosChangeRondaComponent },
     ]},

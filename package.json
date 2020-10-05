@@ -25,6 +25,7 @@
     "@clr/ui": "4.0.2",
     "@rinminase/ng-charts": "^3.1.4",
     "@webcomponents/webcomponentsjs": "^2.0.0",
+    "chartjs-plugin-labels": "^1.1.0",
     "firebase": "^7.21.1",
     "rxjs": "~6.6.0",
     "sweetalert2": "^10.3.5",

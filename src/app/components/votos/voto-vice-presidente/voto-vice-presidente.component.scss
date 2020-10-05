@@ -1,8 +1,14 @@
 .responsive-logo {
   width: 100%;
+  max-width: 100px;
+  height: auto;
+}
+.responsive-title {
+  width: 100%;
   max-width: 50px;
   height: auto;
 }
+
 
 .responsive-image {
   width: 100%;

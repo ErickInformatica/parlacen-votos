@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-voto-informacion',
@@ -10,9 +11,13 @@ export class VotoInformacionComponent implements OnInit {
     inicio: false
   }
 
-  constructor() { }
+  constructor(public _router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  redirect(){
+    this._router.navigate([`home/votoP/Presidente/1ra`])
   }
 
 }

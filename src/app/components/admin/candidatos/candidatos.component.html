@@ -51,9 +51,9 @@
         <clr-dg-cell>{{can.datos.vancada}}</clr-dg-cell>
         <clr-dg-cell>
           <div class="btn-group btn-link btn-icon btn-sm">
-            <button class="btn" (click)="variablesModals.edit = true">
+            <!-- <button class="btn" (click)="variablesModals.edit = true">
               <clr-icon shape="pencil"></clr-icon>
-            </button>
+            </button> -->
             <button class="btn" (click)="getCandidato(can.id);variablesModals.delete = true">
               <clr-icon shape="trash"></clr-icon>
             </button>
@@ -128,7 +128,7 @@
       <clr-select-container>
         <label>País</label>
         <select clrSelect name="pais"  [(ngModel)]="newCandidato.pais">
-          <option *ngFor="let ps of paisTypeArray" [value]="ps.pais" >{{ps.pais}}</option>
+          <option *ngFor="let ps of paisesData" [value]="ps.datos.nombrePais" >{{ps.datos.nombrePais}}</option>
         </select>
       </clr-select-container>
       <clr-select-container>
@@ -141,7 +141,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="variablesModals.add = false">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="addCandidato();variablesModals.add= false">Agregar</button>
+    <button type="button" class="btn btn-primary" (click)="addCandidato()">Agregar</button>
   </div>
 </clr-modal>
 
@@ -165,6 +165,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="variablesModals.delete = false">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="deleteCandidato(candidatoDeleteModel.id);variablesModals.delete = false">Eliminar</button>
+    <button type="button" class="btn btn-primary" (click)="deleteCandidato(candidatoDeleteModel.id)">Eliminar</button>
   </div>
 </clr-modal>

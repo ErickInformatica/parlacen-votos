@@ -15,13 +15,72 @@ export class VotoService {
     this.url = GLOBAL.url;
   }
 
-
-  getVicePrecidenteAVotar(token): Observable<any> {
+  getPrecidenteAVotar(token): Observable<any> {
     let headersToken = this.headers.set('Authorization', token)
-    return this._http.get(this.url + '/testing', {
+    return this._http.get(this.url + '/candidatosPresidente', {
       headers: headersToken,
     });
   }
+
+  getVicePrecidenteAVotar(token): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/candidatosVicepresidente', {
+      headers: headersToken,
+    });
+  }
+
+  getSecretario(token): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/candidatosSecretario', {
+      headers: headersToken,
+    });
+  }
+
+
+  getVotosASecretario(token): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/votosSecretario', {
+      headers: headersToken,
+    });
+  }
+
+
+  getVotosAPresidente(token): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/votosPresidente', {
+      headers: headersToken,
+    });
+  }
+
+  getVotosAVicepresidente(token): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/votosVicepresidente', {
+      headers: headersToken,
+    });
+  }
+
+  getContosXVicepresidente(token): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/conteosXVicepresidente', {
+      headers: headersToken,
+    });
+  }
+
+  getContosXPresidente(token): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/conteosXPresidente', {
+      headers: headersToken,
+    });
+  }
+
+  getContosXSecretario(token): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/conteosXSecretario', {
+      headers: headersToken,
+    });
+  }
+
+
 
   addVoto(token, datos): Observable<any> {
     let params = JSON.stringify(datos)
