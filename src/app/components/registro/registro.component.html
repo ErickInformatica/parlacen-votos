@@ -21,8 +21,7 @@
         <label class="clr-sr-only">Confirmar Contraseña</label>
         <input type="password" formControlName="confirmPassword"  [(ngModel)]="user.password" name="password" clrPassword
           placeholder="Contraseña" />
-
-            <clr-control-error *ngIf="f.confirmPassword.errors && f.confirmPassword.errors.mustMatch !== null">This field is required!</clr-control-error>
+            <clr-control-error *ngIf="f.confirmPassword.errors && f.confirmPassword.errors.mustMatch !== null">¡Las contraseña deben coincidir!</clr-control-error>
       </clr-password-container>
       <button type="submit" class="btn btn-primary">Registrar</button>
       <button class="btn btn-link" type="button" routerLink="/login">Regresar a Iniciar Sesión</button >

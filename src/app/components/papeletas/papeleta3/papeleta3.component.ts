@@ -63,13 +63,13 @@ export class Papeleta3Component implements OnInit {
     return new Promise((resolve, reject) => {
       this._votoService.getVotosASecretario(this.token).subscribe((res) => {
         this.votos = res;
-        console.log(res);
 
         resolve(res);
       });
     });
   }
   rondasXPais() {
+    this.rondaPais = ''
     this.filtrarXPuestoArray = this.votos.filter((elem) => {
       if(elem.datos.puestoCandidato === 'Secretario') return elem.datos.datosPais.nombrePais === this.cType;
     });

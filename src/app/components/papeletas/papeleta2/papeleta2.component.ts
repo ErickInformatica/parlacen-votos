@@ -61,7 +61,6 @@ export class Papeleta2Component implements OnInit {
     return new Promise((resolve, reject) => {
       this._votoService.getVotosAVicepresidente(this.token).subscribe((res) => {
         this.votos = res;
-        console.log(res);
 
         resolve(res);
       });
@@ -73,7 +72,6 @@ export class Papeleta2Component implements OnInit {
       if(elem.datos.puestoCandidato === 'Vicepresidente') return elem.datos.datosPais.nombrePais === this.cType;
     });
     let datosCandidatos = [];
-    console.log();
 
     this.filtrarXPuestoArray.forEach((element) => {
       datosCandidatos.push(element.datos);
@@ -85,7 +83,6 @@ export class Papeleta2Component implements OnInit {
     this.ArrayFinal = this.filtrarXPuestoArray.filter((elem) => {
       return elem.datos.ronda == this.rondaPais;
     });
-    console.log(this.ArrayFinal);
 
     setTimeout(() => this.dg.resize());
   }

@@ -284,7 +284,6 @@ export class ChartsComponent implements OnInit {
               this.chartLabelsSecDominicana.push(hour);
             }
 
-            console.log(this.chartLabelsSecDominicana);
           }
         }
 
@@ -460,8 +459,6 @@ export class ChartsComponent implements OnInit {
               let hour = this.filterXPaisDominicana[key].tipoVoto;
               this.chartLabelsViceDominicana.push(hour);
             }
-
-            console.log(this.chartLabelsViceDominicana);
           }
         }
 

@@ -9,36 +9,58 @@ export class UserService {
 
   public url: string;
   public identity;
+  public identityUser;
+  public identityAdmin;
+  public identitySA;
   public token;
 
   constructor(public _http: HttpClient) {
     this.url = GLOBAL.url;
   }
 
-  getUsers(): Observable<any> {
+  getUsers(token): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
     return this._http.get(this.url + '/users', {
-      headers: this.headers,
+      headers: headersToken,
     });
   }
 
-  getUsersById(id): Observable<any> {
+  getUsersById(token,id): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
     return this._http.get(this.url + '/userId/'+id, {
-      headers: this.headers,
+      headers: headersToken,
     });
   }
 
-  udpateUser(id, datos): Observable<any> {
+  udpateUser(token,id, datos): Observable<any> {
     let params = JSON.stringify(datos);
+    let headersToken = this.headers.set('Authorization', token)
     return this._http.put(this.url + '/updateUser/'+id, params ,{
-      headers: this.headers,
+      headers: headersToken,
     });
   }
 
-  registerAdmin(user): Observable<any> {
+  changePasswordAdmin(token, id, datos): Observable<any> {
+    let params = JSON.stringify(datos);
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.put(this.url + '/changePassword/'+id, params ,{
+      headers: headersToken,
+    });
+  }
+
+  changePasswordUser(token, datos): Observable<any> {
+    let params = JSON.stringify(datos);
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.put(this.url + '/changePasswordUser', params ,{
+      headers: headersToken,
+    });
+  }
+
+  registerAdmin(token,user): Observable<any> {
     let params = JSON.stringify(user);
-    // let headersToken = this.headers.set('Authorization', token)
-    return this._http.post(this.url + '/register', params, {
-      headers: this.headers,
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.post(this.url + '/registerActivo', params, {
+      headers: headersToken,
     });
   }
 
@@ -69,6 +91,41 @@ export class UserService {
     }
 
     return this.identity;
+  }
+  getUserIdentity() {
+    var identity2 = JSON.parse(localStorage.getItem('identity'));
+
+    if (identity2 != null) {
+      this.identityUser = identity2;
+    } else {
+      this.identityUser = null;
+    }
+
+    return this.identityUser;
+  }
+
+  getAdminIdentity() {
+    var identity2 = JSON.parse(localStorage.getItem('identity'));
+
+    if (identity2 != null) {
+      this.identityAdmin = identity2;
+    } else {
+      this.identityAdmin = null;
+    }
+
+    return this.identityAdmin;
+  }
+
+  getSAIdentity() {
+    var identity2 = JSON.parse(localStorage.getItem('identity'));
+
+    if (identity2 != null) {
+      this.identitySA = identity2;
+    } else {
+      this.identitySA = null;
+    }
+
+    return this.identitySA;
   }
 
   getToken() {

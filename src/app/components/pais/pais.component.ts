@@ -54,14 +54,12 @@ export class PaisComponent implements OnInit {
   getPaises() {
     this._paisService.getPaises(this.token).subscribe((res) => {
       this.paisesData = res.datos;
-      console.log(res);
     });
   }
 
   getPais(id) {
     this._paisService.getPais(this.token, id).subscribe((res) => {
       this.getUpdateData = res;
-      console.log(res);
     });
   }
 
@@ -77,6 +75,7 @@ export class PaisComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500,
         });
+        this.variablesModals.delete = false
         setTimeout(() => this.dg.resize());
       },
       (err) => {
@@ -167,7 +166,6 @@ export class PaisComponent implements OnInit {
 
   uploadFile(evn) {
     this.file = evn.target.files[0];
-    console.log(this.file);
   }
 
   newToken() {
@@ -209,15 +207,10 @@ export class PaisComponent implements OnInit {
                   });
                 }
               );
-              console.log(this.addPais.image);
             });
           })
         )
-        .subscribe((url) => {
-          if (url) {
-            console.log(url);
-          }
-        });
+        .subscribe((url) => {});
     }
   }
 }

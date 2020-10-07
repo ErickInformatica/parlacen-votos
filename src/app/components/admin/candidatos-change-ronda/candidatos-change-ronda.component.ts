@@ -100,7 +100,6 @@ export class CandidatosChangeRondaComponent implements OnInit {
   getCandidatos() {
     this._candidatoService.getCandidatos(this.token).subscribe((res) => {
       this.candidatos = res.datos;
-      console.log(res.datos);
 
     });
   }
@@ -118,9 +117,7 @@ export class CandidatosChangeRondaComponent implements OnInit {
           (res) => {
             resolve(res);
           },
-          (err) => {
-            console.log(err);
-          }
+          (err) => {}
         );
     });
   }

@@ -40,19 +40,16 @@ export class VotoSecretarioComponent implements OnInit {
     this.getVotosSecretario();
   }
   getSelected(ev, datos) {
-    this.votoModel.tipoVoto = '';
-    console.log(datos);
+    this.votoModel.tipoVoto = '';;
   }
 
   getSelectedNoW(ev) {
     this.votoModel.idCandidato = '';
-    console.log(this.votoModel);
   }
 
   addPromise(): Promise<any> {
     return new Promise((resolve, reject) => {
       this._votoService.addVoto(this.token, this.votoModel).subscribe((res) => {
-        console.log(res);
         resolve(res);
       });
     });
@@ -113,7 +110,6 @@ export class VotoSecretarioComponent implements OnInit {
             if (this.filterXPaisDominicana.length > 0) {
               this.imagenTitulo = this.filterXPaisDominicana[0].datos.datosPais.imagenPais;
               this.votoModel.pais = this.filterXPaisDominicana[0].datos.datosPais.nombrePais;
-              console.log(this.filterXPaisDominicana);
             }
           }
           if (
@@ -129,7 +125,6 @@ export class VotoSecretarioComponent implements OnInit {
             if (this.filterXPaisGuatemala.length > 0) {
               this.imagenTitulo = this.filterXPaisGuatemala[0].datos.datosPais.imagenPais;
               this.votoModel.pais = this.filterXPaisGuatemala[0].datos.datosPais.nombrePais;
-              console.log(this.filterXPaisGuatemala);
             }
           }
           if (
@@ -146,7 +141,6 @@ export class VotoSecretarioComponent implements OnInit {
             if (this.filterXPaisSalvador.length > 0) {
               this.imagenTitulo = this.filterXPaisSalvador[0].datos.datosPais.imagenPais;
               this.votoModel.pais = this.filterXPaisSalvador[0].datos.datosPais.nombrePais;
-              console.log(this.filterXPaisSalvador);
             }
           }
           if (
@@ -164,7 +158,6 @@ export class VotoSecretarioComponent implements OnInit {
             if (this.filterXPaisHonduras.length > 0) {
               this.imagenTitulo = this.filterXPaisHonduras[0].datos.datosPais.imagenPais;
               this.votoModel.pais = this.filterXPaisHonduras[0].datos.datosPais.nombrePais;
-              console.log(this.filterXPaisHonduras);
             }
           }
           if (
@@ -180,8 +173,6 @@ export class VotoSecretarioComponent implements OnInit {
         }
       },
       (err) => {
-        console.log(err);
-
         if (err.error && err.error.message === 'No hay candidatos a votar') {
           this.modalFinal = true;
         }

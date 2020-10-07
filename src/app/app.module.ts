@@ -30,10 +30,14 @@ import { TokenComponent } from './components/admin/token/token.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { PaisComponent } from './components/pais/pais.component';
 import { AngularFireModule } from '@angular/fire';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { LogeadoGuard } from './models/logeado.guard';
-import { NotLogindGuard } from './models/notLogin.guard';
+import { NotLoginUserGuard } from './services/notLoginUser.guard';
+import { UserHomeComponent } from './components/user-home/user-home.component';
+import { LoginRolsGuard } from './services/loginRols.guard';
+import { NotLoginAdminGuard } from './services/notLoginAdmin.guard';
+import { NotLoginSAGuard } from './services/notLoginSA.guard';
 
 @NgModule({
   declarations: [
@@ -58,7 +62,8 @@ import { NotLogindGuard } from './models/notLogin.guard';
     UsersComponent,
     TokenComponent,
     RegistroComponent,
-    PaisComponent
+    PaisComponent,
+    UserHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +78,7 @@ import { NotLogindGuard } from './models/notLogin.guard';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule
   ],
-  providers: [LogeadoGuard, NotLogindGuard],
+  providers: [LoginRolsGuard, NotLoginUserGuard, NotLoginAdminGuard, NotLoginSAGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

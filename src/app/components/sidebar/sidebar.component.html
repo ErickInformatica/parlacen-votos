@@ -6,11 +6,9 @@
       <ul class="nav-list">
         <li><a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
           true}" class="nav-link">Bienvenida</a></li>
-        <li><a routerLink="/home/voto" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-          true}" class="nav-link">Voto</a></li>
       </ul>
     </section>
-    <!-- Pruebas -->
+    <!-- Pruebas
     <section class="nav-group collapsible">
       <input id="tabexample2" type="checkbox">
       <label for="tabexample2">Pruebas</label>
@@ -25,20 +23,28 @@
         <li><a routerLink="/home/votoS/Secretaria/1ra" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
               true}" class="nav-link">Voto Secretario</a></li>
       </ul>
-    </section>
+    </section> -->
     <!-- Candidatos -->
     <section class="nav-group collapsible">
       <input id="tabexample3" type="checkbox">
       <label for="tabexample3">Candidatos</label>
       <ul class="nav-list">
-        <li><a routerLink="/home/candidatos" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+        <li><a routerLink="/home/candidatos" *ngIf="UserService.getIdentity().datos.rol === 'SA'"
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact:
           true}" class="nav-link">Candidatos</a></li>
-        <li><a routerLink="/home/candidatosRound" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+        <li><a routerLink="/admin/candidatos" *ngIf="UserService.getIdentity().datos.rol === 'ADMIN'"
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+            true}" class="nav-link">Candidatos</a></li>
+        <li><a routerLink="/home/candidatosRound" *ngIf="UserService.getIdentity().datos.rol === 'SA'"
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact:
             true}" class="nav-link">Siguiente Ronda o Nueva Votacion</a></li>
+        <li><a routerLink="/admin/candidatosRound" *ngIf="UserService.getIdentity().datos.rol === 'ADMIN'"
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+              true}" class="nav-link">Siguiente Ronda o Nueva Votacion</a></li>
       </ul>
     </section>
     <!-- Papeletas -->
-    <section class="nav-group collapsible">
+    <section class="nav-group collapsible" *ngIf="UserService.getIdentity().datos.rol === 'SA'">
       <input id="tabexample4" type="checkbox">
       <label for="tabexample4">Papeletas</label>
       <ul class="nav-list">
@@ -50,7 +56,7 @@
               true}" class="nav-link">Papeleta Secretario</a></li>
       </ul>
     </section>
-    <section class="nav-group collapsible">
+    <section class="nav-group collapsible" *ngIf="UserService.getIdentity().datos.rol === 'SA'">
       <input id="tabexample5" type="checkbox">
       <label for="tabexample5">Administrativa</label>
       <ul class="nav-list">
@@ -66,8 +72,12 @@
       <input id="tabexample6" type="checkbox">
       <label for="tabexample6">Estadisticas</label>
       <ul class="nav-list">
-        <li><a routerLink="/home/graficas" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+        <li><a routerLink="/home/graficas" *ngIf="UserService.getIdentity().datos.rol === 'SA'"
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact:
           true}" class="nav-link">Graficas</a></li>
+        <li><a routerLink="/admin/graficas" *ngIf="UserService.getIdentity().datos.rol === 'ADMIN'"
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+            true}" class="nav-link">Graficas</a></li>
       </ul>
     </section>
   </section>

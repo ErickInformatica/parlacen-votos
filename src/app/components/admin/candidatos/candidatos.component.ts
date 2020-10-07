@@ -91,7 +91,6 @@ export class CandidatosComponent implements OnInit {
   getPaises() {
     this._paisService.getPaises(this.token).subscribe((res) => {
       this.paisesData = res.datos;
-      console.log(res);
     });
   }
 
@@ -139,7 +138,7 @@ export class CandidatosComponent implements OnInit {
                   .addCandidatos(this.token, this.newCandidato)
                   .subscribe(
                     (res) => {
-                      this.variablesModals.add = false
+
                       Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -147,6 +146,7 @@ export class CandidatosComponent implements OnInit {
                         showConfirmButton: false,
                         timer: 1500,
                       });
+                      this.variablesModals.add = false
                       resolve(res)
                     },
                     (err) => {
@@ -163,9 +163,7 @@ export class CandidatosComponent implements OnInit {
             })
           )
           .subscribe((url) => {
-            if (url) {
-              console.log(url);
-            }
+            if (url) {}
           });
       }
     });
@@ -174,7 +172,6 @@ export class CandidatosComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this._candidatoService.deleteCandidato(this.token, id).subscribe(
         (res) => {
-          this.variablesModals.delete = false
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -182,6 +179,7 @@ export class CandidatosComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
+          this.variablesModals.delete = false
           resolve(res)
         },
         (err) => {
@@ -242,7 +240,6 @@ export class CandidatosComponent implements OnInit {
 
   uploadFile(evn) {
     this.file = evn.target.files[0];
-    console.log(this.file);
   }
 
   changeCandidato(evt) {

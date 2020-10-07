@@ -1,22 +1,30 @@
 <clr-header class="header-6 header">
   <div class="branding">
-    <a class="logo-and-title" routerlink="/" href="/">
+    <a class="logo-and-title" routerlink="/">
       <span class="clr-icon clarity-logo"><img class="responsive-logo" src="/assets/logo.png" alt=""></span>
       <span class="title">Parlamento Centroamericano</span>
     </a>
   </div>
   <div class="divider"></div>
   <div class="header-nav" [clr-nav-level]="1">
-    <a class="nav-link" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+
+    <a class="nav-link" *ngIf="userService.getIdentity().datos.rol === 'SA'" routerLink="/home"
+      routerLinkActive="active" [routerLinkActiveOptions]="{exact:
         true}">
       <span class="nav-text">Bienvenida</span>
     </a>
 
+    <a class="nav-link" *ngIf="userService.getIdentity().datos.rol === 'ADMIN'" routerLink="/admin"
+      routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+      true}">
+      <span class="nav-text">Bienvenida</span>
+    </a>
+    <!--
     <a class="nav-link" routerLink="/home/voto" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
         true}">
       <span class="nav-text">Voto</span>
-    </a>
-    <clr-dropdown>
+    </a> -->
+    <!-- <clr-dropdown>
       <a class="nav-link" clrDropdownTrigger>
         <span class="nav-text">Papeletas</span>
       </a>
@@ -28,23 +36,73 @@
         <a routerLink="/home/papeleta3" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
           true}" clrDropdownItem>Papeleta Secretario</a>
       </clr-dropdown-menu>
-    </clr-dropdown>
-    <a class="nav-link" routerLink="/home/graficas" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+    </clr-dropdown> -->
+    <a class="nav-link" *ngIf="userService.getIdentity().datos.rol === 'SA'" routerLink="/home/graficas"
+      routerLinkActive="active" [routerLinkActiveOptions]="{exact:
         true}">
       <span class="nav-text">Graficas</span>
     </a>
+    <a class="nav-link" *ngIf="userService.getIdentity().datos.rol === 'ADMIN'" routerLink="/admin/graficas"
+      routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+      true}">
+      <span class="nav-text">Graficas</span>
+    </a>
+    <button type="button" (click)="modalTokens = true" *ngIf="userService.getIdentity().datos.rol === 'ADMIN' ||userService.getIdentity().datos.rol === 'SA' " class="btn btn-icon btn-warning" aria-label="settings" style="margin-left: 10px; margin-top: 10px;">Cerrar Votaciones</button>
   </div>
+
   <div class="header-actions">
     <clr-dropdown>
       <button class="nav-text" clrDropdownTrigger aria-label="open user profile">
-        nombre
+        {{userService.getIdentity().datos.email}}
         <clr-icon shape="caret down"></clr-icon>
       </button>
       <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-        <a href="..." clrDropdownItem>Preferences</a>
-        <a href="..." clrDropdownItem>Log out</a>
+        <a *ngIf="userService.getIdentity().datos.rol === 'USER'" clrDropdownItem (click)="openModalPass = true">Cambiar Contraseña</a>
+        <a clrDropdownItem (click)="cerrarSesion()">Cerrar Sesión</a>
       </clr-dropdown-menu>
     </clr-dropdown>
   </div>
 
 </clr-header>
+
+
+<!-- Change Password -->
+<clr-modal [(clrModalOpen)]="openModalPass" >
+  <h3 class="modal-title">Editar Datos</h3>
+  <div class="modal-body">
+    <form clrForm [formGroup]="registerForm" (ngSubmit)="changePasswordUser()">
+      <clr-password-container>
+        <label>Contraseña Actual</label>
+        <input type="password" formControlName="password" [(ngModel)]="modelPass.password" name="password" clrPassword
+          placeholder="Contraseña" />
+      </clr-password-container>
+      <clr-password-container>
+        <label >Contraseña Nueva</label>
+        <input type="password" formControlName="newPassword"  name="password" clrPassword placeholder="Contraseña" />
+      </clr-password-container>
+      <clr-password-container>
+        <label >Confirmar Contraseña Nueva</label>
+        <input type="password" formControlName="confirmPassword"  [(ngModel)]="modelPass.newPassword" name="password" clrPassword
+          placeholder="Contraseña" />
+            <clr-control-error *ngIf="f.confirmPassword.errors && f.confirmPassword.errors.mustMatch !== null">¡Las contraseña deben coincidir!</clr-control-error>
+      </clr-password-container>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="openModalPass = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" >Editar</button>
+      </div>
+    </form>
+  </div>
+
+</clr-modal>
+
+<!-- CerrarTokens -->
+<clr-modal [(clrModalOpen)]="modalTokens" >
+  <h3 class="modal-title">¡¡¡PREACAUCIÓN!!!</h3>
+  <div class="modal-body">
+    <p>¿ESTÁ SEGURO DE CERRAR LAS VOTACIONES?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="modalTokens = false">Cancelar</button>
+    <button type="button" class="btn btn-warning" (click)="cerrarTokens()">CERRAR VOTACIONES</button>
+  </div>
+</clr-modal>

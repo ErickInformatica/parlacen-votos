@@ -17,7 +17,7 @@ export class VotoInformacionComponent implements OnInit {
   }
 
   redirect(){
-    this._router.navigate([`home/votoP/Presidente/1ra`])
+    this._router.navigate([`user/votoP/Presidente/1ra`])
   }
 
 }

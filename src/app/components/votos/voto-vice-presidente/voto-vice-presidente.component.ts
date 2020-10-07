@@ -37,18 +37,15 @@ export class VotoVicePresidenteComponent implements OnInit {
   }
   getSelected(ev, datos){
     this.votoModel.tipoVoto = ''
-    console.log(datos);
   }
 
   getSelectedNoW(ev){
     this.votoModel.idCandidato = ''
-    console.log(this.votoModel);
   }
 
   addPromise(): Promise<any> {
     return new Promise((resolve, reject) => {
       this._votoService.addVoto(this.token, this.votoModel).subscribe((res) => {
-        console.log(res);
         resolve(res);
       });
     });
@@ -73,7 +70,6 @@ export class VotoVicePresidenteComponent implements OnInit {
          if(this.filterXPaisPanama.length > 0) {
           this.imagenTitulo = this.filterXPaisPanama[0].datos.datosPais.imagenPais
           this.votoModel.pais = this.filterXPaisPanama[0].datos.datosPais.nombrePais
-          console.log(this.filterXPaisPanama);
          }
 
           if(this.filterXPaisPanama.length === 0){
@@ -85,14 +81,9 @@ export class VotoVicePresidenteComponent implements OnInit {
             if(this.filterXPaisNicaragua.length > 0) {
             this.imagenTitulo = this.filterXPaisNicaragua[0].datos.datosPais.imagenPais
             this.votoModel.pais = this.filterXPaisNicaragua[0].datos.datosPais.nombrePais
-            console.log(this.filterXPaisNicaragua);
             }
-            console.log('1');
-            console.log(this.filterXPaisPanama.length === 0 && this.filterXPaisNicaragua.length === 0);
-            console.log(this.filterXPaisNicaragua.length === 0);
           }
           if(this.filterXPaisPanama.length === 0 && this.filterXPaisNicaragua.length === 0){
-            console.log('2');
             this.filterXPaisDominicana = this.candidatos.filter((elem)=>{
               if(elem.datos.datosPais.nombrePais === 'Republica Dominicana'){
                 return elem.datos.datosPais.nombrePais === 'Republica Dominicana'
@@ -102,7 +93,6 @@ export class VotoVicePresidenteComponent implements OnInit {
             if(this.filterXPaisDominicana.length > 0) {
               this.imagenTitulo = this.filterXPaisDominicana[0].datos.datosPais.imagenPais
               this.votoModel.pais = this.filterXPaisDominicana[0].datos.datosPais.nombrePais
-              console.log(this.filterXPaisDominicana);
               }
           }
           if(this.filterXPaisPanama.length === 0 && this.filterXPaisNicaragua.length === 0 && this.filterXPaisDominicana.length === 0){
@@ -114,7 +104,6 @@ export class VotoVicePresidenteComponent implements OnInit {
             if(this.filterXPaisGuatemala.length > 0) {
               this.imagenTitulo = this.filterXPaisGuatemala[0].datos.datosPais.imagenPais
               this.votoModel.pais = this.filterXPaisGuatemala[0].datos.datosPais.nombrePais
-              console.log(this.filterXPaisGuatemala);
               }
           }
           if(this.filterXPaisPanama.length === 0 && this.filterXPaisNicaragua.length === 0 && this.filterXPaisDominicana.length === 0 && this.filterXPaisGuatemala.length === 0){
@@ -126,16 +115,16 @@ export class VotoVicePresidenteComponent implements OnInit {
             if(this.filterXPaisSalvador.length > 0) {
               this.imagenTitulo = this.filterXPaisSalvador[0].datos.datosPais.imagenPais
               this.votoModel.pais = this.filterXPaisSalvador[0].datos.datosPais.nombrePais
-              console.log(this.filterXPaisSalvador);
+
               }
           }
            if(this.filterXPaisPanama.length === 0 && this.filterXPaisNicaragua.length === 0 && this.filterXPaisDominicana.length === 0 && this.filterXPaisGuatemala.length === 0 && this.filterXPaisSalvador.length === 0){
-            this._router.navigate(['/home/votoS/Secretaria/1ra'])
+            this._router.navigate(['/user/votoS/Secretaria/1ra'])
           }
         }
       }, err=>{
         if(err.error.message === "No hay candidatos a votar"){
-          this._router.navigate(['/home/votoS/Secretaria/1ra'])
+          this._router.navigate(['/user/votoS/Secretaria/1ra'])
         }
       }
     )

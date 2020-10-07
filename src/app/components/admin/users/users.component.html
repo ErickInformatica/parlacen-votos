@@ -22,6 +22,9 @@
         <clr-dg-cell>{{user.datos.vancada}}</clr-dg-cell>
         <clr-dg-cell>
           <div class="btn-group btn-link btn-icon btn-sm">
+            <button class="btn" (click)="getUserId(user.id); variablesModals.pass = true">
+              <clr-icon shape="lock"></clr-icon>
+            </button>
             <button class="btn" (click)="getUserId(user.id); variablesModals.edit = true">
               <clr-icon shape="pencil"></clr-icon>
             </button>
@@ -139,5 +142,29 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="variablesModals.delete = false">Cancel</button>
     <button type="button" class="btn btn-primary" (click)="variablesModals.delete = false">Ok</button>
+  </div>
+</clr-modal>
+
+<!-- Change Pass Modal -->
+<clr-modal [(clrModalOpen)]="variablesModals.pass">
+  <h3 class="modal-title">Eliminar Datos</h3>
+  <div class="modal-body">
+    <form clrForm [formGroup]="registerForm" (ngSubmit)="changePassword(getUpdateUser.id)">
+      <clr-password-container>
+        <label>Contraseña Nueva</label>
+        <input type="password" formControlName="password" name="passwordact" clrPassword
+          placeholder="Contraseña" />
+      </clr-password-container>
+      <clr-password-container>
+        <label >Confirmar Contraseña Nueva</label>
+        <input type="password" formControlName="confirmPassword"  [(ngModel)]="newPassword.password" name="password" clrPassword
+          placeholder="Contraseña" />
+            <clr-control-error *ngIf="f.confirmPassword.errors && f.confirmPassword.errors.mustMatch !== null">¡Las contraseña deben coincidir!</clr-control-error>
+      </clr-password-container>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="variablesModals.pass = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" >Cambiar Contraseña</button>
+      </div>
+    </form>
   </div>
 </clr-modal>

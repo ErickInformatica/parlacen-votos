@@ -33,18 +33,15 @@ export class VotoPresidenteComponent implements OnInit {
   }
   getSelected(ev, datos){
     this.votoModel.tipoVoto = ''
-    console.log(datos);
   }
 
   getSelectedNoW(ev){
     this.votoModel.idCandidato = ''
-    console.log(this.votoModel);
   }
 
   addPromise(): Promise<any> {
     return new Promise((resolve, reject) => {
       this._votoService.addVoto(this.token, this.votoModel).subscribe((res) => {
-        console.log(res);
         resolve(res);
       });
     });
@@ -71,12 +68,12 @@ export class VotoPresidenteComponent implements OnInit {
           this.votoModel.pais = this.filterXPaisHonduras[0].datos.datosPais.nombrePais
          }
            if(this.filterXPaisHonduras.length === 0 ){
-            this._router.navigate(['/home/votoV/Vicepresidente/1ra'])
+            this._router.navigate(['/user/votoV/Vicepresidente/1ra'])
           }
         }
       }, err=>{
         if(err.error && err.error.message === "No hay candidatos a votar"){
-          this._router.navigate(['/home/votoV/Vicepresidente/1ra'])
+          this._router.navigate(['/user/votoV/Vicepresidente/1ra'])
         }
       }
     )

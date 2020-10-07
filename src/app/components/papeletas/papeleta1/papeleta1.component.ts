@@ -58,7 +58,6 @@ export class Papeleta1Component implements OnInit {
     return new Promise((resolve, reject) => {
       this._votoService.getVotosAPresidente(this.token).subscribe((res) => {
         this.votos = res;
-        console.log(res);
 
         resolve(res);
       });

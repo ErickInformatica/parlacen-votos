@@ -33,7 +33,7 @@ export class TokenService {
     let params = JSON.stringify(datos)
     let headersToken = this.headers.set('Authorization', token)
     return this._http.post(this.url + '/addToken', params,{
-      headers: this.headers,
+      headers: headersToken,
     });
   }
 
