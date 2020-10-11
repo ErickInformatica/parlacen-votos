@@ -8,13 +8,19 @@
   <div class="divider"></div>
   <div class="header-nav" [clr-nav-level]="1">
 
-    <a class="nav-link" *ngIf="userService.getIdentity().datos.rol === 'SA'" routerLink="/home"
+    <a class="nav-link" *ngIf="!userService.getIdentity()" routerLink="/"
+      routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+        true}">
+      <span class="nav-text">Inicio</span>
+    </a>
+
+    <a class="nav-link" *ngIf="userService.getIdentity() && userService.getIdentity().datos.rol === 'SA'" routerLink="/home"
       routerLinkActive="active" [routerLinkActiveOptions]="{exact:
         true}">
       <span class="nav-text">Bienvenida</span>
     </a>
 
-    <a class="nav-link" *ngIf="userService.getIdentity().datos.rol === 'ADMIN'" routerLink="/admin"
+    <a class="nav-link" *ngIf="userService.getIdentity() && userService.getIdentity().datos.rol === 'ADMIN'" routerLink="/admin"
       routerLinkActive="active" [routerLinkActiveOptions]="{exact:
       true}">
       <span class="nav-text">Bienvenida</span>
@@ -37,27 +43,32 @@
           true}" clrDropdownItem>Papeleta Secretario</a>
       </clr-dropdown-menu>
     </clr-dropdown> -->
-    <a class="nav-link" *ngIf="userService.getIdentity().datos.rol === 'SA'" routerLink="/home/graficas"
+    <a class="nav-link" *ngIf="userService.getIdentity() && userService.getIdentity().datos.rol === 'SA'" routerLink="/home/graficas"
       routerLinkActive="active" [routerLinkActiveOptions]="{exact:
         true}">
       <span class="nav-text">Graficas</span>
     </a>
-    <a class="nav-link" *ngIf="userService.getIdentity().datos.rol === 'ADMIN'" routerLink="/admin/graficas"
+    <a class="nav-link" *ngIf="userService.getIdentity() && userService.getIdentity().datos.rol === 'ADMIN'" routerLink="/admin/graficas"
       routerLinkActive="active" [routerLinkActiveOptions]="{exact:
       true}">
       <span class="nav-text">Graficas</span>
     </a>
-    <button type="button" (click)="modalTokens = true" *ngIf="userService.getIdentity().datos.rol === 'ADMIN' ||userService.getIdentity().datos.rol === 'SA' " class="btn btn-icon btn-warning" aria-label="settings" style="margin-left: 10px; margin-top: 10px;">Cerrar Votaciones</button>
+    <a class="nav-link" *ngIf="!userService.getIdentity()" routerLink="/graficas"
+      routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+      true}">
+      <span class="nav-text">Graficas</span>
+    </a>
+    <button type="button" (click)="modalTokens = true" *ngIf="userService.getIdentity() && userService.getIdentity().datos.rol === 'ADMIN' ||userService.getIdentity() && userService.getIdentity().datos.rol === 'SA' " class="btn btn-icon btn-warning" aria-label="settings" style="margin-left: 10px; margin-top: 10px;">Cerrar Votaciones</button>
   </div>
 
-  <div class="header-actions">
+  <div class="header-actions" *ngIf="userService.getIdentity()">
     <clr-dropdown>
       <button class="nav-text" clrDropdownTrigger aria-label="open user profile">
         {{userService.getIdentity().datos.email}}
         <clr-icon shape="caret down"></clr-icon>
       </button>
       <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-        <a *ngIf="userService.getIdentity().datos.rol === 'USER'" clrDropdownItem (click)="openModalPass = true">Cambiar Contraseña</a>
+        <a *ngIf="userService.getIdentity() && userService.getIdentity().datos.rol === 'USER'" clrDropdownItem (click)="openModalPass = true">Cambiar Contraseña</a>
         <a clrDropdownItem (click)="cerrarSesion()">Cerrar Sesión</a>
       </clr-dropdown-menu>
     </clr-dropdown>

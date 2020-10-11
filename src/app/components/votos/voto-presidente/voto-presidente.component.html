@@ -53,17 +53,16 @@
             (change)="getSelectedNoW($event)" />
           <label>En Blanco</label>
         </clr-radio-wrapper>
-        <clr-radio-wrapper>
+        <!-- <clr-radio-wrapper>
           <input type="radio" clrRadio name="Nulo" required value="Nulo" [(ngModel)]="votoModel.tipoVoto"
             (change)="getSelectedNoW($event)" />
           <label>Nulo</label>
-        </clr-radio-wrapper>
-        <clr-control-helper>Selecciona uno</clr-control-helper>
-        <clr-control-error>This field is required!</clr-control-error>
+        </clr-radio-wrapper> -->
+        <!-- <clr-control-helper>Selecciona uno</clr-control-helper> -->
       </clr-radio-container>
 
     </form>
-    <button class="button" class="btn btn-primary floatLeftButton" (click)="addVoto()">Siguiente</button>
+    <button class="button" class="btn btn-primary floatLeftButton" (click)="addVoto()">Realizar Voto</button>
 
   </div>
 </div>

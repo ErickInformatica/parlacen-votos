@@ -28,6 +28,7 @@ import { NotLoginSAGuard } from './services/notLoginSA.guard';
 const routes: Routes = [
     {path: '', component: LoginComponent, canActivate:[LoginRolsGuard]},
     {path: 'registro', component: RegistroComponent, canActivate:[LoginRolsGuard]},
+    { path: 'graficas', component: ChartsComponent },
     {path: '', redirectTo: '', pathMatch: 'full'},
     {path: 'admin', component: HomeComponent, canActivate: [NotLoginAdminGuard] ,children: [
       { path: '', component: WelcomeUserComponent },

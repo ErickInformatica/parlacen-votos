@@ -1,1 +1,7 @@
-<router-outlet></router-outlet>
+<clr-main-container>
+  <app-header *ngIf="!userService.getIdentity()"></app-header>
+
+    <router-outlet></router-outlet>
+
+
+</clr-main-container>

@@ -2,6 +2,15 @@
   <div class="clr-col-12 clr-align-self-center">
     <h1 class="pAlingCenter">Datos Papeleta Presidente</h1>
 
+    <h5>Exportar</h5>
+    <div class="btn-group">
+      <button class="btn" (click)="exportAsXLSX()">
+        <clr-icon shape="export"></clr-icon>
+      </button>
+      <button class="btn" (click)="exportGeneral()">General</button>
+    </div>
+
+
     <!-- Paises -->
 
     <ng-container *ngIf="cType !== ''">
@@ -17,7 +26,7 @@
 
 
 
-    <clr-datagrid>
+    <clr-datagrid id="excel-table">
       <clr-dg-column>ID</clr-dg-column>
       <clr-dg-column clrDgField="datos.datosUsuario.votoIdUsuario">Usuario</clr-dg-column>
       <clr-dg-column clrDgField="datos.idCandidato">Candidato Votado</clr-dg-column>

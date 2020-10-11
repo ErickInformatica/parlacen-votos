@@ -30,7 +30,7 @@ export class ChartsComponent implements OnInit {
   chartLabels = [];
   chartOptions: ChartOptions = {
     responsive: true,
-    plugins: {
+    plugins:{
       labels: [
         {
           render: 'percentage',
@@ -52,7 +52,7 @@ export class ChartsComponent implements OnInit {
           position: 'outside',
         },
       ],
-    },
+    }
   };
   chartColors: ChartColor = [
     {
@@ -139,6 +139,33 @@ export class ChartsComponent implements OnInit {
   chartDataSecHonduras = [{ data: [] }];
   chartLabelsSecHonduras = [];
 
+  // ALL
+  chartDataAll = [
+    { data: [] }
+  ];
+  chartLabelsAll = [];
+
+  // Grafica general
+  chartDataGeneral = [{ data: []}]
+  chartLabelsGeneral = []
+  chartLegendGeneral = false;
+  chartOptionsGeneral: ChartOptions = {
+    responsive: true,
+    plugins:{
+      labels: [
+        {
+          render: 'value',
+          arc: true,
+          fontSize: 14,
+          fontStyle: 'bold',
+          fontColor: '#000',
+          fontFamily: '"Lucida Console", Monaco, monospace',
+          position: 'outside',
+        },
+      ],
+    }
+  };
+
   private lineChart: any;
   items;
   public imagenTitulo;
@@ -148,6 +175,7 @@ export class ChartsComponent implements OnInit {
   public filterXPaisDominicana = [];
   public filterXPaisGuatemala = [];
   public filterXPaisHonduras = [];
+  public all = []
   public token;
   public candidatos;
   constructor(
@@ -159,6 +187,15 @@ export class ChartsComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  sumdata(array){
+    if(array.length > 0){
+      return array.reduce(function(a, b){
+        return a + b;
+     }, 0);
+    }
+
+  }
 
   getVotosPresi() {
     this.items = this.db.collection('Conteos', (ref) =>
@@ -190,9 +227,72 @@ export class ChartsComponent implements OnInit {
               this.chartLabelsPresidente.push(hour);
             }
           }
+          this.chartDataGeneral[0].data.push(this.sumdata(this.chartDataPresidente[0].data))
+          this.chartLabelsGeneral.push('Presidente(a) Honduras')
         }
       }
     });
+  }
+
+  removeDuplicates(originalArray, prop) {
+    var newArray = [];
+    var lookupObject = {};
+
+    for (var i in originalArray) {
+      lookupObject[originalArray[i][prop]] = originalArray[i];
+    }
+
+    for (i in lookupObject) {
+      newArray.push(lookupObject[i]);
+    }
+    return newArray;
+  }
+
+  getAll(){
+    this.getVotosPresi()
+    this.getVotosVice()
+    this.getVotosSec()
+    this.items = this.db.collection('Conteos', (ref) =>
+      ref
+        .where('ronda', '==', this.rondaSeleccionada)
+    );
+    this.items.valueChanges().subscribe((res) => {
+      this.all = res
+      console.log(this.all);
+
+      // let filtrarPaises = [...new Map(this.all.map(item => [item.datosPais.nombrePais, item])).values()]
+      // console.log(filtrarPaises);
+
+      if (this.all.length > 0) {
+        this.chartDataAll[0].data = [];
+        this.chartLabelsAll = [];
+        let candidatosGuatemala = this.all.filter((elem) => {
+          if (elem.datosPais.nombrePais === 'Guatemala') {
+            return elem.datosPais.nombrePais === 'Guatemala';
+          }
+        });
+        for (let key of Object.keys(this.all)) {
+
+          this.chartDataAll[0].data.push(
+            this.all[key].numeroVotos
+          );
+
+
+          if (this.all[key].datosCandidato !== '') {
+            let hour = this.all[key].datosCandidato
+              .nombreCandidato;
+            this.chartLabelsAll.push(hour);
+          }
+          if (
+            this.all[key].tipoVoto === 'Nulo' ||
+            this.all[key].tipoVoto === 'En Blanco'
+          ) {
+            let hour = this.all[key].tipoVoto;
+            this.chartLabelsAll.push(hour);
+          }
+        }
+      }
+    })
   }
 
   getVotosSec() {
@@ -229,6 +329,8 @@ export class ChartsComponent implements OnInit {
               this.chartLabelsSecPanama.push(hour);
             }
           }
+          this.chartDataGeneral[0].data.push(this.sumdata(this.chartDataSecPanama[0].data))
+          this.chartLabelsGeneral.push('Secretario(a) Panama')
         }
 
         this.filterXPaisNicaragua = this.candidatos.filter((elem) => {
@@ -256,6 +358,8 @@ export class ChartsComponent implements OnInit {
               this.chartLabelsSecNicaragua.push(hour);
             }
           }
+          this.chartDataGeneral[0].data.push(this.sumdata(this.chartDataSecNicaragua[0].data))
+          this.chartLabelsGeneral.push('Secretario(a) Nicaragua')
         }
 
         this.filterXPaisDominicana = this.candidatos.filter((elem) => {
@@ -285,6 +389,8 @@ export class ChartsComponent implements OnInit {
             }
 
           }
+          this.chartDataGeneral[0].data.push(this.sumdata(this.chartDataSecDominicana[0].data))
+          this.chartLabelsGeneral.push('Secretario(a) Republica Dominicana')
         }
 
         this.filterXPaisGuatemala = this.candidatos.filter((elem) => {
@@ -312,6 +418,8 @@ export class ChartsComponent implements OnInit {
               this.chartLabelsSecGuatemala.push(hour);
             }
           }
+          this.chartDataGeneral[0].data.push(this.sumdata(this.chartDataSecGuatemala[0].data))
+          this.chartLabelsGeneral.push('Secretario(a) Guatemala')
         }
 
         this.filterXPaisSalvador = this.candidatos.filter((elem) => {
@@ -339,6 +447,8 @@ export class ChartsComponent implements OnInit {
               this.chartLabelsSecSalvador.push(hour);
             }
           }
+          this.chartDataGeneral[0].data.push(this.sumdata(this.chartDataSecSalvador[0].data))
+          this.chartLabelsGeneral.push('Secretario(a) El Salvador')
         }
 
         this.filterXPaisHonduras = this.candidatos.filter((elem) => {
@@ -366,6 +476,8 @@ export class ChartsComponent implements OnInit {
               this.chartLabelsSecHonduras.push(hour);
             }
           }
+          this.chartDataGeneral[0].data.push(this.sumdata(this.chartDataSecHonduras[0].data))
+          this.chartLabelsGeneral.push('Secretario(a) Honduras')
         }
       }
     });
@@ -405,6 +517,8 @@ export class ChartsComponent implements OnInit {
               this.chartLabelsVicePanama.push(hour);
             }
           }
+          this.chartDataGeneral[0].data.push(this.sumdata(this.chartDataVicePanama[0].data))
+          this.chartLabelsGeneral.push('Vicepresidente(a) Panama')
         }
 
         this.filterXPaisNicaragua = this.candidatos.filter((elem) => {
@@ -432,6 +546,8 @@ export class ChartsComponent implements OnInit {
               this.chartLabelsViceNicaragua.push(hour);
             }
           }
+          this.chartDataGeneral[0].data.push(this.sumdata(this.chartDataViceNicaragua[0].data))
+          this.chartLabelsGeneral.push('Vicepresidente(a) Nicaragua')
         }
 
         this.filterXPaisDominicana = this.candidatos.filter((elem) => {
@@ -460,6 +576,8 @@ export class ChartsComponent implements OnInit {
               this.chartLabelsViceDominicana.push(hour);
             }
           }
+          this.chartDataGeneral[0].data.push(this.sumdata(this.chartDataViceDominicana[0].data))
+          this.chartLabelsGeneral.push('Vicepresidente(a) Repuvlica Dominicana')
         }
 
         this.filterXPaisGuatemala = this.candidatos.filter((elem) => {
@@ -487,6 +605,8 @@ export class ChartsComponent implements OnInit {
               this.chartLabelsViceGuatemala.push(hour);
             }
           }
+          this.chartDataGeneral[0].data.push(this.sumdata(this.chartDataViceGuatemala[0].data))
+          this.chartLabelsGeneral.push('Vicepresidente(a) Guatemala')
         }
 
         this.filterXPaisSalvador = this.candidatos.filter((elem) => {
@@ -514,6 +634,8 @@ export class ChartsComponent implements OnInit {
               this.chartLabelsViceSalvador.push(hour);
             }
           }
+          this.chartDataGeneral[0].data.push(this.sumdata(this.chartDataViceSalvador[0].data))
+          this.chartLabelsGeneral.push('Vicepresidente(a) Salvador')
         }
       }
     });

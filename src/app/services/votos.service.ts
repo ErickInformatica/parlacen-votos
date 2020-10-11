@@ -80,7 +80,12 @@ export class VotoService {
     });
   }
 
-
+  getVotos(token): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/votos', {
+      headers: headersToken,
+    });
+  }
 
   addVoto(token, datos): Observable<any> {
     let params = JSON.stringify(datos)

@@ -2,6 +2,14 @@
   <div class="clr-col-12 clr-align-self-center">
     <h1 class="pAlingCenter">Datos Papeleta Vicepresidente</h1>
 
+    <h5>Exportar</h5>
+    <div class="btn-group">
+      <button class="btn" (click)="exportAsXLSX()">
+        <clr-icon shape="export"></clr-icon>
+      </button>
+      <button class="btn" (click)="exportGeneral()">General</button>
+    </div>
+
     <!-- Paises -->
     <clr-radio-container clrInline>
       <label>Seleccione Pais</label>

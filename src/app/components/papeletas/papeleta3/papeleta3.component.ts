@@ -3,12 +3,14 @@ import { User } from '../../../models/user.model';
 import { VotoService } from '../../../services/votos.service';
 import { UserService } from '../../../services/user.service';
 import { ClrDatagrid } from '@clr/angular';
+import { ExcelService } from '../../../services/exporEXL.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-papeleta3',
   templateUrl: './papeleta3.component.html',
   styleUrls: ['./papeleta3.component.scss'],
-  providers: [UserService, VotoService],
+  providers: [UserService, VotoService,ExcelService],
 })
 export class Papeleta3Component implements OnInit {
   @ViewChild(ClrDatagrid) dg: ClrDatagrid;
@@ -32,9 +34,11 @@ export class Papeleta3Component implements OnInit {
   public ArrayFinal = [];
   public token;
   public votos;
+  public excelVotos
   constructor(
     private _votoService: VotoService,
-    private _userService: UserService
+    private _userService: UserService,
+    private excelService:ExcelService
   )
   {
     this.token = this._userService.getToken();
@@ -43,6 +47,36 @@ export class Papeleta3Component implements OnInit {
 
   ngOnInit(): void {
     this.getPromise()
+  }
+
+  allVotos(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this._votoService.getVotos(this.token).subscribe((res) => {
+        this.excelVotos = res.datos;
+
+        resolve(res);
+      });
+    });
+  }
+
+  exportGeneral(){
+    this.allVotos().then(()=>{
+      this.excelService.exportAsExcelFile(this.excelVotos,'general')
+    })
+  }
+
+  exportAsXLSX():void {
+    if(this.ArrayFinal.length > 0){
+
+      this.excelService.exportAsExcelFile(this.ArrayFinal, 'sec');
+    }
+    Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: 'Debe seleccionar un país y luego una vuelta para generar el Excel',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   }
 
   removeDuplicates(originalArray, prop) {
