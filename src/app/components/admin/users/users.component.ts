@@ -17,7 +17,8 @@ export class UsersComponent implements OnInit {
     edit: false,
     delete: false,
     add: false,
-    pass: false
+    pass: false,
+    cambioEstado: false
   }
   public addUser={
     email: '',
@@ -58,6 +59,39 @@ export class UsersComponent implements OnInit {
       res=>{
         this.users =res.datos
 
+      }
+    )
+  }
+
+  cambiarEstado(){
+    this._userService.cambiarEstado(this.token, this.getUpdateUser.id, this.getUpdateUser.datos).subscribe(
+      res=>{
+        this.getUsers()
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Usuario cambio de estado con exito',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.variablesModals.cambioEstado = false
+      }
+    )
+  }
+
+  deleteUser(id){
+    this._userService.deleteUser(this.token,id).subscribe(
+      res=>{
+        this.getUsers()
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Usuario eliminado con exito',
+          showConfirmButton: false,
+          timer: 1500
+        })
+
+        this.variablesModals.delete = false
       }
     )
   }

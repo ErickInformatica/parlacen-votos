@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { UserService } from '../../../services/user.service';
 import { VotoService } from '../../../services/votos.service';
 
@@ -43,11 +44,28 @@ export class VotoPresidenteComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this._votoService.addVoto(this.token, this.votoModel).subscribe((res) => {
         resolve(res);
+      }, err=>{
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: err.error.message,
+          showConfirmButton: false,
+          timer: 2000
+        })
       });
     });
   }
 
   addVoto(){
+    if(this.votoModel.idCandidato === '' && this.votoModel.tipoVoto === ''){
+      return Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Debe seleccionar algo a votar, no puede ir vacio',
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
     this.addPromise().then(res=>{
       this.getVotosPresidente()
     })
@@ -72,8 +90,16 @@ export class VotoPresidenteComponent implements OnInit {
           }
         }
       }, err=>{
-        if(err.error && err.error.message === "No hay candidatos a votar"){
+        if(err.error.message === "No hay candidatos a votar" || err.error.message === "No hay candidatos ha votar"){
           this._router.navigate(['/user/votoV/Vicepresidente/1ra'])
+        }else{
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.error.message,
+            showConfirmButton: false,
+            timer: 2000
+          })
         }
       }
     )

@@ -17,7 +17,8 @@ public exportAsExcelFile(json: any[], excelFileName: string): void {
         voto: dat.datos.tipoVoto,
         puestoCandidato: dat.datos.puestoCandidato ,
         vuelta: dat.datos.ronda,
-        token: dat.datos.idToken
+        token: dat.datos.datosToken.token,
+        usuario: dat.datos.datosUsuario.votoIdUsuario
       }
     )
   })

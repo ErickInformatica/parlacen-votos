@@ -29,6 +29,8 @@ export class Papeleta3Component implements OnInit {
     { pais: 'Panama' },
     { pais: 'Republica Dominicana' },
   ];
+  public tokenSel = ''
+  public filtrarTokensArray = []
   public filtrarRondasArray = [];
   public filtrarXPuestoArray = [];
   public ArrayFinal = [];
@@ -104,6 +106,7 @@ export class Papeleta3Component implements OnInit {
   }
   rondasXPais() {
     this.rondaPais = ''
+    this.tokenSel =''
     this.filtrarXPuestoArray = this.votos.filter((elem) => {
       if(elem.datos.puestoCandidato === 'Secretario') return elem.datos.datosPais.nombrePais === this.cType;
     });
@@ -115,8 +118,25 @@ export class Papeleta3Component implements OnInit {
   }
 
   selectRonda(){
+    let datosCandidatos = [];
+
+      this.filtrarXPuestoArray.forEach((element) => {
+        datosCandidatos.push(element.datos);
+      });
+      datosCandidatos = datosCandidatos.filter((elem) => {
+        return elem.ronda == this.rondaPais;
+      });
+
+      console.log(datosCandidatos);
+
+    this.filtrarTokensArray = this.removeDuplicates(datosCandidatos, 'datosToken.token');
+
+
+  }
+
+  selectToken(){
     this.ArrayFinal = this.filtrarXPuestoArray.filter((elem) => {
-      return elem.datos.ronda == this.rondaPais;
+      return elem.datos.datosToken.token == this.tokenSel;
     });
     setTimeout(() => this.dg.resize());
   }

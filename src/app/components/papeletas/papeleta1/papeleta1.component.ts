@@ -25,8 +25,11 @@ export class Papeleta1Component implements OnInit {
     { pais: 'Honduras' }
   ];
 
+  public tokenSel = ''
+
   public filtrarRondasArray = [];
   public filtrarXPuestoArray = [];
+  public filtrarTokensArray = []
   public ArrayFinal = [];
   public token;
   public votos;
@@ -62,7 +65,7 @@ export class Papeleta1Component implements OnInit {
 
 
   exportAsXLSX():void {
-    this.excelService.exportAsExcelFile(this.votos, 'sample');
+    this.excelService.exportAsExcelFile(this.ArrayFinal, 'sample');
   }
 
   removeDuplicates(originalArray, prop) {
@@ -83,6 +86,7 @@ export class Papeleta1Component implements OnInit {
     return new Promise((resolve, reject) => {
       this._votoService.getVotosAPresidente(this.token).subscribe((res) => {
         this.votos = res;
+        console.log(res);
 
         resolve(res);
       });
@@ -98,12 +102,31 @@ export class Papeleta1Component implements OnInit {
         datosCandidatos.push(element.datos);
       });
       this.filtrarRondasArray = this.removeDuplicates(datosCandidatos, 'ronda');
+
     })
   }
 
   selectRonda(){
+    this.tokenSel =''
+    let datosCandidatos = [];
+
+      this.filtrarXPuestoArray.forEach((element) => {
+        datosCandidatos.push(element.datos);
+      });
+      datosCandidatos = datosCandidatos.filter((elem) => {
+        return elem.ronda == this.rondaPais;
+      });
+
+      console.log(datosCandidatos);
+
+    this.filtrarTokensArray = this.removeDuplicates(datosCandidatos, 'datosToken.token');
+
+
+  }
+
+  selectToken(){
     this.ArrayFinal = this.filtrarXPuestoArray.filter((elem) => {
-      return elem.datos.ronda == this.rondaPais;
+      return elem.datos.datosToken.token == this.tokenSel;
     });
     setTimeout(() => this.dg.resize());
   }

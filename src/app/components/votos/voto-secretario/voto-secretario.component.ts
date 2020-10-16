@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { UserService } from '../../../services/user.service';
 import { VotoService } from '../../../services/votos.service';
 @Component({
@@ -51,11 +52,28 @@ export class VotoSecretarioComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this._votoService.addVoto(this.token, this.votoModel).subscribe((res) => {
         resolve(res);
+      }, err=>{
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: err.error.message,
+          showConfirmButton: false,
+          timer: 2000
+        })
       });
     });
   }
 
   addVoto() {
+    if(this.votoModel.idCandidato === '' && this.votoModel.tipoVoto === ''){
+      return Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Debe seleccionar algo a votar, no puede ir vacio',
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
     this.addPromise().then((res) => {
       this.getVotosSecretario();
     });
@@ -160,21 +178,29 @@ export class VotoSecretarioComponent implements OnInit {
               this.votoModel.pais = this.filterXPaisHonduras[0].datos.datosPais.nombrePais;
             }
           }
-          if (
-            this.filterXPaisPanama.length === 0 &&
-            this.filterXPaisNicaragua.length === 0 &&
-            this.filterXPaisDominicana.length === 0 &&
-            this.filterXPaisGuatemala.length === 0 &&
-            this.filterXPaisSalvador.length === 0 &&
-            this.filterXPaisHonduras.length === 0
-          ) {
-            this.modalFinal = true;
-          }
+          // if (
+          //   this.filterXPaisPanama.length === 0 &&
+          //   this.filterXPaisNicaragua.length === 0 &&
+          //   this.filterXPaisDominicana.length === 0 &&
+          //   this.filterXPaisGuatemala.length === 0 &&
+          //   this.filterXPaisSalvador.length === 0 &&
+          //   this.filterXPaisHonduras.length === 0
+          // ) {
+          //   this.modalFinal = true;
+          // }
         }
       },
       (err) => {
-        if (err.error && err.error.message === 'No hay candidatos a votar') {
+        if(err.error.message === "No hay candidatos a votar" || err.error.message === "No hay candidatos ha votar"){
           this.modalFinal = true;
+        }else{
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.error.message,
+            showConfirmButton: false,
+            timer: 2000
+          })
         }
       }
     );

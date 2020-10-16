@@ -58,4 +58,18 @@ export class TokenService {
       headers: headersToken,
     });
   }
+
+  pausarTokens(token): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/pausarTokens', {
+      headers: headersToken,
+    });
+  }
+
+  reanudarTokens(token): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/reanudarTokens', {
+      headers: headersToken,
+    });
+  }
 }

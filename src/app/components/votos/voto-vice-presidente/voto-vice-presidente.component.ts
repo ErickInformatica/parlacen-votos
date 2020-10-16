@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { UserService } from '../../../services/user.service';
 import { VotoService } from '../../../services/votos.service';
 
@@ -47,11 +48,28 @@ export class VotoVicePresidenteComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this._votoService.addVoto(this.token, this.votoModel).subscribe((res) => {
         resolve(res);
+      }, err=>{
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: err.error.message,
+          showConfirmButton: false,
+          timer: 2000
+        })
       });
     });
   }
 
   addVoto(){
+    if(this.votoModel.idCandidato === '' && this.votoModel.tipoVoto === ''){
+      return Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Debe seleccionar algo a votar, no puede ir vacio',
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
     this.addPromise().then(res=>{
       this.getVotosPresidente()
     })
@@ -60,6 +78,7 @@ export class VotoVicePresidenteComponent implements OnInit {
   getVotosPresidente(){
     this._votoService.getVicePrecidenteAVotar(this.token).subscribe(
       res=>{
+
         if(res.candidatos){
           this.candidatos = res.candidatos
           this.filterXPaisPanama = this.candidatos.filter((elem) => {
@@ -118,13 +137,23 @@ export class VotoVicePresidenteComponent implements OnInit {
 
               }
           }
-           if(this.filterXPaisPanama.length === 0 && this.filterXPaisNicaragua.length === 0 && this.filterXPaisDominicana.length === 0 && this.filterXPaisGuatemala.length === 0 && this.filterXPaisSalvador.length === 0){
-            this._router.navigate(['/user/votoS/Secretaria/1ra'])
-          }
+          //  if(this.filterXPaisPanama.length === 0 && this.filterXPaisNicaragua.length === 0 && this.filterXPaisDominicana.length === 0 && this.filterXPaisGuatemala.length === 0 && this.filterXPaisSalvador.length === 0){
+          //   this._router.navigate(['/user/votoS/Secretaria/1ra'])
+          // }
         }
       }, err=>{
-        if(err.error.message === "No hay candidatos a votar"){
+        console.log(err);
+
+        if(err.error.message === "No hay candidatos a votar" || err.error.message === "No hay candidatos ha votar"){
           this._router.navigate(['/user/votoS/Secretaria/1ra'])
+        }else{
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.error.message,
+            showConfirmButton: false,
+            timer: 2000
+          })
         }
       }
     )

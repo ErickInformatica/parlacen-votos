@@ -10,7 +10,7 @@
       <clr-dg-column clrDgField="datos.email">Email</clr-dg-column>
       <clr-dg-column clrDgField="datos.activo">Estado Usuario</clr-dg-column>
       <clr-dg-column clrDgField="datos.rol">Rol</clr-dg-column>
-      <clr-dg-column clrDgField="datos.vancada">Vancada</clr-dg-column>
+      <clr-dg-column clrDgField="datos.vancada">Bancada</clr-dg-column>
       <clr-dg-column>Acciones</clr-dg-column>
 
       <clr-dg-row *clrDgItems="let user of users" [clrDgItem]="user">
@@ -22,13 +22,19 @@
         <clr-dg-cell>{{user.datos.vancada}}</clr-dg-cell>
         <clr-dg-cell>
           <div class="btn-group btn-link btn-icon btn-sm">
+            <button class="btn" *ngIf="user.datos.activo === false" (click)="getUserId(user.id); variablesModals.cambioEstado = true">
+              <clr-icon shape="circle"></clr-icon>
+            </button>
+            <button class="btn" *ngIf="user.datos.activo === true" (click)="getUserId(user.id); variablesModals.cambioEstado = true">
+              <clr-icon shape="minus-circle"></clr-icon>
+            </button>
             <button class="btn" (click)="getUserId(user.id); variablesModals.pass = true">
               <clr-icon shape="lock"></clr-icon>
             </button>
             <button class="btn" (click)="getUserId(user.id); variablesModals.edit = true">
               <clr-icon shape="pencil"></clr-icon>
             </button>
-            <button class="btn" (click)="variablesModals.delete = true">
+            <button class="btn" (click)="getUserId(user.id);variablesModals.delete = true">
               <clr-icon shape="trash"></clr-icon>
             </button>
           </div>
@@ -105,7 +111,7 @@
         <input clrInput type="text" [(ngModel)]="getUpdateUser.datos.email" name="email" />
       </clr-input-container>
       <clr-input-container>
-        <label>Vancada</label>
+        <label>Bancada</label>
         <input clrInput type="text" [(ngModel)]="getUpdateUser.datos.vancada" name="vancada" />
       </clr-input-container>
       <clr-input-container>
@@ -129,26 +135,39 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="variablesModals.edit = false">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="updateUser();variablesModals.edit = false">Ok</button>
+    <button type="button" class="btn btn-primary" (click)="updateUser();variablesModals.edit = false">Editar</button>
   </div>
 </clr-modal>
 
 <!-- Eliminar Modal -->
 <clr-modal [(clrModalOpen)]="variablesModals.delete">
   <h3 class="modal-title">Eliminar Datos</h3>
-  <div class="modal-body">
-    <p>But not much to say...</p>
+  <div class="modal-body" *ngIf="getUpdateUser">
+    <p>Seguro que desea eliminar al Usuario: {{getUpdateUser.datos.email}}</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="variablesModals.delete = false">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="variablesModals.delete = false">Ok</button>
+    <button type="button" class="btn btn-primary" (click)="deleteUser(getUpdateUser.id)">Eliminar</button>
+  </div>
+</clr-modal>
+
+<!-- Cambiar Estado Modal -->
+<clr-modal [(clrModalOpen)]="variablesModals.cambioEstado">
+  <h3 class="modal-title">Cambiar estado</h3>
+  <div class="modal-body" *ngIf="getUpdateUser">
+    <p *ngIf="getUpdateUser.datos.activo === true">Seguro que desea cambiar el estado del Usuario: {{getUpdateUser.datos.email}} a Inactivo</p>
+    <p *ngIf="getUpdateUser.datos.activo === false">Seguro que desea cambiar el estado del Usuario: {{getUpdateUser.datos.email}} a Activo</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="variablesModals.cambioEstado = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="cambiarEstado()">Cambiar</button>
   </div>
 </clr-modal>
 
 <!-- Change Pass Modal -->
 <clr-modal [(clrModalOpen)]="variablesModals.pass">
-  <h3 class="modal-title">Eliminar Datos</h3>
-  <div class="modal-body">
+  <h3 class="modal-title">Cambiar Contraseña</h3>
+  <div class="modal-body" *ngIf="getUpdateUser">
     <form clrForm [formGroup]="registerForm" (ngSubmit)="changePassword(getUpdateUser.id)">
       <clr-password-container>
         <label>Contraseña Nueva</label>

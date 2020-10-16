@@ -40,6 +40,22 @@ export class UserService {
     });
   }
 
+  cambiarEstado(token,id, datos): Observable<any> {
+    let params = JSON.stringify(datos);
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.put(this.url + '/cambiarEstado/'+id, params ,{
+      headers: headersToken,
+    });
+  }
+
+  deleteUser(token,id): Observable<any> {
+
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.delete(this.url + '/deleteUser/'+id, {
+      headers: headersToken,
+    });
+  }
+
   changePasswordAdmin(token, id, datos): Observable<any> {
     let params = JSON.stringify(datos);
     let headersToken = this.headers.set('Authorization', token)

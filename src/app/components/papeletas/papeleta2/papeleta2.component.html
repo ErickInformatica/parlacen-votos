@@ -31,6 +31,18 @@
       </clr-radio-container>
     </ng-container>
 
+    <ng-container *ngIf="rondaPais !== ''">
+      <clr-radio-container clrInline>
+        <label>Seleccionar Token</label>
+        <clr-radio-wrapper *ngFor="let cta of filtrarTokensArray">
+          <input type="radio" clrRadio name="options3" (change)="selectToken()" required [value]="cta.datosToken.token"
+            [(ngModel)]="tokenSel" />
+          <label>{{cta.datosToken.token}}</label>
+        </clr-radio-wrapper>
+      </clr-radio-container>
+    </ng-container>
+
+
 
 
     <clr-datagrid>
@@ -38,23 +50,25 @@
       <clr-dg-column clrDgField="datos.datosUsuario.votoIdUsuario">Usuario</clr-dg-column>
       <clr-dg-column clrDgField="datos.idCandidato">Candidato Votado</clr-dg-column>
       <clr-dg-column clrDgField="datos.tipoVoto">Tipo Voto</clr-dg-column>
-      <clr-dg-column>Acciones</clr-dg-column>
+      <clr-dg-column clrDgField="datos.datosToken.token">Token</clr-dg-column>
+      <!-- <clr-dg-column>Acciones</clr-dg-column> -->
 
       <clr-dg-row *clrDgItems="let voto of ArrayFinal" [clrDgItem]="voto">
         <clr-dg-cell>{{voto.id}}</clr-dg-cell>
         <clr-dg-cell>{{voto.datos.datosUsuario.votoIdUsuario}}</clr-dg-cell>
         <clr-dg-cell>{{voto.datos.idCandidato }}</clr-dg-cell>
         <clr-dg-cell>{{voto.datos.tipoVoto }}</clr-dg-cell>
-        <clr-dg-cell>
+        <clr-dg-cell>{{voto.datos.datosToken.token }}</clr-dg-cell>
+        <!-- <clr-dg-cell>
           <div class="btn-group btn-link btn-icon btn-sm">
-            <!-- <button class="btn" (click)="variablesModals.edit = true">
+            <button class="btn" (click)="variablesModals.edit = true">
               <clr-icon shape="pencil"></clr-icon>
-            </button> -->
+            </button>
             <button class="btn" (click)="variablesModals.delete = true">
               <clr-icon shape="trash"></clr-icon>
             </button>
           </div>
-        </clr-dg-cell>
+        </clr-dg-cell> -->
       </clr-dg-row>
 
       <clr-dg-detail *clrIfDetail="let detail">

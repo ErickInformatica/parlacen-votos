@@ -154,4 +154,52 @@ export class TokenComponent implements OnInit {
     )
   }
 
+  pausarTokens(){
+    this._tokenService.pausarTokens(this.token).subscribe(
+      res => {
+        this.getTokens()
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Votaciones pausadas con Exito',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      },
+      err =>{
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: err.error.message,
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+    )
+  }
+
+  reanudarTokens(){
+    this._tokenService.reanudarTokens(this.token).subscribe(
+      res => {
+        this.getTokens()
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Votaciones reanudadas con Exito',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      },
+      err =>{
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: err.error.message,
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+    )
+  }
+
 }

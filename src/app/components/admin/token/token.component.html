@@ -5,13 +5,20 @@
       (click)="variablesModals.add = true">
       <clr-icon shape="plus"></clr-icon>
     </button>
-
-    <button type="button" class="btn btn-icon btn-warning" aria-label="settings"
+    <div class="btn-group">
+      <button class="btn btn-success" (click)="reanudarTokens()">Reanudar Votaciones</button>
+      <button class="btn btn-primary" (click)="pausarTokens()">Pausar Votaciones</button>
+      <button type="button" class="btn btn-icon btn-danger" aria-label="settings"
       (click)="cerrarTokens()">Cerrar Tokens</button>
+    </div>
+
+
     <clr-datagrid>
+
       <clr-dg-column>ID Token</clr-dg-column>
       <clr-dg-column clrDgField="datos.numeroToken">Numero</clr-dg-column>
       <clr-dg-column clrDgField="datos.vecesUso">Veces a Usar</clr-dg-column>
+      <clr-dg-column clrDgField="datos.activo">Estado Token</clr-dg-column>
       <clr-dg-column clrDgField="datos.fechaCreacion">Fecha Creación</clr-dg-column>
       <clr-dg-column clrDgField="datos.ronda">Ronda</clr-dg-column>
       <clr-dg-column>Acciones</clr-dg-column>
@@ -20,6 +27,8 @@
         <clr-dg-cell>{{tok.id}}</clr-dg-cell>
         <clr-dg-cell>{{tok.datos.numeroToken}}</clr-dg-cell>
         <clr-dg-cell>{{tok.datos.vecesUso}}</clr-dg-cell>
+        <clr-dg-cell *ngIf="tok.datos.activo === true"><span class="label label-info">ACTIVO</span></clr-dg-cell>
+        <clr-dg-cell *ngIf="tok.datos.activo === false"><span class="label label-danger">INACTIVO</span></clr-dg-cell>
         <clr-dg-cell>{{tok.datos.fechaCreacion}}</clr-dg-cell>
         <clr-dg-cell>{{tok.datos.ronda}}</clr-dg-cell>
         <clr-dg-cell>
