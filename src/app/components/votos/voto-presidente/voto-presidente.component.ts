@@ -17,7 +17,7 @@ export class VotoPresidenteComponent implements OnInit {
     puestoCandidato: 'Presidente',
     pais: ''
   }
-
+  public nombrePais;
   public imagenTitulo;
   public filterXPaisHonduras = []
   public token
@@ -60,8 +60,8 @@ export class VotoPresidenteComponent implements OnInit {
     if(this.votoModel.idCandidato === '' && this.votoModel.tipoVoto === ''){
       return Swal.fire({
         position: 'top-end',
-        icon: 'error',
-        title: 'Debe seleccionar algo a votar, no puede ir vacio',
+        icon: 'warning',
+        title: 'Debe seleccionar una opción de voto',
         showConfirmButton: false,
         timer: 2000
       })
@@ -84,6 +84,7 @@ export class VotoPresidenteComponent implements OnInit {
          if(this.filterXPaisHonduras.length > 0) {
           this.imagenTitulo = this.filterXPaisHonduras[0].datos.datosPais.imagenPais
           this.votoModel.pais = this.filterXPaisHonduras[0].datos.datosPais.nombrePais
+          this.nombrePais = this.filterXPaisHonduras[0].datos.datosPais.nombrePais
          }
            if(this.filterXPaisHonduras.length === 0 ){
             this._router.navigate(['/user/votoV/Vicepresidente/1ra'])

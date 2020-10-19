@@ -4,7 +4,8 @@
     <clr-radio-container clrInline>
       <label>Seleccione Vuelta</label>
       <clr-radio-wrapper *ngFor="let cta of tiposRondas">
-        <input type="radio" clrRadio name="options2" required [value]="cta.nombre" [(ngModel)]="rondaSeleccionada" />
+        <input type="radio" clrRadio name="options2" required [value]="cta.nombre" (change)="rondaSelected()"
+          [(ngModel)]="rondaSeleccionada" />
         <label>{{cta.nombre}}</label>
       </clr-radio-wrapper>
     </clr-radio-container>
@@ -12,404 +13,625 @@
     <clr-tabs>
       <clr-tab>
         <button clrTabLink id="link10" (click)="getAll()">General</button>
-        <clr-tab-content id="link10" *clrIfActive>
-          <div class="clr-row clr-justify-content-center">
-            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
-              *ngIf="chartDataAll.length > 0 && chartLabelsAll.length >0">
-              <div class="clr-row clr-justify-content-center">
-                <div class="clr-col-lg-8 clr-align-self-center clr-col-12">
-                  <!-- Tabla General -->
-                  <table class="table table-compact">
-                    <!-- HONDURAS PRESIDENTE -->
-                    <ng-container *ngIf="chartDataPresidente.length > 0 && chartLabelsPresidente.length >0">
-                      <tr>
-                        <th class="tbHeader" colspan="5">Votos Presidente</th>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader" colspan="5">Honduras</th>
-                      </tr>
-                      <tr>
-                        <th id="blank">&nbsp;</th>
-                        <th class="tbHeader" headers="blank">Conteo de Votos</th>
-                      </tr>
-                      <tr *ngFor="let item of chartLabelsPresidente; let i = index">
-                        <th class="tbHeader" headers="blank">{{item}}</th>
-                        <td headers="co1 c1" *ngFor="let num of chartDataPresidente">{{num.data[i]}}</td>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader">SubTotal de Aforum</th>
-                        <th class="tbHeader" *ngFor="let num of chartDataPresidente">{{sumdata(num.data)}}</th>
-                      </tr>
-                    </ng-container>
-                    <!-- NICARAGUA VICE -->
-                    <ng-container *ngIf="chartDataViceNicaragua.length > 0 && chartLabelsViceNicaragua.length >0">
-                      <tr>
-                        <th class="tbHeader" colspan="5">Votos Vicepresidente(a)</th>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader" colspan="5">Nicaragua</th>
-                      </tr>
-                      <tr>
-                        <th id="blank">&nbsp;</th>
-                        <th class="tbHeader">Cantidad de Votos</th>
-                      </tr>
-                      <tr *ngFor="let item of chartLabelsViceNicaragua; let i = index">
-                        <th class="tbHeader">{{item}}</th>
-                        <td headers="co1 c1" *ngFor="let num of chartDataViceNicaragua">{{num.data[i]}}</td>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader">SubTotal de Aforum</th>
-                        <th class="tbHeader" *ngFor="let num of chartDataViceNicaragua">{{sumdata(num.data)}}</th>
-                      </tr>
-                    </ng-container>
-                    <!-- Guatemala VICE -->
-                    <ng-container *ngIf="chartDataViceGuatemala.length > 0 && chartLabelsViceGuatemala.length >0">
-                      <tr>
-                        <th class="tbHeader" colspan="5">Guatemala</th>
-                      </tr>
-                      <tr>
-                        <th id="blank">&nbsp;</th>
-                        <th class="tbHeader" headers="blank">Cantidad de Votos</th>
-                      </tr>
-                      <tr *ngFor="let item of chartLabelsViceGuatemala; let i = index">
-                        <th class="tbHeader" id="c1" headers="blank">{{item}}</th>
-                        <td headers="co1 c1" *ngFor="let num of chartDataViceGuatemala">{{num.data[i]}}</td>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader">SubTotal de Aforum</th>
-                        <th class="tbHeader" *ngFor="let num of chartDataViceGuatemala">{{sumdata(num.data)}}</th>
-                      </tr>
-                    </ng-container>
-                    <!-- Panama VICE -->
-                    <ng-container *ngIf="chartDataVicePanama.length > 0 && chartLabelsVicePanama.length >0">
-                      <tr>
-                        <th class="tbHeader" colspan="5">Panama</th>
-                      </tr>
-                      <tr>
-                        <th id="blank">&nbsp;</th>
-                        <th class="tbHeader" headers="blank">Cantidad de Votos</th>
-                      </tr>
-                      <tr *ngFor="let item of chartLabelsVicePanama; let i = index">
-                        <th class="tbHeader" id="c1" headers="blank">{{item}}</th>
-                        <td headers="co1 c1" *ngFor="let num of chartDataVicePanama">{{num.data[i]}}</td>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader">SubTotal de Aforum</th>
-                        <th class="tbHeader" *ngFor="let num of chartDataVicePanama">{{sumdata(num.data)}}</th>
-                      </tr>
-                    </ng-container>
-                    <!-- Dominicana VICE -->
-                    <ng-container *ngIf="chartDataViceDominicana.length > 0 && chartLabelsViceDominicana.length >0">
-                      <tr>
-                        <th class="tbHeader" colspan="5">Republica Dominicana</th>
-                      </tr>
-                      <tr>
-                        <th id="blank">&nbsp;</th>
-                        <th class="tbHeader" headers="blank">Cantidad de Votos</th>
-                      </tr>
-                      <tr *ngFor="let item of chartLabelsViceDominicana; let i = index">
-                        <th class="tbHeader" id="c1" headers="blank">{{item}}</th>
-                        <td headers="co1 c1" *ngFor="let num of chartDataViceDominicana">{{num.data[i]}}</td>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader">SubTotal de Aforum</th>
-                        <th class="tbHeader" *ngFor="let num of chartDataViceDominicana">{{sumdata(num.data)}}</th>
-                      </tr>
-                    </ng-container>
-                    <!-- Salvador VICE -->
-                    <ng-container *ngIf="chartDataViceSalvador.length > 0 && chartLabelsViceSalvador.length >0">
-                      <tr>
-                        <th class="tbHeader" colspan="5">El Salvador</th>
-                      </tr>
-                      <tr>
-                        <th id="blank">&nbsp;</th>
-                        <th class="tbHeader" headers="blank">Cantidad de Votos</th>
-                      </tr>
-                      <tr *ngFor="let item of chartLabelsViceSalvador; let i = index">
-                        <th class="tbHeader" id="c1" headers="blank">{{item}}</th>
-                        <td headers="co1 c1" *ngFor="let num of chartDataViceSalvador">{{num.data[i]}}</td>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader">SubTotal de Aforum</th>
-                        <th class="tbHeader" *ngFor="let num of chartDataViceSalvador">{{sumdata(num.data)}}</th>
-                      </tr>
-                    </ng-container>
-
-                    <!-- Dominicana SEC -->
-                    <ng-container *ngIf="chartDataSecDominicana.length > 0 && chartLabelsSecDominicana.length >0">
-                      <tr>
-                        <th class="tbHeader" colspan="5">Votos Secretario(a)</th>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader" colspan="5">Republica Dominicana</th>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader" id="blank">&nbsp;</th>
-                        <th class="tbHeader" id="co1" headers="blank">Cantidad de Votos</th>
-                      </tr>
-                      <tr *ngFor="let item of chartLabelsSecDominicana; let i = index">
-                        <th class="tbHeader" id="c1" headers="blank">{{item}}</th>
-                        <td headers="co1 c1" *ngFor="let num of chartDataSecDominicana">{{num.data[i]}}</td>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader">SubTotal de Aforum</th>
-                        <th class="tbHeader" *ngFor="let num of chartDataSecDominicana">{{sumdata(num.data)}}</th>
-                      </tr>
-                    </ng-container>
-                    <!-- Salvador SEC -->
-                    <ng-container *ngIf="chartDataSecSalvador.length > 0 && chartLabelsSecSalvador.length >0">
-                      <tr>
-                        <th class="tbHeader" colspan="5">El Salvador</th>
-                      </tr>
-                      <tr>
-                        <th id="blank">&nbsp;</th>
-                        <th class="tbHeader">Cantidad de Votos</th>
-                      </tr>
-                      <tr *ngFor="let item of chartLabelsSecSalvador; let i = index">
-                        <th class="tbHeader">{{item}}</th>
-                        <td *ngFor="let num of chartDataSecSalvador">{{num.data[i]}}</td>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader">SubTotal de Aforum</th>
-                        <th class="tbHeader" *ngFor="let num of chartDataSecSalvador">{{sumdata(num.data)}}</th>
-                      </tr>
-                    </ng-container>
-                    <!-- Honduras SEC -->
-                    <ng-container *ngIf="chartDataSecHonduras.length > 0 && chartLabelsSecHonduras.length >0">
-                      <tr>
-                        <th class="tbHeader" colspan="5">Honduras</th>
-                      </tr>
-                      <tr>
-                        <th id="blank">&nbsp;</th>
-                        <th class="tbHeader">Cantidad de Votos</th>
-                      </tr>
-                      <tr *ngFor="let item of chartLabelsSecHonduras; let i = index">
-                        <th class="tbHeader">{{item}}</th>
-                        <td *ngFor="let num of chartDataSecHonduras">{{num.data[i]}}</td>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader">SubTotal de Aforum</th>
-                        <th class="tbHeader" *ngFor="let num of chartDataSecHonduras">{{sumdata(num.data)}}</th>
-                      </tr>
-                    </ng-container>
-                    <!-- Panama SEC -->
-                    <ng-container *ngIf="chartDataSecPanama.length > 0 && chartLabelsSecPanama.length >0">
-                      <tr>
-                        <th class="tbHeader" colspan="5">Panama</th>
-                      </tr>
-                      <tr>
-                        <th id="blank">&nbsp;</th>
-                        <th class="tbHeader">Cantidad de Votos</th>
-                      </tr>
-                      <tr *ngFor="let item of chartLabelsSecPanama; let i = index">
-                        <th class="tbHeader">{{item}}</th>
-                        <td *ngFor="let num of chartDataSecPanama">{{num.data[i]}}</td>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader">SubTotal de Aforum</th>
-                        <th class="tbHeader" *ngFor="let num of chartDataSecPanama">{{sumdata(num.data)}}</th>
-                      </tr>
-                    </ng-container>
-                    <!-- Guatemala SEC -->
-                    <ng-container *ngIf="chartDataSecGuatemala.length > 0 && chartLabelsSecGuatemala.length >0">
-                      <tr>
-                        <th class="tbHeader" colspan="5">Guatemala</th>
-                      </tr>
-                      <tr>
-                        <th id="blank">&nbsp;</th>
-                        <th class="tbHeader">Cantidad de Votos</th>
-                      </tr>
-                      <tr *ngFor="let item of chartLabelsSecGuatemala; let i = index">
-                        <th class="tbHeader">{{item}}</th>
-                        <td *ngFor="let num of chartDataSecGuatemala">{{num.data[i]}}</td>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader">SubTotal de Aforum</th>
-                        <th class="tbHeader" *ngFor="let num of chartDataSecGuatemala">{{sumdata(num.data)}}</th>
-                      </tr>
-                    </ng-container>
-                    <!-- Nicaragua SEC -->
-                    <ng-container *ngIf="chartDataSecNicaragua.length > 0 && chartLabelsSecNicaragua.length >0">
-                      <tr>
-                        <th class="tbHeader" colspan="5">Nicargua</th>
-                      </tr>
-                      <tr>
-                        <th id="blank">&nbsp;</th>
-                        <th class="tbHeader">Cantidad de Votos</th>
-                      </tr>
-                      <tr *ngFor="let item of chartLabelsSecNicaragua; let i = index">
-                        <th class="tbHeader">{{item}}</th>
-                        <td *ngFor="let num of chartDataSecNicaragua">{{num.data[i]}}</td>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader">SubTotal de Aforum</th>
-                        <th class="tbHeader" *ngFor="let num of chartDataSecNicaragua">{{sumdata(num.data)}}</th>
-                      </tr>
-                    </ng-container>
-
-
-                    <!-- Total Votos -->
-                    <ng-container *ngIf="chartDataAll.length > 0 && chartLabelsAll.length >0">
-                      <tr>
-                        <th class="tbHeader">Total General de Aforum</th>
-                        <th class="tbHeader" *ngFor="let num of chartDataAll">{{sumdata(num.data)}}</th>
-                      </tr>
-                    </ng-container>
-
-                  </table>
-
-                  <!-- Tabla sin datos -->
-                  <table class="table table-compact">
-                    <!-- HONDURAS PRESIDENTE -->
-                    <ng-container *ngIf="chartDataPresidente.length > 0 && chartLabelsPresidente.length >0">
-                      <tr>
-                        <th class="tbHeader" colspan="5">Votos Presidente</th>
-                      </tr>
-                      <tr>
-                        <th id="blank">&nbsp;</th>
-                        <th class="tbHeader" headers="blank">Conteo de Votos</th>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader" headers="blank">Honduras</th>
-                        <td class="tbHeader" *ngFor="let num of chartDataPresidente">{{sumdata(num.data)}}</td>
-                      </tr>
-                    </ng-container>
-                    <!-- VICE -->
-                    <ng-container>
-                      <tr>
-                        <th class="tbHeader" colspan="5">Votos Vicepresidente(a)</th>
-                      </tr>
-                      <tr>
-                        <th id="blank">&nbsp;</th>
-                        <th class="tbHeader">Cantidad de Votos</th>
-                      </tr>
-                      <ng-container *ngIf="chartDataViceNicaragua.length > 0 && chartLabelsViceNicaragua.length >0">
+        <ng-container *ngIf="activarTabGeneral === true">
+          <clr-tab-content id="link10" *clrIfActive>
+            <div class="clr-row clr-justify-content-center">
+              <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
+                *ngIf="chartDataGeneral[0].data.length > 0 && chartLabelsGeneral.length >0">
+                <div class="clr-row clr-justify-content-center">
+                  <div class="clr-col-lg-8 clr-align-self-center clr-col-12">
+                    <!-- Tabla General -->
+                    <table class="table table-compact">
+                      <!-- HONDURAS PRESIDENTE -->
+                      <ng-container *ngIf="chartDataPresidente.length > 0 && chartLabelsPresidente.length >0">
                         <tr>
-                          <th class="tbHeader">Nicaragua</th>
-                          <td class="tbHeader" *ngFor="let num of chartDataViceNicaragua">{{sumdata(num.data)}}</td>
+                          <th class="tbHeader" colspan="5">Votos Presidente</th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader" colspan="5">Honduras</th>
+                        </tr>
+                        <tr>
+                          <th id="blank" class="tbHeader">Nombre Candidato</th>
+                          <th class="tbHeader" headers="blank">Conteo de Votos</th>
+                        </tr>
+                        <tr *ngFor="let item of chartLabelsPresidente; let i = index">
+                          <th headers="blank">{{item}}</th>
+                          <td headers="co1 c1" *ngFor="let num of chartDataPresidente">{{num.data[i]}}</td>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataPresidente">{{sumdata(num.data)}}</th>
                         </tr>
                       </ng-container>
-                      <ng-container *ngIf="chartDataViceGuatemala.length > 0 && chartLabelsViceGuatemala.length >0">
-                        <tr>
-                          <th class="tbHeader">Guatemala</th>
-                          <td class="tbHeader" *ngFor="let num of chartDataViceGuatemala">{{sumdata(num.data)}}</td>
-                        </tr>
-                      </ng-container>
-                      <ng-container *ngIf="chartDataVicePanama.length > 0 && chartLabelsVicePanama.length >0">
-                        <tr>
-                          <th class="tbHeader">Panama</th>
-                          <td class="tbHeader" *ngFor="let num of chartDataVicePanama">{{sumdata(num.data)}}</td>
-                        </tr>
-                      </ng-container>
-                      <ng-container *ngIf="chartDataViceDominicana.length > 0 && chartLabelsViceDominicana.length >0">
-                        <tr>
-                          <th class="tbHeader">Republica Dominicana</th>
-                          <td class="tbHeader" *ngFor="let num of chartDataViceDominicana">{{sumdata(num.data)}}</td>
-                        </tr>
-                      </ng-container>
+                      <!-- Salvador VICE -->
                       <ng-container *ngIf="chartDataViceSalvador.length > 0 && chartLabelsViceSalvador.length >0">
                         <tr>
-                          <th class="tbHeader">El Salvador</th>
-                          <td class="tbHeader" *ngFor="let num of chartDataViceSalvador">{{sumdata(num.data)}}</td>
+                          <th class="tbHeader" colspan="5">Votos Vicepresidente(a)</th>
                         </tr>
-                      </ng-container>
-                    </ng-container>
-
-                    <!-- SEC -->
-                    <ng-container>
-                      <tr>
-                        <th class="tbHeader" colspan="5">Votos Secretario(a)</th>
-                      </tr>
-                      <tr>
-                        <th class="tbHeader" id="blank">&nbsp;</th>
-                        <th class="tbHeader" id="co1" headers="blank">Cantidad de Votos</th>
-                      </tr>
-                      <ng-container *ngIf="chartDataSecDominicana.length > 0 && chartLabelsSecDominicana.length >0">
                         <tr>
-                          <th class="tbHeader" id="c1" headers="blank">Dominicana</th>
-                          <td class="tbHeader" *ngFor="let num of chartDataSecDominicana">{{sumdata(num.data)}}</td>
+                          <th class="tbHeader" colspan="5">El Salvador</th>
+                        </tr>
+                        <tr>
+                          <th id="blank" class="tbHeader">Nombre Candidato</th>
+                          <th class="tbHeader" headers="blank">Cantidad de Votos</th>
+                        </tr>
+                        <tr *ngFor="let item of chartLabelsViceSalvador; let i = index">
+                          <th id="c1" headers="blank">{{item}}</th>
+                          <td headers="co1 c1" *ngFor="let num of chartDataViceSalvador">{{num.data[i]}}</td>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataViceSalvador">{{sumdata(num.data)}}</th>
                         </tr>
                       </ng-container>
+                      <!-- Guatemala VICE -->
+                      <ng-container *ngIf="chartDataViceGuatemala.length > 0 && chartLabelsViceGuatemala.length >0">
+                        <tr>
+                          <th class="tbHeader" colspan="5">Guatemala</th>
+                        </tr>
+                        <tr>
+                          <th id="blank" class="tbHeader">Nombre Candidato</th>
+                          <th class="tbHeader" headers="blank">Cantidad de Votos</th>
+                        </tr>
+                        <tr *ngFor="let item of chartLabelsViceGuatemala; let i = index">
+                          <th id="c1" headers="blank">{{item}}</th>
+                          <td headers="co1 c1" *ngFor="let num of chartDataViceGuatemala">{{num.data[i]}}</td>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataViceGuatemala">{{sumdata(num.data)}}</th>
+                        </tr>
+                      </ng-container>
+                      <!-- NICARAGUA VICE -->
+                      <ng-container *ngIf="chartDataViceNicaragua.length > 0 && chartLabelsViceNicaragua.length >0">
+
+                        <tr>
+                          <th class="tbHeader" colspan="5">Nicaragua</th>
+                        </tr>
+                        <tr>
+                          <th id="blank" class="tbHeader">Nombre Candidato</th>
+                          <th class="tbHeader">Cantidad de Votos</th>
+                        </tr>
+                        <tr *ngFor="let item of chartLabelsViceNicaragua; let i = index">
+                          <th>{{item}}</th>
+                          <td headers="co1 c1" *ngFor="let num of chartDataViceNicaragua">{{num.data[i]}}</td>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataViceNicaragua">{{sumdata(num.data)}}</th>
+                        </tr>
+                      </ng-container>
+                      <!-- Panama VICE -->
+                      <ng-container *ngIf="chartDataVicePanama.length > 0 && chartLabelsVicePanama.length >0">
+                        <tr>
+                          <th class="tbHeader" colspan="5">Panama</th>
+                        </tr>
+                        <tr>
+                          <th id="blank" class="tbHeader">Nombre Candidato</th>
+                          <th class="tbHeader" headers="blank">Cantidad de Votos</th>
+                        </tr>
+                        <tr *ngFor="let item of chartLabelsVicePanama; let i = index">
+                          <th id="c1" headers="blank">{{item}}</th>
+                          <td headers="co1 c1" *ngFor="let num of chartDataVicePanama">{{num.data[i]}}</td>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataVicePanama">{{sumdata(num.data)}}</th>
+                        </tr>
+                      </ng-container>
+                      <!-- Dominicana VICE -->
+                      <ng-container *ngIf="chartDataViceDominicana.length > 0 && chartLabelsViceDominicana.length >0">
+                        <tr>
+                          <th class="tbHeader" colspan="5">Republica Dominicana</th>
+                        </tr>
+                        <tr>
+                          <th id="blank" class="tbHeader">Nombre Candidato</th>
+                          <th class="tbHeader" headers="blank">Cantidad de Votos</th>
+                        </tr>
+                        <tr *ngFor="let item of chartLabelsViceDominicana; let i = index">
+                          <th id="c1" headers="blank">{{item}}</th>
+                          <td headers="co1 c1" *ngFor="let num of chartDataViceDominicana">{{num.data[i]}}</td>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataViceDominicana">{{sumdata(num.data)}}</th>
+                        </tr>
+                      </ng-container>
+
+
+                      <!-- Salvador SEC -->
                       <ng-container *ngIf="chartDataSecSalvador.length > 0 && chartLabelsSecSalvador.length >0">
                         <tr>
-                          <th class="tbHeader">El Salvador</th>
-                          <td class="tbHeader" *ngFor="let num of chartDataSecSalvador">{{sumdata(num.data)}}</td>
+                          <th class="tbHeader" colspan="5">Votos Secretario(a)</th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader" colspan="5">El Salvador</th>
+                        </tr>
+                        <tr>
+                          <th id="blank" class="tbHeader">Nombre Candidato</th>
+                          <th class="tbHeader">Cantidad de Votos</th>
+                        </tr>
+                        <tr *ngFor="let item of chartLabelsSecSalvador; let i = index">
+                          <th>{{item}}</th>
+                          <td *ngFor="let num of chartDataSecSalvador">{{num.data[i]}}</td>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataSecSalvador">{{sumdata(num.data)}}</th>
                         </tr>
                       </ng-container>
+                      <!-- Guatemala SEC -->
+                      <ng-container *ngIf="chartDataSecGuatemala.length > 0 && chartLabelsSecGuatemala.length >0">
+                        <tr>
+                          <th class="tbHeader" colspan="5">Guatemala</th>
+                        </tr>
+                        <tr>
+                          <th id="blank" class="tbHeader">Nombre Candidato</th>
+                          <th class="tbHeader">Cantidad de Votos</th>
+                        </tr>
+                        <tr *ngFor="let item of chartLabelsSecGuatemala; let i = index">
+                          <th>{{item}}</th>
+                          <td *ngFor="let num of chartDataSecGuatemala">{{num.data[i]}}</td>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataSecGuatemala">{{sumdata(num.data)}}</th>
+                        </tr>
+                      </ng-container>
+                      <!-- Honduras SEC -->
                       <ng-container *ngIf="chartDataSecHonduras.length > 0 && chartLabelsSecHonduras.length >0">
                         <tr>
-                          <th class="tbHeader">Honduras</th>
-                          <td class="tbHeader" *ngFor="let num of chartDataSecHonduras">{{sumdata(num.data)}}</td>
+                          <th class="tbHeader" colspan="5">Honduras</th>
+                        </tr>
+                        <tr>
+                          <th id="blank" class="tbHeader">Nombre Candidato</th>
+                          <th class="tbHeader">Cantidad de Votos</th>
+                        </tr>
+                        <tr *ngFor="let item of chartLabelsSecHonduras; let i = index">
+                          <th>{{item}}</th>
+                          <td *ngFor="let num of chartDataSecHonduras">{{num.data[i]}}</td>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataSecHonduras">{{sumdata(num.data)}}</th>
                         </tr>
                       </ng-container>
-                      <ng-container *ngIf="chartDataSecPanama.length > 0 && chartLabelsSecPanama.length >0">
-                        <th class="tbHeader">Panama</th>
-                        <td class="tbHeader" *ngFor="let num of chartDataSecPanama">{{sumdata(num.data)}}</td>
-                      </ng-container>
-                      <ng-container *ngIf="chartDataSecGuatemala.length > 0 && chartLabelsSecGuatemala.length >0">
-                        <th class="tbHeader">Guatemala</th>
-                        <td class="tbHeader" *ngFor="let num of chartDataSecGuatemala">{{sumdata(num.data)}}</td>
-                      </ng-container>
+                      <!-- Nicaragua SEC -->
                       <ng-container *ngIf="chartDataSecNicaragua.length > 0 && chartLabelsSecNicaragua.length >0">
                         <tr>
-                          <th class="tbHeader">Nicargua</th>
-                          <td class="tbHeader" *ngFor="let num of chartDataSecNicaragua">{{sumdata(num.data)}}</td>
+                          <th class="tbHeader" colspan="5">Nicargua</th>
+                        </tr>
+                        <tr>
+                          <th id="blank" class="tbHeader">Nombre Candidato</th>
+                          <th class="tbHeader">Cantidad de Votos</th>
+                        </tr>
+                        <tr *ngFor="let item of chartLabelsSecNicaragua; let i = index">
+                          <th>{{item}}</th>
+                          <td *ngFor="let num of chartDataSecNicaragua">{{num.data[i]}}</td>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataSecNicaragua">{{sumdata(num.data)}}</th>
                         </tr>
                       </ng-container>
-                    </ng-container>
-                    <!-- Total Votos -->
-                    <ng-container *ngIf="chartDataAll.length > 0 && chartLabelsAll.length >0">
-                      <tr>
-                        <th class="tbHeader">Total de Aforum</th>
-                        <th class="tbHeader" *ngFor="let num of chartDataAll">{{sumdata(num.data)}}</th>
-                      </tr>
-                    </ng-container>
+                      <!-- Dominicana SEC -->
+                      <ng-container *ngIf="chartDataSecDominicana.length > 0 && chartLabelsSecDominicana.length >0">
+                        <tr>
+                          <th class="tbHeader" colspan="5">Republica Dominicana</th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader" id="blank">Nombre Candidato</th>
+                          <th class="tbHeader" id="co1" headers="blank">Cantidad de Votos</th>
+                        </tr>
+                        <tr *ngFor="let item of chartLabelsSecDominicana; let i = index">
+                          <th id="c1" headers="blank">{{item}}</th>
+                          <td headers="co1 c1" *ngFor="let num of chartDataSecDominicana">{{num.data[i]}}</td>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataSecDominicana">{{sumdata(num.data)}}</th>
+                        </tr>
+                      </ng-container>
+                      <!-- Panama SEC -->
+                      <ng-container *ngIf="chartDataSecPanama.length > 0 && chartLabelsSecPanama.length >0">
+                        <tr>
+                          <th class="tbHeader" colspan="5">Panama</th>
+                        </tr>
+                        <tr>
+                          <th id="blank" class="tbHeader">Nombre Candidato</th>
+                          <th class="tbHeader">Cantidad de Votos</th>
+                        </tr>
+                        <tr *ngFor="let item of chartLabelsSecPanama; let i = index">
+                          <th>{{item}}</th>
+                          <td *ngFor="let num of chartDataSecPanama">{{num.data[i]}}</td>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataSecPanama">{{sumdata(num.data)}}</th>
+                        </tr>
+                      </ng-container>
 
-                  </table>
 
+                      <!-- Total Votos -->
+                      <ng-container *ngIf="chartDataAll.length > 0 && chartLabelsAll.length >0">
+                        <tr>
+                          <th class="tbHeader">Total General de Aforum</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataAll">{{sumdata(num.data)}}</th>
+                        </tr>
+                      </ng-container>
 
+                    </table>
 
-                </div>
-                <div class="clr-col-lg-6 clr-align-self-center clr-col-12">
-                  <h1 class="pAlingCenter">General</h1>
-                  <div style="display: block;"
-                    *ngIf="chartDataGeneral[0].data.length > 0 && chartLabelsGeneral.length >0">
-                    <canvas baseChart width="400" height="300" chartType="bar" [datasets]="chartDataGeneral"
-                      [labels]="chartLabelsGeneral" [options]="chartOptionsGeneral" [colors]="chartColors"
-                      [legend]="chartLegendGeneral" [plugins]="chartPlugins">
-                    </canvas>
+                    <!-- Tabla sin datos -->
+                    <!-- <table class="table table-compact">
+                      <ng-container *ngIf="chartDataPresidente.length > 0 && chartLabelsPresidente.length >0">
+                        <tr>
+                          <th class="tbHeader" colspan="5">Votos Presidente</th>
+                        </tr>
+                        <tr>
+                          <th id="blank" class="tbHeader">Nombre Candidato</th>
+                          <th class="tbHeader" headers="blank">Conteo de Votos</th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader" headers="blank">Honduras</th>
+                          <td class="tbHeader" *ngFor="let num of chartDataPresidente">{{sumdata(num.data)}}</td>
+                        </tr>
+                      </ng-container>
+                      <ng-container>
+                        <tr>
+                          <th class="tbHeader" colspan="5">Votos Vicepresidente(a)</th>
+                        </tr>
+                        <tr>
+                          <th id="blank" class="tbHeader">Nombre Candidato</th>
+                          <th class="tbHeader">Cantidad de Votos</th>
+                        </tr>
+                        <ng-container *ngIf="chartDataViceNicaragua.length > 0 && chartLabelsViceNicaragua.length >0">
+                          <tr>
+                            <th class="tbHeader">Nicaragua</th>
+                            <td class="tbHeader" *ngFor="let num of chartDataViceNicaragua">{{sumdata(num.data)}}</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="chartDataViceGuatemala.length > 0 && chartLabelsViceGuatemala.length >0">
+                          <tr>
+                            <th class="tbHeader">Guatemala</th>
+                            <td class="tbHeader" *ngFor="let num of chartDataViceGuatemala">{{sumdata(num.data)}}</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="chartDataVicePanama.length > 0 && chartLabelsVicePanama.length >0">
+                          <tr>
+                            <th class="tbHeader">Panama</th>
+                            <td class="tbHeader" *ngFor="let num of chartDataVicePanama">{{sumdata(num.data)}}</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="chartDataViceDominicana.length > 0 && chartLabelsViceDominicana.length >0">
+                          <tr>
+                            <th class="tbHeader">Republica Dominicana</th>
+                            <td class="tbHeader" *ngFor="let num of chartDataViceDominicana">{{sumdata(num.data)}}</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="chartDataViceSalvador.length > 0 && chartLabelsViceSalvador.length >0">
+                          <tr>
+                            <th class="tbHeader">El Salvador</th>
+                            <td class="tbHeader" *ngFor="let num of chartDataViceSalvador">{{sumdata(num.data)}}</td>
+                          </tr>
+                        </ng-container>
+                      </ng-container>
+
+                      <ng-container>
+                        <tr>
+                          <th class="tbHeader" colspan="5">Votos Secretario(a)</th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader" id="blank">Nombre Candidato</th>
+                          <th class="tbHeader" id="co1" headers="blank">Cantidad de Votos</th>
+                        </tr>
+                        <ng-container *ngIf="chartDataSecDominicana.length > 0 && chartLabelsSecDominicana.length >0">
+                          <tr>
+                            <th class="tbHeader" headers="blank">Dominicana</th>
+                            <td class="tbHeader" *ngFor="let num of chartDataSecDominicana">{{sumdata(num.data)}}</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="chartDataSecSalvador.length > 0 && chartLabelsSecSalvador.length >0">
+                          <tr>
+                            <th class="tbHeader">El Salvador</th>
+                            <td class="tbHeader" *ngFor="let num of chartDataSecSalvador">{{sumdata(num.data)}}</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="chartDataSecHonduras.length > 0 && chartLabelsSecHonduras.length >0">
+                          <tr>
+                            <th class="tbHeader">Honduras</th>
+                            <td class="tbHeader" *ngFor="let num of chartDataSecHonduras">{{sumdata(num.data)}}</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="chartDataSecPanama.length > 0 && chartLabelsSecPanama.length >0">
+                          <tr>
+
+                            <th class="tbHeader">Panama</th>
+                            <td class="tbHeader" *ngFor="let num of chartDataSecPanama">{{sumdata(num.data)}}</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="chartDataSecGuatemala.length > 0 && chartLabelsSecGuatemala.length >0">
+                          <tr>
+                            <th class="tbHeader">Guatemala</th>
+                            <td class="tbHeader" *ngFor="let num of chartDataSecGuatemala">{{sumdata(num.data)}}</td>
+
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="chartDataSecNicaragua.length > 0 && chartLabelsSecNicaragua.length >0">
+                          <tr>
+                            <th class="tbHeader">Nicargua</th>
+                            <td class="tbHeader" *ngFor="let num of chartDataSecNicaragua">{{sumdata(num.data)}}</td>
+                          </tr>
+                        </ng-container>
+                      </ng-container>
+                      <ng-container *ngIf="chartDataAll.length > 0 && chartLabelsAll.length >0">
+                        <tr>
+                          <th class="tbHeader">Total de Aforum</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataAll">{{sumdata(num.data)}}</th>
+                        </tr>
+                      </ng-container>
+
+                    </table> -->
+                  </div>
+                  <div class="clr-col-lg-6 clr-align-self-center clr-col-12">
+                    <h1 class="pAlingCenter">General</h1>
+                    <div style="display: block;"
+                      *ngIf="chartDataGeneral[0].data.length > 0 && chartLabelsGeneral.length >0">
+                      <canvas baseChart width="400" height="300" chartType="bar" [datasets]="chartDataGeneral"
+                        [labels]="chartLabelsGeneral" [options]="chartOptionsGeneral" [colors]="chartColors"
+                        [legend]="chartLegendGeneral" [plugins]="chartPlugins">
+                      </canvas>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </clr-tab-content>
+
+
+            <!-- Datos en Cero -->
+            <div class="clr-row clr-justify-content-center">
+              <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
+                *ngIf="chartDataGeneral[0].data.length === 0 && chartLabelsGeneral.length ===0">
+                <div class="clr-row clr-justify-content-center">
+                  <div class="clr-col-lg-8 clr-align-self-center clr-col-12">
+                    <!-- Tabla sin datos -->
+                    <table class="table table-compact">
+                      <!-- HONDURAS PRESIDENTE -->
+                      <ng-container *ngIf="candidatosPresidente.length > 0">
+                        <tr>
+                        <tr>
+                          <th class="tbHeader" colspan="5">VOTOS PRESIDENCIA</th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader" colspan="5">Honduras</th>
+                        </tr>
+                        <tr>
+                          <th id="blank" class="tbHeader">Nombre Candidato</th>
+                          <th class="tbHeader" headers="blank">Conteo de Votos</th>
+                        </tr>
+                        <tr *ngFor="let item of candidatosPresidente; let i = index">
+                          <th headers="blank">{{item.nombres}} {{item.apellidos}}</th>
+                          <td headers="co1 c1">0</td>
+                        </tr>
+                        <!-- <tr>
+                          <th class="tbHeader" headers="blank">Honduras</th>
+                          <td class="tbHeader">0</td>
+                        </tr> -->
+                      </ng-container>
+                      <!-- VICE -->
+                      <ng-container>
+                        <tr>
+                          <th class="tbHeader" colspan="5">VOTOS VICEPRESIDENCIA</th>
+                        </tr>
+
+                        <ng-container *ngIf="candidatosViceSalvador.length > 0">
+                          <tr>
+                            <th class="tbHeader" colspan="5">El Salvador</th>
+                          </tr>
+                          <tr>
+                            <th id="blank" class="tbHeader">Nombre Candidato</th>
+                            <th class="tbHeader" headers="blank">Conteo de Votos</th>
+                          </tr>
+                          <tr *ngFor="let item of candidatosViceSalvador; let i = index">
+                            <th headers="blank">{{item.nombres}} {{item.apellidos}}</th>
+                            <td headers="co1 c1">0</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="candidatosViceGuatemla.length > 0">
+                          <tr>
+                            <th class="tbHeader" colspan="5">Guatemala</th>
+                          </tr>
+                          <tr>
+                            <th id="blank" class="tbHeader">Nombre Candidato</th>
+                            <th class="tbHeader" headers="blank">Conteo de Votos</th>
+                          </tr>
+                          <tr *ngFor="let item of candidatosViceGuatemla; let i = index">
+                            <th headers="blank">{{item.nombres}} {{item.apellidos}}</th>
+                            <td headers="co1 c1">0</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="candidatosViceNicaragua.length > 0">
+                          <tr>
+                            <th class="tbHeader" colspan="5">Nicaragua</th>
+                          </tr>
+                          <tr>
+                            <th id="blank" class="tbHeader">Nombre Candidato</th>
+                            <th class="tbHeader" headers="blank">Conteo de Votos</th>
+                          </tr>
+                          <tr *ngFor="let item of candidatosViceNicaragua; let i = index">
+                            <th headers="blank">{{item.nombres}} {{item.apellidos}}</th>
+                            <td headers="co1 c1">0</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="candidatosVicePanama.length > 0">
+                          <tr>
+                            <th class="tbHeader" colspan="5">Panamá</th>
+                          </tr>
+                          <tr>
+                            <th id="blank" class="tbHeader">Nombre Candidato</th>
+                            <th class="tbHeader" headers="blank">Conteo de Votos</th>
+                          </tr>
+                          <tr *ngFor="let item of candidatosVicePanama; let i = index">
+                            <th headers="blank">{{item.nombres}} {{item.apellidos}}</th>
+                            <td headers="co1 c1">0</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="candidatosViceDominicana.length > 0">
+                          <tr>
+                            <th class="tbHeader" colspan="5">República Dominicana</th>
+                          </tr>
+                          <tr>
+                            <th id="blank" class="tbHeader">Nombre Candidato</th>
+                            <th class="tbHeader" headers="blank">Conteo de Votos</th>
+                          </tr>
+                          <tr *ngFor="let item of candidatosViceDominicana; let i = index">
+                            <th headers="blank">{{item.nombres}} {{item.apellidos}}</th>
+                            <td headers="co1 c1">0</td>
+                          </tr>
+                        </ng-container>
+                      </ng-container>
+
+                      <!-- SEC -->
+                      <ng-container>
+                        <tr>
+                          <th class="tbHeader" colspan="5">VOTOS SECRETARÍA</th>
+                        </tr>
+
+                        <ng-container *ngIf="candidatosSecSalvador.length > 0">
+                          <tr>
+                            <th class="tbHeader" colspan="5">El Salvador</th>
+                          </tr>
+                          <tr>
+                            <th id="blank" class="tbHeader">Nombre Candidato</th>
+                            <th class="tbHeader" headers="blank">Conteo de Votos</th>
+                          </tr>
+                          <tr *ngFor="let item of candidatosSecSalvador; let i = index">
+                            <th headers="blank">{{item.nombres}} {{item.apellidos}}</th>
+                            <td headers="co1 c1">0</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="candidatosSecGuatemala.length > 0">
+                          <tr>
+                            <th class="tbHeader" colspan="5">Guatemala</th>
+                          </tr>
+                          <tr>
+                            <th id="blank" class="tbHeader">Nombre Candidato</th>
+                            <th class="tbHeader" headers="blank">Conteo de Votos</th>
+                          </tr>
+                          <tr *ngFor="let item of candidatosSecGuatemala; let i = index">
+                            <th headers="blank">{{item.nombres}} {{item.apellidos}}</th>
+                            <td headers="co1 c1">0</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="candidatosSecHonduras.length > 0">
+                          <tr>
+                            <th class="tbHeader" colspan="5">Honduras</th>
+                          </tr>
+                          <tr>
+                            <th id="blank" class="tbHeader">Nombre Candidato</th>
+                            <th class="tbHeader" headers="blank">Conteo de Votos</th>
+                          </tr>
+                          <tr *ngFor="let item of candidatosSecHonduras; let i = index">
+                            <th headers="blank">{{item.nombres}} {{item.apellidos}}</th>
+                            <td headers="co1 c1">0</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="candidatosSecNicaragua.length > 0">
+                          <tr>
+                            <th class="tbHeader" colspan="5">Nicaragua</th>
+                          </tr>
+                          <tr>
+                            <th id="blank" class="tbHeader">Nombre Candidato</th>
+                            <th class="tbHeader" headers="blank">Conteo de Votos</th>
+                          </tr>
+                          <tr *ngFor="let item of candidatosSecNicaragua; let i = index">
+                            <th headers="blank">{{item.nombres}} {{item.apellidos}}</th>
+                            <td headers="co1 c1">0</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="candidatosSecPanama.length > 0">
+                          <tr>
+                            <th class="tbHeader" colspan="5">Panamá</th>
+                          </tr>
+                          <tr>
+                            <th id="blank" class="tbHeader">Nombre Candidato</th>
+                            <th class="tbHeader" headers="blank">Conteo de Votos</th>
+                          </tr>
+                          <tr *ngFor="let item of candidatosSecPanama; let i = index">
+                            <th headers="blank">{{item.nombres}} {{item.apellidos}}</th>
+                            <td headers="co1 c1">0</td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="candidatosSecDominicana.length > 0">
+                          <tr>
+                            <th class="tbHeader" colspan="5">República Dominicana</th>
+                          </tr>
+                          <tr>
+                            <th id="blank" class="tbHeader">Nombre Candidato</th>
+                            <th class="tbHeader" headers="blank">Conteo de Votos</th>
+                          </tr>
+                          <tr *ngFor="let item of candidatosSecDominicana; let i = index">
+                            <th headers="blank">{{item.nombres}} {{item.apellidos}}</th>
+                            <td headers="co1 c1">0</td>
+                          </tr>
+                        </ng-container>
+                      </ng-container>
+                      <!-- Total Votos -->
+                      <ng-container>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader">0</th>
+                        </tr>
+                      </ng-container>
+
+                    </table>
+                    <div class="clr-col-lg-6 clr-align-self-center clr-col-12">
+                      <h1 class="pAlingCenter">General</h1>
+                      <div style="display: block;"
+                        *ngIf="chartDataGeneral[0].data.length === 0 && chartLabelsGeneral.length ===0">
+                        <canvas baseChart width="400" height="300" chartType="bar" [datasets]="[{data: [0]}]"
+                          [labels]="[]" [options]="chartOptionsGeneral" [colors]="chartColors"
+                          [legend]="chartLegendGeneral" [plugins]="chartPlugins">
+                        </canvas>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </clr-tab-content>
+        </ng-container>
+
       </clr-tab>
       <clr-tab>
-        <button clrTabLink id="link1" (click)="getVotosPresi()">Presidente(a)</button>
+        <button clrTabLink id="link1" (click)="getVotosPresi()">Votos Presidencia</button>
         <clr-tab-content id="link1" *clrIfActive>
           <div class="clr-row clr-justify-content-center">
-            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
+            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
               *ngIf="chartDataPresidente.length > 0 && chartLabelsPresidente.length >0">
-              <div class="clr-col-lg-12 clr-align-self-center clr-col-12">
-                <table class="table table-compact">
-                  <thead>
-                    <tr>
-                      <th colspan="15">Honduras</th>
-                    </tr>
-                    <tr>
-                      <th *ngFor="let item of chartLabelsPresidente; let i = index">{{item}}</th>
-                      <th>Total de Aforum</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let num of chartDataPresidente">
-                      <td *ngFor="let fin of num.data">{{fin}}</td>
-                      <td>{{sumdata(num.data)}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+
+              <table class="table table-compact">
+                <thead>
+                  <tr>
+                    <th colspan="15">Honduras</th>
+                  </tr>
+                  <tr>
+                    <th *ngFor="let item of chartLabelsPresidente; let i = index">{{item}}</th>
+                    <th>Total de Aforum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let num of chartDataPresidente">
+                    <td *ngFor="let fin of num.data">{{fin}}</td>
+                    <td>{{sumdata(num.data)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12">
               <h1 class="pAlingCenter">Honduras</h1>
               <div style="display: block;">
                 <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataPresidente"
@@ -422,64 +644,36 @@
         </clr-tab-content>
       </clr-tab>
       <clr-tab>
-        <button clrTabLink id="link2" (click)="getVotosVice()">Vicepresidente(a)</button>
+        <button clrTabLink id="link2" (click)="getVotosVice()">Votos Vicepresidencia</button>
         <clr-tab-content id="link2" *clrIfActive>
+
+          <!-- Salvador -->
           <div class="clr-row clr-justify-content-center">
-            <!-- Dominicana -->
-            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
-              *ngIf="chartDataViceDominicana.length > 0 && chartLabelsViceDominicana.length >0">
-
-              <div class="clr-col-lg-12 clr-align-self-center clr-col-12">
-                <table class="table table-compact">
-                  <thead>
-                    <tr>
-                      <th colspan="15">Republica Dominicana</th>
-                    </tr>
-                    <tr>
-                      <th *ngFor="let item of chartLabelsViceDominicana; let i = index">{{item}}</th>
-                      <th>Total de Aforum</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let num of chartDataViceDominicana">
-                      <td *ngFor="let fin of num.data">{{fin}}</td>
-                      <td>{{sumdata(num.data)}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <h1 class="pAlingCenter">Republica Dominicana</h1>
-              <div style="display: block;">
-                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataViceDominicana"
-                  [labels]="chartLabelsViceDominicana" [options]="chartOptions" [colors]="chartColors"
-                  [legend]="chartLegend" [plugins]="chartPlugins">
-                </canvas>
-              </div>
-            </div>
-            <!-- Salvador -->
-            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
+            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
               *ngIf="chartDataViceSalvador.length > 0 && chartLabelsViceSalvador.length >0">
-
-              <div class="clr-col-lg-12 clr-align-self-center clr-col-12">
-                <table class="table table-compact">
-                  <thead>
-                    <tr>
-                      <th colspan="15">El Salvador</th>
-                    </tr>
-                    <tr>
-                      <th *ngFor="let item of chartLabelsViceSalvador; let i = index">{{item}}</th>
-                      <th>Total de Aforum</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let num of chartDataViceSalvador">
-                      <td *ngFor="let fin of num.data">{{fin}}</td>
-                      <td>{{sumdata(num.data)}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
               <h1 class="pAlingCenter">El Salvador</h1>
+              <table class="table table-compact">
+                <thead>
+                  <tr>
+                    <th colspan="15">El Salvador</th>
+                  </tr>
+                  <tr>
+                    <th *ngFor="let item of chartLabelsViceSalvador; let i = index">{{item}}</th>
+                    <th>TOTAL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let num of chartDataViceSalvador">
+                    <td *ngFor="let fin of num.data">{{fin}}</td>
+                    <td>{{sumdata(num.data)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12">
               <div style="display: block;">
                 <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataViceSalvador"
                   [labels]="chartLabelsViceSalvador" [options]="chartOptions" [colors]="chartColors"
@@ -487,63 +681,33 @@
                 </canvas>
               </div>
             </div>
-            <!-- Nicaragua -->
-            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
-              *ngIf="chartDataViceNicaragua.length > 0 && chartLabelsViceNicaragua.length >0">
-
-              <div class="clr-col-lg-12 clr-align-self-center clr-col-12">
-                <table class="table table-compact">
-                  <thead>
-                    <tr>
-                      <th colspan="15">Nicaragua</th>
-                    </tr>
-                    <tr>
-                      <th *ngFor="let item of chartLabelsViceNicaragua; let i = index">{{item}}</th>
-                      <th>Total de Aforum</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let num of chartDataViceNicaragua">
-                      <td *ngFor="let fin of num.data">{{fin}}</td>
-                      <td>{{sumdata(num.data)}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <h1 class="pAlingCenter">Nicaragua</h1>
-              <div style="display: block;">
-                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataViceNicaragua"
-                  [labels]="chartLabelsViceNicaragua" [options]="chartOptions" [colors]="chartColors"
-                  [legend]="chartLegend" [plugins]="chartPlugins">
-                </canvas>
-              </div>
-            </div>
-            <!-- Guatemala -->
-            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
+          </div>
+          <!-- Guatemala -->
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
               *ngIf="chartDataViceGuatemala.length > 0 && chartLabelsViceGuatemala.length >0">
-
-              <div class="clr-col-lg-12 clr-align-self-center clr-col-12">
-                <table class="table table-compact">
-                  <thead>
-                    <tr>
-                      <th colspan="15">Guatemala</th>
-                    </tr>
-                    <tr>
-                      <th *ngFor="let item of chartLabelsViceNicaragua; let i = index">{{item}}</th>
-                      <th>Total de Aforum</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let num of chartDataViceGuatemala">
-                      <td *ngFor="let fin of num.data">{{fin}}</td>
-                      <td>{{sumdata(num.data)}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
               <h1 class="pAlingCenter">Guatemala</h1>
+              <table class="table table-compact">
+                <thead>
+                  <tr>
+                    <th colspan="15">Guatemala</th>
+                  </tr>
+                  <tr>
+                    <th *ngFor="let item of chartLabelsViceGuatemala; let i = index">{{item}}</th>
+                    <th>Total de Aforum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let num of chartDataViceGuatemala">
+                    <td *ngFor="let fin of num.data">{{fin}}</td>
+                    <td>{{sumdata(num.data)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12">
               <div style="display: block;">
                 <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataViceGuatemala"
                   [labels]="chartLabelsViceGuatemala" [options]="chartOptions" [colors]="chartColors"
@@ -551,31 +715,67 @@
                 </canvas>
               </div>
             </div>
-            <!-- Panama -->
-            <div class="clr-col-lg-4 clr-align-self-center clr-col-12"
-              *ngIf="chartDataVicePanama.length > 0 && chartLabelsVicePanama.length >0">
-              <div class="clr-row clr-justify-content-center">
-                <div class="clr-col-lg-6 clr-align-self-center clr-col-12">
-                  <table class="table table-compact">
-                    <thead>
-                      <tr>
-                        <th colspan="15">Panama</th>
-                      </tr>
-                      <tr>
-                        <th *ngFor="let item of chartLabelsVicePanama; let i = index">{{item}}</th>
-                        <th>Total de Aforum</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let num of chartDataVicePanama">
-                        <td *ngFor="let fin of num.data">{{fin}}</td>
-                        <td>{{sumdata(num.data)}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+          </div>
+          <!-- Nicaragua -->
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
+              *ngIf="chartDataViceNicaragua.length > 0 && chartLabelsViceNicaragua.length >0">
+              <h1 class="pAlingCenter">Nicaragua</h1>
+              <table class="table table-compact">
+                <thead>
+                  <tr>
+                    <th colspan="15">Nicaragua</th>
+                  </tr>
+                  <tr>
+                    <th *ngFor="let item of chartLabelsViceNicaragua; let i = index">{{item}}</th>
+                    <th>Total de Aforum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let num of chartDataViceNicaragua">
+                    <td *ngFor="let fin of num.data">{{fin}}</td>
+                    <td>{{sumdata(num.data)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12">
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataViceNicaragua"
+                  [labels]="chartLabelsViceNicaragua" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
               </div>
+            </div>
+          </div>
+          <!-- Panama -->
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
+              *ngIf="chartDataVicePanama.length > 0 && chartLabelsVicePanama.length >0">
               <h1 class="pAlingCenter">Panama</h1>
+              <table class="table table-compact">
+                <thead>
+                  <tr>
+                    <th colspan="15">Panama</th>
+                  </tr>
+                  <tr>
+                    <th *ngFor="let item of chartLabelsVicePanama; let i = index">{{item}}</th>
+                    <th>Total de Aforum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let num of chartDataVicePanama">
+                    <td *ngFor="let fin of num.data">{{fin}}</td>
+                    <td>{{sumdata(num.data)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12">
               <div style="display: block;">
                 <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataVicePanama"
                   [labels]="chartLabelsVicePanama" [options]="chartOptions" [colors]="chartColors"
@@ -584,229 +784,254 @@
               </div>
             </div>
           </div>
-        </clr-tab-content>
-      </clr-tab>
-      <clr-tab>
-        <button clrTabLink id="link3" (click)="getVotosSec()">Secretario(a)</button>
-        <clr-tab-content id="link3" *clrIfActive>
-          <div class="clr-row clr-justify-content-center">
-            <!-- Dominicana -->
+           <!-- Dominicana -->
+           <div class="clr-row clr-justify-content-center">
             <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
-              *ngIf="chartDataSecDominicana.length > 0 && chartLabelsSecDominicana.length >0">
-              <div class="clr-row clr-justify-content-center">
-                <div class="clr-col-lg-12 clr-align-self-center clr-col-12">
-                  <table class="table table-compact">
-                    <thead>
-                      <tr>
-                        <th colspan="15">Republica Dominicana</th>
-                      </tr>
-                      <tr>
-                        <th *ngFor="let item of chartLabelsSecDominicana; let i = index">{{item}}</th>
-                        <th>Total de Aforum</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let num of chartDataSecDominicana">
-                        <td *ngFor="let fin of num.data">{{fin}}</td>
-                        <td>{{sumdata(num.data)}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="clr-col-lg-5 clr-align-self-center clr-col-12">
-                  <h1 class="pAlingCenter">Republica Dominicana</h1>
-                  <div style="display: block;">
-                    <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecDominicana"
-                      [labels]="chartLabelsSecDominicana" [options]="chartOptions" [colors]="chartColors"
-                      [legend]="chartLegend" [plugins]="chartPlugins">
-                    </canvas>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!-- Salvador -->
-            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
-              *ngIf="chartDataSecSalvador.length > 0 && chartLabelsSecSalvador.length >0">
-              <div class="clr-row clr-justify-content-center">
-                <div class="clr-col-lg-12 clr-align-self-center clr-col-12">
-                  <table class="table table-compact">
-                    <thead>
-                      <tr>
-                        <th colspan="15">El Salvador</th>
-                      </tr>
-                      <tr>
-                        <th *ngFor="let item of chartLabelsSecSalvador; let i = index">{{item}}</th>
-                        <th>Total de Aforum</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let num of chartDataSecSalvador">
-                        <td *ngFor="let fin of num.data">{{fin}}</td>
-                        <td>{{sumdata(num.data)}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="clr-col-lg-5 clr-align-self-center clr-col-12">
-                  <h1 class="pAlingCenter">El Salvador</h1>
-                  <div style="display: block;">
-                    <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecSalvador"
-                      [labels]="chartLabelsSecSalvador" [options]="chartOptions" [colors]="chartColors"
-                      [legend]="chartLegend" [plugins]="chartPlugins">
-                    </canvas>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!-- Nicaragua -->
-            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
-              *ngIf="chartDataSecNicaragua.length > 0 && chartLabelsSecNicaragua.length >0">
-              <div class="clr-row clr-justify-content-center">
-                <div class="clr-col-lg-12 clr-align-self-center clr-col-12">
-                  <table class="table table-compact">
-                    <thead>
-                      <tr>
-                        <th colspan="15">Nicaragua</th>
-                      </tr>
-                      <tr>
-                        <th *ngFor="let item of chartLabelsSecNicaragua; let i = index">{{item}}</th>
-                        <th>Total de Aforum</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let num of chartDataSecNicaragua">
-                        <td *ngFor="let fin of num.data">{{fin}}</td>
-                        <td>{{sumdata(num.data)}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="clr-col-lg-5 clr-align-self-center clr-col-12">
-                  <h1 class="pAlingCenter">Nicaragua</h1>
-                  <div style="display: block;">
-                    <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecNicaragua"
-                      [labels]="chartLabelsSecNicaragua" [options]="chartOptions" [colors]="chartColors"
-                      [legend]="chartLegend" [plugins]="chartPlugins">
-                    </canvas>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!-- Honduras -->
-            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
-              *ngIf="chartDataSecHonduras.length > 0 && chartLabelsSecHonduras.length >0">
-              <div class="clr-row clr-justify-content-center">
-                <div class="clr-col-lg-12 clr-align-self-center clr-col-12">
-                  <table class="table table-compact">
-                    <thead>
-                      <tr>
-                        <th colspan="15">Honduras</th>
-                      </tr>
-                      <tr>
-                        <th *ngFor="let item of chartLabelsSecHonduras; let i = index">{{item}}</th>
-                        <th>Total de Aforum</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let num of chartDataSecHonduras">
-                        <td *ngFor="let fin of num.data">{{fin}}</td>
-                        <td>{{sumdata(num.data)}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="clr-col-lg-5 clr-align-self-center clr-col-12">
-                  <h1 class="pAlingCenter">Honduras</h1>
-                  <div style="display: block;">
-                    <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecHonduras"
-                      [labels]="chartLabelsSecHonduras" [options]="chartOptions" [colors]="chartColors"
-                      [legend]="chartLegend" [plugins]="chartPlugins">
-                    </canvas>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!-- Guatemala -->
-            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
-              *ngIf="chartDataSecGuatemala.length > 0 && chartLabelsSecGuatemala.length >0">
-              <div class="clr-row clr-justify-content-center">
-                <div class="clr-col-lg-12 clr-align-self-center clr-col-12">
-                  <table class="table table-compact">
-                    <thead>
-                      <tr>
-                        <th colspan="15">Guatemala</th>
-                      </tr>
-                      <tr>
-                        <th *ngFor="let item of chartLabelsSecGuatemala; let i = index">{{item}}</th>
-                        <th>Total de Aforum</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let num of chartDataSecGuatemala">
-                        <td *ngFor="let fin of num.data">{{fin}}</td>
-                        <td>{{sumdata(num.data)}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="clr-col-lg-5 clr-align-self-center clr-col-12">
-                  <h1 class="pAlingCenter">Guatemala</h1>
-                  <div style="display: block;">
-                    <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecGuatemala"
-                      [labels]="chartLabelsSecGuatemala" [options]="chartOptions" [colors]="chartColors"
-                      [legend]="chartLegend" [plugins]="chartPlugins">
-                    </canvas>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!-- Panama -->
-            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
-              *ngIf="chartDataSecPanama.length > 0 && chartLabelsSecPanama.length >0">
-              <div class="clr-row clr-justify-content-center">
-                <div class="clr-col-lg-12 clr-align-self-center clr-col-12">
-                  <table class="table table-compact">
-                    <thead>
-                      <tr>
-                        <th colspan="15">Panama</th>
-                      </tr>
-                      <tr>
-                        <th *ngFor="let item of chartLabelsSecPanama; let i = index">{{item}}</th>
-                        <th>Total de Aforum</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let num of chartDataSecPanama">
-                        <td *ngFor="let fin of num.data">{{fin}}</td>
-                        <td>{{sumdata(num.data)}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="clr-col-lg-5 clr-align-self-center clr-col-12">
-                  <h1 class="pAlingCenter">Panama</h1>
-                  <div style="display: block;">
-                    <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecPanama"
-                      [labels]="chartLabelsSecPanama" [options]="chartOptions" [colors]="chartColors"
-                      [legend]="chartLegend" [plugins]="chartPlugins">
-                    </canvas>
-                  </div>
-                </div>
-              </div>
+              *ngIf="chartDataViceDominicana.length > 0 && chartLabelsViceDominicana.length >0">
+              <h1 class="pAlingCenter">República Dominicana</h1>
+              <table class="table table-compact">
+                <thead>
+                  <tr>
+                    <th colspan="15">República Dominicana</th>
+                  </tr>
+                  <tr>
+                    <th *ngFor="let item of chartLabelsViceDominicana; let i = index">{{item}}</th>
+                    <th>TOTAL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let num of chartDataViceDominicana">
+                    <td *ngFor="let fin of num.data">{{fin}}</td>
+                    <td>{{sumdata(num.data)}}</td>
+                  </tr>
+                </tbody>
+              </table>
 
             </div>
           </div>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12">
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataViceDominicana"
+                  [labels]="chartLabelsViceDominicana" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+          </div>
+
+        </clr-tab-content>
+      </clr-tab>
+      <clr-tab>
+        <button clrTabLink id="link3" (click)="getVotosSec()">Votos Secretaría</button>
+        <clr-tab-content id="link3" *clrIfActive>
+          <!-- Salvador -->
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
+              *ngIf="chartDataSecSalvador.length > 0 && chartLabelsSecSalvador.length >0">
+              <h1 class="pAlingCenter">El Salvador</h1>
+              <table class="table table-compact">
+                <thead>
+                  <tr>
+                    <th colspan="15">El Salvador</th>
+                  </tr>
+                  <tr>
+                    <th *ngFor="let item of chartLabelsSecSalvador; let i = index">{{item}}</th>
+                    <th>Total de Aforum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let num of chartDataSecSalvador">
+                    <td *ngFor="let fin of num.data">{{fin}}</td>
+                    <td>{{sumdata(num.data)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12">
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecSalvador"
+                  [labels]="chartLabelsSecSalvador" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+          </div>
+          <!-- Guatemala -->
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
+              *ngIf="chartDataSecGuatemala.length > 0 && chartLabelsSecGuatemala.length >0">
+              <h1 class="pAlingCenter">Guatemala</h1>
+              <table class="table table-compact">
+                <thead>
+                  <tr>
+                    <th colspan="15">Guatemala</th>
+                  </tr>
+                  <tr>
+                    <th *ngFor="let item of chartLabelsSecGuatemala; let i = index">{{item}}</th>
+                    <th>Total de Aforum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let num of chartDataSecGuatemala">
+                    <td *ngFor="let fin of num.data">{{fin}}</td>
+                    <td>{{sumdata(num.data)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12">
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecGuatemala"
+                  [labels]="chartLabelsSecGuatemala" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+          </div>
+          <!-- Honduras -->
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
+              *ngIf="chartDataSecHonduras.length > 0 && chartLabelsSecHonduras.length >0">
+              <h1 class="pAlingCenter">Honduras</h1>
+              <table class="table table-compact">
+                <thead>
+                  <tr>
+                    <th colspan="15">Honduras</th>
+                  </tr>
+                  <tr>
+                    <th *ngFor="let item of chartLabelsSecHonduras; let i = index">{{item}}</th>
+                    <th>Total de Aforum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let num of chartDataSecHonduras">
+                    <td *ngFor="let fin of num.data">{{fin}}</td>
+                    <td>{{sumdata(num.data)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12">
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecHonduras"
+                  [labels]="chartLabelsSecHonduras" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+          </div>
+          <!-- Nicaragua -->
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
+              *ngIf="chartDataSecNicaragua.length > 0 && chartLabelsSecNicaragua.length >0">
+              <h1 class="pAlingCenter">Nicaragua</h1>
+              <table class="table table-compact">
+                <thead>
+                  <tr>
+                    <th colspan="15">Nicaragua</th>
+                  </tr>
+                  <tr>
+                    <th *ngFor="let item of chartLabelsSecNicaragua; let i = index">{{item}}</th>
+                    <th>Total de Aforum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let num of chartDataSecNicaragua">
+                    <td *ngFor="let fin of num.data">{{fin}}</td>
+                    <td>{{sumdata(num.data)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12">
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecNicaragua"
+                  [labels]="chartLabelsSecNicaragua" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+          </div>
+          <!-- Panama -->
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
+              *ngIf="chartDataSecPanama.length > 0 && chartLabelsSecPanama.length >0">
+              <h1 class="pAlingCenter">Panama</h1>
+              <table class="table table-compact">
+                <thead>
+                  <tr>
+                    <th colspan="15">Panama</th>
+                  </tr>
+                  <tr>
+                    <th *ngFor="let item of chartLabelsSecPanama; let i = index">{{item}}</th>
+                    <th>Total de Aforum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let num of chartDataSecPanama">
+                    <td *ngFor="let fin of num.data">{{fin}}</td>
+                    <td>{{sumdata(num.data)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12">
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecPanama"
+                  [labels]="chartLabelsSecPanama" [options]="chartOptions" [colors]="chartColors" [legend]="chartLegend"
+                  [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+          </div>
+          <!-- Dominicana -->
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
+              *ngIf="chartDataSecDominicana.length > 0 && chartLabelsSecDominicana.length >0">
+              <h1 class="pAlingCenter">Republica Dominicana</h1>
+              <table class="table table-compact">
+                <thead>
+                  <tr>
+                    <th colspan="15">Republica Dominicana</th>
+                  </tr>
+                  <tr>
+                    <th *ngFor="let item of chartLabelsSecDominicana; let i = index">{{item}}</th>
+                    <th>Total de Aforum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let num of chartDataSecDominicana">
+                    <td *ngFor="let fin of num.data">{{fin}}</td>
+                    <td>{{sumdata(num.data)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12">
+              <div style="display: block;">
+                <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataSecDominicana"
+                  [labels]="chartLabelsSecDominicana" [options]="chartOptions" [colors]="chartColors"
+                  [legend]="chartLegend" [plugins]="chartPlugins">
+                </canvas>
+              </div>
+            </div>
+          </div>
+
         </clr-tab-content>
       </clr-tab>
     </clr-tabs>
-
-
   </div>
-
-
 </div>

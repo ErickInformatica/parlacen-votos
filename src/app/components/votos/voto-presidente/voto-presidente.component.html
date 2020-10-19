@@ -2,18 +2,19 @@
   <div class="clr-col-12 clr-align-self-center">
     <div class="clr-row">
       <div class="clr-col-6">
-        <img [src]="imagenTitulo" class="responsive-logo" style="float: left;
-        margin: 0 15px 0 0;" />
-      </div>
-      <div class="clr-col-6">
-        <img src="assets/logo.png" class="responsive-logo" style="float: right;
+        <img src="assets/logo.png" class="responsive-logo" style="float: left;
         margin: 0 0 0 15px;" />
       </div>
+      <div class="clr-col-6">
+        <img [src]="imagenTitulo" class="responsive-logo" style="float: right;
+        margin: 0 15px 0 0;" />
+      </div>
+
     </div>
 
 
     <div class="pAlingCenter">
-      <h1>Presidente(a) <img class="responsive-title" [src]="imagenTitulo" alt=""></h1>
+      <h1>Presidente(a) {{nombrePais}}</h1>
     </div>
     <br>
     <!-- Honduras Cards -->
@@ -24,8 +25,7 @@
             [(ngModel)]="votoModel.idCandidato" (change)="getSelected($event, fxh.datos)" />
           <div class="card clickable card-input pAlingCenter">
             <div class="card-header">
-              {{fxh.datos.nombres}} {{fxh.datos.apellidos}} - <img class="responsive-logo"
-                [src]="fxh.datos.datosPais.imagenPais" alt="">
+              {{fxh.datos.nombres}} {{fxh.datos.apellidos}}
             </div>
             <div class="card-block">
               <div class="card-title">
@@ -34,9 +34,6 @@
               <div class="card-text">
                 <img class="responsive-image" [src]="fxh.datos.image" alt="">
               </div>
-            </div>
-            <div class="card-footer">
-              {{fxh.datos.puestoPostulado}}
             </div>
           </div>
         </label>
@@ -47,11 +44,10 @@
 
     <form clrForm>
       <clr-radio-container clrInline>
-        <label>Voto</label>
         <clr-radio-wrapper>
           <input type="radio" clrRadio name="En Blanco" value="En Blanco" [(ngModel)]="votoModel.tipoVoto"
             (change)="getSelectedNoW($event)" />
-          <label>En Blanco</label>
+            <label style="font-weight: bold; font-size: 15px;">Voto en Blanco</label>
         </clr-radio-wrapper>
         <!-- <clr-radio-wrapper>
           <input type="radio" clrRadio name="Nulo" required value="Nulo" [(ngModel)]="votoModel.tipoVoto"
@@ -62,7 +58,16 @@
       </clr-radio-container>
 
     </form>
-    <button class="button" class="btn btn-primary floatLeftButton" (click)="addVoto()">Realizar Voto</button>
+    <button class="button" class="btn btn-primary floatLeftButton" (click)="addVoto()">Siguiente</button>
 
+  </div>
+</div>
+<div class="clr-row clr-justify-content-center">
+  <div class="clr-col-12 clr-align-self-center">
+    <div style="text-align: center">Elecciones a cargos de Junta Directiva 2020 - 2021</div>
+    <!-- <div style="position: relative">
+      <div style="position: absolute; margin-top: 20px; bottom: 0; width:100%; left: 0; text-align: center"> Elecciones a cargo de Junta Directiva 2020 - 2021
+      </div>
+    </div> -->
   </div>
 </div>

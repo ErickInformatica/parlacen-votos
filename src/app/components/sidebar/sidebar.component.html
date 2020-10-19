@@ -25,22 +25,22 @@
       </ul>
     </section> -->
     <!-- Candidatos -->
-    <section class="nav-group collapsible">
+    <section class="nav-group collapsible" *ngIf="UserService.getIdentity().datos.rol === 'SA'">
       <input id="tabexample3" type="checkbox">
       <label for="tabexample3">Candidatos</label>
       <ul class="nav-list">
         <li><a routerLink="/home/candidatos" *ngIf="UserService.getIdentity().datos.rol === 'SA'"
             routerLinkActive="active" [routerLinkActiveOptions]="{exact:
           true}" class="nav-link">Candidatos</a></li>
-        <li><a routerLink="/admin/candidatos" *ngIf="UserService.getIdentity().datos.rol === 'ADMIN'"
+        <!-- <li><a routerLink="/admin/candidatos" *ngIf="UserService.getIdentity().datos.rol === 'ADMIN'"
             routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-            true}" class="nav-link">Candidatos</a></li>
+            true}" class="nav-link">Candidatos</a></li> -->
         <li><a routerLink="/home/candidatosRound" *ngIf="UserService.getIdentity().datos.rol === 'SA'"
             routerLinkActive="active" [routerLinkActiveOptions]="{exact:
             true}" class="nav-link">Siguiente Ronda o Nueva Votacion</a></li>
-        <li><a routerLink="/admin/candidatosRound" *ngIf="UserService.getIdentity().datos.rol === 'ADMIN'"
+        <!-- <li><a routerLink="/admin/candidatosRound" *ngIf="UserService.getIdentity().datos.rol === 'ADMIN'"
             routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-              true}" class="nav-link">Siguiente Ronda o Nueva Votacion</a></li>
+              true}" class="nav-link">Siguiente Ronda o Nueva Votacion</a></li> -->
       </ul>
     </section>
     <!-- Papeletas -->

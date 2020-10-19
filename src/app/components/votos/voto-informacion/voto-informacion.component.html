@@ -3,34 +3,26 @@
     <div class="clr-row">
       <div class="clr-col-6">
       </div>
-      <div class="clr-col-6">
+      <!-- <div class="clr-col-6">
         <img src="assets/logo.png" class="responsive-logo" style="float: right;
           margin: 0 0 0 15px;" />
-      </div>
+      </div> -->
     </div>
     <div class="pAlingCenter">
       <img class="responsive-image" src="assets/logo.png" alt="">
     </div>
 
     <div class="clr-row clr-justify-content-center">
-      <div class="clr-col-lg-02 clr-align-self-center clr-col-10">
+      <div class="clr-col-lg-8 clr-align-self-center clr-col-10">
         <div class="card card-input pAlingCenter">
           <div class="card-block">
             <div class="card-text">
-              <p>I am trying to place a 1 pixel wide by 300 pixels high vertical line centered in between two divs
-                floated left and right and a footer div clearing both, all within a wrapper (not displayed in code
-                below).
-
-                This works fine when I use an HR and style it with CSS in every web browser but IE 6/7. I read somewhere
-                that you can’t use HRs in this way with IE and the work around was to use a div. When I attempt to use a
-                div to do this everything breaks down completely and my footer div merges with the vertLine div in
-                between the floats.
-
-                When I change the #vertLine to a div from HR, thumbWrapper collapses and merges into the vertLine div in
-                the center of the floats, effectively ignoring the clear.
-
-                I can’t figure out any solution that works in IE7 whatsoever, and the only thing that I can get working
-                for the other browsers is the HR.</p>
+              <p>Bienvenida(o) a las votaciones para cargos de JD-PARLACEN 2020-2021. Cuando usted presiones el botón
+                INICIAR irán apareciendo sucesivamente las papeletas electorales. Para votar presiones sobre la foto de
+                la candidata o candidato de su preferencia, luego hágalo sobre el botón que dice SIGUIENTE, ubicado en
+                la parte inferior derecha de cada papeleta. Una vez terminó, presione el botón que dice ENTENDIDO que
+                señala que usted finalizó su votación. No hay posibilidad de vuelta atrás. Tiene usted 20 minutos para
+                realizar su votación.</p>
 
               <button class="btn btn-primary" (click)="variablesModals.inicio = true">Iniciar </button>
 
@@ -45,16 +37,16 @@
 
 
 <clr-modal [(clrModalOpen)]="variablesModals.inicio">
-  <h3 class="modal-title">Advertencia</h3>
+  <h3 class="modal-title">Información</h3>
   <div class="modal-body">
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-warning alert-sm" role="alert">
       <div class="alert-items">
         <div class="alert-item static">
           <div class="alert-icon-wrapper">
             <clr-icon shape="exclamation-circle"></clr-icon>
           </div>
           <span class="alert-text">
-            ¡¡¡Atención!!!
+            ¡¡¡Información!!!
           </span>
 
         </div>

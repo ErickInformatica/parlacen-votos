@@ -18,7 +18,7 @@ export class VotoSecretarioComponent implements OnInit {
   };
 
   modalFinal = false;
-
+  public nombrePais;
   public imagenTitulo;
   public filterXPaisPanama = [];
   public filterXPaisNicaragua = [];
@@ -65,17 +65,20 @@ export class VotoSecretarioComponent implements OnInit {
   }
 
   addVoto() {
+
     if(this.votoModel.idCandidato === '' && this.votoModel.tipoVoto === ''){
       return Swal.fire({
         position: 'top-end',
-        icon: 'error',
-        title: 'Debe seleccionar algo a votar, no puede ir vacio',
+        icon: 'warning',
+        title: 'Debe seleccionar una opción de voto',
         showConfirmButton: false,
         timer: 2000
       })
     }
     this.addPromise().then((res) => {
       this.getVotosSecretario();
+      this.votoModel.tipoVoto = ''
+      this.votoModel.idCandidato = ''
     });
   }
 
@@ -89,106 +92,108 @@ export class VotoSecretarioComponent implements OnInit {
 
   getVotosSecretario() {
     this._votoService.getSecretario(this.token).subscribe(
-      (res) => {
-        if (res.candidatos) {
-          this.candidatos = res.candidatos;
-          this.filterXPaisPanama = this.candidatos.filter((elem) => {
-            if (elem.datos.datosPais.nombrePais === 'Panama') {
-              return elem.datos.datosPais.nombrePais === 'Panama';
+      (res) => {if (res.candidatos) {
+        this.candidatos = res.candidatos;
+        this.filterXPaisSalvador = this.candidatos.filter((elem) => {
+          if (elem.datos.datosPais.nombrePais === 'El Salvador') {
+            return elem.datos.datosPais.nombrePais === 'El Salvador';
+          }
+        });
+        if (this.filterXPaisSalvador.length > 0) {
+          this.imagenTitulo = this.filterXPaisSalvador[0].datos.datosPais.imagenPais;
+          this.votoModel.pais = this.filterXPaisSalvador[0].datos.datosPais.nombrePais;
+          this.nombrePais = this.filterXPaisSalvador[0].datos.datosPais.nombrePais;
+        }
+
+
+        if(this.filterXPaisSalvador.length === 0){
+
+          this.filterXPaisGuatemala = this.candidatos.filter((elem) => {
+            if (elem.datos.datosPais.nombrePais === 'Guatemala') {
+              return elem.datos.datosPais.nombrePais === 'Guatemala';
             }
           });
+          if (this.filterXPaisGuatemala.length > 0) {
+            this.imagenTitulo = this.filterXPaisGuatemala[0].datos.datosPais.imagenPais;
+            this.nombrePais = this.filterXPaisGuatemala[0].datos.datosPais.nombrePais;
+            this.votoModel.pais = this.filterXPaisGuatemala[0].datos.datosPais.nombrePais;
+          }
+        }
+
+
+        if (this.filterXPaisGuatemala.length === 0 && this.filterXPaisSalvador.length === 0) {
+          this.filterXPaisHonduras = this.candidatos.filter((elem) => {
+            if (elem.datos.datosPais.nombrePais === 'Honduras') {
+              return elem.datos.datosPais.nombrePais === 'Honduras';
+            }
+          });
+          if (this.filterXPaisHonduras.length > 0) {
+            this.imagenTitulo = this.filterXPaisHonduras[0].datos.datosPais.imagenPais;
+            this.votoModel.pais = this.filterXPaisHonduras[0].datos.datosPais.nombrePais;
+            this.nombrePais = this.filterXPaisHonduras[0].datos.datosPais.nombrePais;
+          }
+        }
+        if (
+          this.filterXPaisHonduras.length === 0 &&
+          this.filterXPaisSalvador.length === 0 &&
+          this.filterXPaisGuatemala.length === 0
+        ) {
+
+          this.filterXPaisNicaragua = this.candidatos.filter((elem) => {
+            if (elem.datos.datosPais.nombrePais === 'Nicaragua') {
+              return elem.datos.datosPais.nombrePais === 'Nicaragua';
+            }
+          });
+          if (this.filterXPaisNicaragua.length > 0) {
+            this.imagenTitulo = this.filterXPaisNicaragua[0].datos.datosPais.imagenPais;
+            this.nombrePais = this.filterXPaisNicaragua[0].datos.datosPais.nombrePais;
+            this.votoModel.pais = this.filterXPaisNicaragua[0].datos.datosPais.nombrePais;
+          }
+        }
+        if (
+          this.filterXPaisHonduras.length === 0 &&
+          this.filterXPaisSalvador.length === 0 &&
+          this.filterXPaisGuatemala.length === 0 &&
+          this.filterXPaisNicaragua.length === 0
+        ) {
+          this.filterXPaisPanama = this.candidatos.filter((elem) => {
+            if (elem.datos.datosPais.nombrePais === 'Panamá') {
+              return elem.datos.datosPais.nombrePais === 'Panamá';
+            }
+          });
+
           if (this.filterXPaisPanama.length > 0) {
             this.imagenTitulo = this.filterXPaisPanama[0].datos.datosPais.imagenPais;
+            this.nombrePais = this.filterXPaisPanama[0].datos.datosPais.nombrePais;
             this.votoModel.pais = this.filterXPaisPanama[0].datos.datosPais.nombrePais;
           }
-
-          if (this.filterXPaisPanama.length === 0) {
-            this.filterXPaisNicaragua = this.candidatos.filter((elem) => {
-              if (elem.datos.datosPais.nombrePais === 'Nicaragua') {
-                return elem.datos.datosPais.nombrePais === 'Nicaragua';
-              }
-            });
-            if (this.filterXPaisNicaragua.length > 0) {
-              this.imagenTitulo = this.filterXPaisNicaragua[0].datos.datosPais.imagenPais;
-              this.votoModel.pais = this.filterXPaisNicaragua[0].datos.datosPais.nombrePais;
-            }
-          }
-          if (
-            this.filterXPaisPanama.length === 0 &&
-            this.filterXPaisNicaragua.length === 0
-          ) {
-            this.filterXPaisDominicana = this.candidatos.filter((elem) => {
-              if (elem.datos.datosPais.nombrePais === 'Republica Dominicana') {
-                return (
-                  elem.datos.datosPais.nombrePais === 'Republica Dominicana'
-                );
-              }
-            });
-
-            if (this.filterXPaisDominicana.length > 0) {
-              this.imagenTitulo = this.filterXPaisDominicana[0].datos.datosPais.imagenPais;
-              this.votoModel.pais = this.filterXPaisDominicana[0].datos.datosPais.nombrePais;
-            }
-          }
-          if (
-            this.filterXPaisPanama.length === 0 &&
-            this.filterXPaisNicaragua.length === 0 &&
-            this.filterXPaisDominicana.length === 0
-          ) {
-            this.filterXPaisGuatemala = this.candidatos.filter((elem) => {
-              if (elem.datos.datosPais.nombrePais === 'Guatemala') {
-                return elem.datos.datosPais.nombrePais === 'Guatemala';
-              }
-            });
-            if (this.filterXPaisGuatemala.length > 0) {
-              this.imagenTitulo = this.filterXPaisGuatemala[0].datos.datosPais.imagenPais;
-              this.votoModel.pais = this.filterXPaisGuatemala[0].datos.datosPais.nombrePais;
-            }
-          }
-          if (
-            this.filterXPaisPanama.length === 0 &&
-            this.filterXPaisNicaragua.length === 0 &&
-            this.filterXPaisDominicana.length === 0 &&
-            this.filterXPaisGuatemala.length === 0
-          ) {
-            this.filterXPaisSalvador = this.candidatos.filter((elem) => {
-              if (elem.datos.datosPais.nombrePais === 'El Salvador') {
-                return elem.datos.datosPais.nombrePais === 'El Salvador';
-              }
-            });
-            if (this.filterXPaisSalvador.length > 0) {
-              this.imagenTitulo = this.filterXPaisSalvador[0].datos.datosPais.imagenPais;
-              this.votoModel.pais = this.filterXPaisSalvador[0].datos.datosPais.nombrePais;
-            }
-          }
-          if (
-            this.filterXPaisPanama.length === 0 &&
-            this.filterXPaisNicaragua.length === 0 &&
-            this.filterXPaisDominicana.length === 0 &&
-            this.filterXPaisGuatemala.length === 0 &&
-            this.filterXPaisSalvador.length === 0
-          ) {
-            this.filterXPaisHonduras = this.candidatos.filter((elem) => {
-              if (elem.datos.datosPais.nombrePais === 'Honduras') {
-                return elem.datos.datosPais.nombrePais === 'Honduras';
-              }
-            });
-            if (this.filterXPaisHonduras.length > 0) {
-              this.imagenTitulo = this.filterXPaisHonduras[0].datos.datosPais.imagenPais;
-              this.votoModel.pais = this.filterXPaisHonduras[0].datos.datosPais.nombrePais;
-            }
-          }
-          // if (
-          //   this.filterXPaisPanama.length === 0 &&
-          //   this.filterXPaisNicaragua.length === 0 &&
-          //   this.filterXPaisDominicana.length === 0 &&
-          //   this.filterXPaisGuatemala.length === 0 &&
-          //   this.filterXPaisSalvador.length === 0 &&
-          //   this.filterXPaisHonduras.length === 0
-          // ) {
-          //   this.modalFinal = true;
-          // }
         }
+        if (
+          this.filterXPaisHonduras.length === 0 &&
+          this.filterXPaisSalvador.length === 0 &&
+          this.filterXPaisGuatemala.length === 0 &&
+          this.filterXPaisNicaragua.length === 0 &&
+          this.filterXPaisPanama.length === 0
+        ) {
+
+          this.filterXPaisDominicana = this.candidatos.filter((elem) => {
+            if (elem.datos.datosPais.nombrePais === 'República Dominicana') {
+              return (
+                elem.datos.datosPais.nombrePais === 'República Dominicana'
+              );
+            }
+          });
+
+          if (this.filterXPaisDominicana.length > 0) {
+            this.imagenTitulo = this.filterXPaisDominicana[0].datos.datosPais.imagenPais;
+            this.nombrePais = this.filterXPaisDominicana[0].datos.datosPais.nombrePais;
+            this.votoModel.pais = this.filterXPaisDominicana[0].datos.datosPais.nombrePais;
+          }
+        }
+        //  if(this.filterXPaisPanama.length === 0 && this.filterXPaisNicaragua.length === 0 && this.filterXPaisDominicana.length === 0 && this.filterXPaisGuatemala.length === 0 && this.filterXPaisSalvador.length === 0){
+        //   this._router.navigate(['/user/votoS/Secretaria/1ra'])
+        // }
+      }
       },
       (err) => {
         if(err.error.message === "No hay candidatos a votar" || err.error.message === "No hay candidatos ha votar"){

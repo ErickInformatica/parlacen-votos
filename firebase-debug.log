@@ -1,0 +1,147 @@
+[debug] [2020-10-17T22:10:55.155Z] ----------------------------------------------------------------------
+[debug] [2020-10-17T22:10:55.158Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ErickB\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2020-10-17T22:10:55.158Z] CLI Version:   8.10.0
+[debug] [2020-10-17T22:10:55.158Z] Platform:      win32
+[debug] [2020-10-17T22:10:55.158Z] Node Version:  v12.18.4
+[debug] [2020-10-17T22:10:55.159Z] Time:          Sat Oct 17 2020 16:10:55 GMT-0600 (GMT-06:00)
+[debug] [2020-10-17T22:10:55.159Z] ----------------------------------------------------------------------
+[debug] [2020-10-17T22:10:55.159Z] 
+[debug] [2020-10-17T22:10:55.166Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-10-17T22:10:55.167Z] > authorizing via signed-in user
+[debug] [2020-10-17T22:10:55.167Z] [iam] checking project elecciones-jd-2021 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-10-17T22:10:55.170Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-10-17T22:10:55.171Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-10-17T22:10:55.655Z] <<< HTTP RESPONSE 200 {"cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Sat, 17 Oct 2020 22:10:55 GMT","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-10-17T22:10:55.682Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/elecciones-jd-2021:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-10-17T22:10:56.450Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 17 Oct 2020 22:10:56 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=112","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-10-17T22:10:56.451Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/elecciones-jd-2021  
+ 
+[debug] [2020-10-17T22:10:57.200Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 17 Oct 2020 22:10:56 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Deploying to 'elecciones-jd-2021'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2020-10-17T22:10:57.205Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/elecciones-jd-2021/versions  
+ {"config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2020-10-17T22:10:58.178Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 17 Oct 2020 22:10:57 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting[elecciones-jd-2021]: beginning deploy... 
+[info] i  hosting[elecciones-jd-2021]: found 20 files in dist/AngularParlasen 
+[debug] [2020-10-17T22:10:58.517Z] [hosting] hash cache [ZGlzdFxBbmd1bGFyUGFybGFzZW4] stored for 20 files
+[debug] [2020-10-17T22:10:58.517Z] [hosting][hash queue][FINAL] {"max":314,"min":0,"avg":22.05,"active":0,"complete":20,"success":20,"errored":0,"retried":0,"total":20,"elapsed":326}
+[debug] [2020-10-17T22:10:58.518Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/elecciones-jd-2021/versions/8ec0fcd19bdf4905:populateFiles  
+ <request body omitted>
+[debug] [2020-10-17T22:10:59.191Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 17 Oct 2020 22:10:58 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-10-17T22:10:59.193Z] [hosting][populate queue][FINAL] {"max":684,"min":684,"avg":684,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":685}
+[debug] [2020-10-17T22:10:59.193Z] [hosting] uploads queued: 2
+[debug] [2020-10-17T22:11:20.652Z] [uploadQueue] Retrying task 9066abd4e65603cf9e8ad763a06cadc3fb4119403f053912744238b4d3a29cb3
+[debug] [2020-10-17T22:11:23.854Z] [hosting][upload queue][FINAL] {"max":3201,"min":908,"avg":2054.5,"active":0,"complete":2,"success":2,"errored":0,"retried":1,"total":2,"elapsed":24663}
+[info] +  hosting[elecciones-jd-2021]: file upload complete 
+[debug] [2020-10-17T22:11:23.854Z] [hosting] deploy completed after 25675ms
+[debug] [2020-10-17T22:11:24.853Z] [
+  {
+    "config": {
+      "public": "dist/AngularParlasen",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "elecciones-jd-2021"
+    },
+    "site": "elecciones-jd-2021",
+    "version": "sites/elecciones-jd-2021/versions/8ec0fcd19bdf4905"
+  }
+]
+[info] i  hosting[elecciones-jd-2021]: finalizing version... 
+[debug] [2020-10-17T22:11:24.855Z] >>> HTTP REQUEST PATCH https://firebasehosting.googleapis.com/v1beta1/sites/elecciones-jd-2021/versions/8ec0fcd19bdf4905?updateMask=status  
+ {"status":"FINALIZED"}
+[debug] [2020-10-17T22:11:28.186Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 17 Oct 2020 22:11:25 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-10-17T22:11:28.186Z] [hosting] finalized version for elecciones-jd-2021: {"name":"sites/elecciones-jd-2021/versions/8ec0fcd19bdf4905","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2020-10-17T22:10:57.660762Z","createUser":{"email":"27997erick@gmail.com"},"finalizeTime":"2020-10-17T22:11:25.575600Z","finalizeUser":{"email":"27997erick@gmail.com"}}
+[info] +  hosting[elecciones-jd-2021]: version finalized 
+[info] i  hosting[elecciones-jd-2021]: releasing new version... 
+[debug] [2020-10-17T22:11:28.188Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/elecciones-jd-2021/releases?version_name=sites/elecciones-jd-2021/versions/8ec0fcd19bdf4905  
+ {"message":null}
+[debug] [2020-10-17T22:12:26.059Z] Error: read ECONNRESET
+    at TLSWrap.onStreamRead (internal/stream_base_commons.js:205:27)
+[error] 
+[error] Error: Server Error. read ECONNRESET
+[debug] [2020-10-17T22:12:59.530Z] ----------------------------------------------------------------------
+[debug] [2020-10-17T22:12:59.533Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ErickB\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2020-10-17T22:12:59.533Z] CLI Version:   8.10.0
+[debug] [2020-10-17T22:12:59.533Z] Platform:      win32
+[debug] [2020-10-17T22:12:59.533Z] Node Version:  v12.18.4
+[debug] [2020-10-17T22:12:59.535Z] Time:          Sat Oct 17 2020 16:12:59 GMT-0600 (GMT-06:00)
+[debug] [2020-10-17T22:12:59.535Z] ----------------------------------------------------------------------
+[debug] [2020-10-17T22:12:59.535Z] 
+[debug] [2020-10-17T22:12:59.542Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-10-17T22:12:59.542Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\ProyectoParlasen\AngularParlasen
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+  * You are initializing in an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  .firebaserc already has a default project, using elecciones-jd-2021. 
+[debug] [2020-10-17T22:13:03.731Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/elecciones-jd-2021  
+ 
+[debug] [2020-10-17T22:13:04.405Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 17 Oct 2020 22:13:04 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[debug] [2020-10-17T22:13:22.991Z] >>> HTTP REQUEST GET https://www.gstatic.com/firebasejs/releases.json  
+ 
+[debug] [2020-10-17T22:18:37.113Z] ----------------------------------------------------------------------
+[debug] [2020-10-17T22:18:37.116Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ErickB\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2020-10-17T22:18:37.116Z] CLI Version:   8.10.0
+[debug] [2020-10-17T22:18:37.116Z] Platform:      win32
+[debug] [2020-10-17T22:18:37.117Z] Node Version:  v12.18.4
+[debug] [2020-10-17T22:18:37.118Z] Time:          Sat Oct 17 2020 16:18:37 GMT-0600 (GMT-06:00)
+[debug] [2020-10-17T22:18:37.119Z] ----------------------------------------------------------------------
+[debug] [2020-10-17T22:18:37.119Z] 
+[debug] [2020-10-17T22:18:37.126Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-10-17T22:18:37.126Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\ProyectoParlasen\AngularParlasen
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+  * You are initializing in an existing Firebase project directory
+

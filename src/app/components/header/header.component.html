@@ -58,7 +58,7 @@
       true}">
       <span class="nav-text">Graficas</span>
     </a>
-    <button type="button" (click)="modalTokens = true" *ngIf="userService.getIdentity() && userService.getIdentity().datos.rol === 'ADMIN' ||userService.getIdentity() && userService.getIdentity().datos.rol === 'SA' " class="btn btn-icon btn-warning" aria-label="settings" style="margin-left: 10px; margin-top: 10px;">Cerrar Votaciones</button>
+    <button type="button" (click)="modalTokens = true" *ngIf="userService.getIdentity() && userService.getIdentity().datos.rol === 'SA' " class="btn btn-icon btn-warning" aria-label="settings" style="margin-left: 10px; margin-top: 10px;">Cerrar Votaciones</button>
   </div>
 
   <div class="header-actions" *ngIf="userService.getIdentity()">
