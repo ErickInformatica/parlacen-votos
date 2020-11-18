@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UserService } from '../../../services/user.service';
 import { VotoService } from '../../../services/votos.service';
-
+import { ClrLoadingState } from '@clr/angular';
 @Component({
   selector: 'app-voto-presidente',
   templateUrl: './voto-presidente.component.html',
@@ -11,6 +11,7 @@ import { VotoService } from '../../../services/votos.service';
   providers: [UserService, VotoService]
 })
 export class VotoPresidenteComponent implements OnInit {
+  validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
   public votoModel = {
     idCandidato: '',
     tipoVoto: '',
@@ -52,12 +53,15 @@ export class VotoPresidenteComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
         })
+        this.validateBtnState = ClrLoadingState.SUCCESS;
       });
     });
   }
 
   addVoto(){
+    this.validateBtnState = ClrLoadingState.LOADING;
     if(this.votoModel.idCandidato === '' && this.votoModel.tipoVoto === ''){
+      this.validateBtnState = ClrLoadingState.SUCCESS;
       return Swal.fire({
         position: 'top-end',
         icon: 'warning',
@@ -67,6 +71,7 @@ export class VotoPresidenteComponent implements OnInit {
       })
     }
     this.addPromise().then(res=>{
+      this.validateBtnState = ClrLoadingState.SUCCESS;
       this.getVotosPresidente()
     })
   }
@@ -82,6 +87,7 @@ export class VotoPresidenteComponent implements OnInit {
             }
           });
          if(this.filterXPaisHonduras.length > 0) {
+          this.filterXPaisHonduras.sort((a, b) => (a.datos.orden > b.datos.orden) ? 1 : -1)
           this.imagenTitulo = this.filterXPaisHonduras[0].datos.datosPais.imagenPais
           this.votoModel.pais = this.filterXPaisHonduras[0].datos.datosPais.nombrePais
           this.nombrePais = this.filterXPaisHonduras[0].datos.datosPais.nombrePais

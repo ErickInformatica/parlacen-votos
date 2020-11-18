@@ -25,7 +25,7 @@
             [(ngModel)]="votoModel.idCandidato" (change)="getSelected($event, fxh.datos)" />
           <div class="card clickable card-input pAlingCenter">
             <div class="card-header">
-              {{fxh.datos.nombres}} {{fxh.datos.apellidos}}
+              {{fxh.datos.nombres}} <br> {{fxh.datos.apellidos}}
             </div>
             <div class="card-block">
               <div class="card-title">
@@ -58,7 +58,7 @@
       </clr-radio-container>
 
     </form>
-    <button class="button" class="btn btn-primary floatLeftButton" (click)="addVoto()">Siguiente</button>
+    <button [clrLoading]="validateBtnState" class="button" class="btn btn-primary floatLeftButton" (click)="addVoto()">Siguiente</button>
 
   </div>
 </div>

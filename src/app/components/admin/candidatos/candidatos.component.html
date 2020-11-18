@@ -137,6 +137,11 @@
           <option *ngFor="let pu of puestos" [value]="pu.puesto" >{{pu.puesto}}</option>
         </select>
       </clr-select-container>
+      <clr-input-container>
+        <label>Orden</label>
+        <input clrInput type="number" [(ngModel)]="newCandidato.orden" name="orden" />
+        <clr-control-helper>Esto sera el orden en que apareceran los candidatos 1,2,3...</clr-control-helper>
+      </clr-input-container>
     </form>
   </div>
   <div class="modal-footer">

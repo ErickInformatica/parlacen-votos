@@ -1,11 +1,24 @@
 <div class="clr-row clr-justify-content-center">
   <div class="clr-col-12 clr-align-self-center">
     <h1 class="pAlingCenter">Usuarios</h1>
-    <button type="button" class="btn btn-icon btn-primary" aria-label="settings"
-      (click)="variablesModals.add = true">
-      <clr-icon shape="plus"></clr-icon>
-    </button>
-    <clr-datagrid>
+    <div class="btn-group">
+      <button type="button" class="btn btn-icon btn-primary" aria-label="settings" (click)="variablesModals.add = true">
+        <clr-icon shape="plus"></clr-icon>
+      </button>
+      <button type="button" class="btn btn-icon btn-danger" aria-label="settings" (click)="variablesModals.masiveFalse = true"
+        *ngIf="selected.length">
+        <clr-icon shape="minus-circle"></clr-icon>
+      </button>
+      <button type="button" class="btn btn-icon btn-success" aria-label="settings" (click)="variablesModals.masiveTrue = true"
+        *ngIf="selected.length">
+        <clr-icon shape="circle"></clr-icon>
+      </button>
+      <button type="button" class="btn btn-icon btn-warning" aria-label="settings" (click)="variablesModals.setEmtidos = true">
+        Definir Usuarios a Votar
+      </button>
+    </div>
+
+    <clr-datagrid [(clrDgSelected)]="selected">
       <clr-dg-column>ID Usuario</clr-dg-column>
       <clr-dg-column clrDgField="datos.email">Email</clr-dg-column>
       <clr-dg-column clrDgField="datos.activo">Estado Usuario</clr-dg-column>
@@ -18,14 +31,16 @@
         <clr-dg-cell>{{user.datos.email}}</clr-dg-cell>
         <clr-dg-cell *ngIf="user.datos.activo === true"><span class="label label-info">ACTIVO</span></clr-dg-cell>
         <clr-dg-cell *ngIf="user.datos.activo === false"><span class="label label-danger">INACTIVO</span></clr-dg-cell>
-        <clr-dg-cell >{{user.datos.rol}}</clr-dg-cell>
+        <clr-dg-cell>{{user.datos.rol}}</clr-dg-cell>
         <clr-dg-cell>{{user.datos.vancada}}</clr-dg-cell>
         <clr-dg-cell>
           <div class="btn-group btn-link btn-icon btn-sm">
-            <button class="btn" *ngIf="user.datos.activo === false" (click)="getUserId(user.id); variablesModals.cambioEstado = true">
+            <button class="btn" *ngIf="user.datos.activo === false"
+              (click)="getUserId(user.id); variablesModals.cambioEstado = true">
               <clr-icon shape="circle"></clr-icon>
             </button>
-            <button class="btn" *ngIf="user.datos.activo === true" (click)="getUserId(user.id); variablesModals.cambioEstado = true">
+            <button class="btn" *ngIf="user.datos.activo === true"
+              (click)="getUserId(user.id); variablesModals.cambioEstado = true">
               <clr-icon shape="minus-circle"></clr-icon>
             </button>
             <button class="btn" (click)="getUserId(user.id); variablesModals.pass = true">
@@ -76,7 +91,7 @@
 <clr-modal [(clrModalOpen)]="variablesModals.add">
   <h3 class="modal-title">Agrega Datos</h3>
   <div class="modal-body">
-    <form clrForm >
+    <form clrForm>
       <clr-input-container>
         <label>Email</label>
         <input clrInput type="text" [(ngModel)]="addUser.email" name="example" />
@@ -97,7 +112,7 @@
 <clr-modal [(clrModalOpen)]="variablesModals.edit">
   <h3 class="modal-title">Editar Datos</h3>
   <div class="modal-body" *ngIf="getUpdateUser">
-    <form clrForm  >
+    <form clrForm>
       <clr-input-container>
         <label>Nombres</label>
         <input clrInput type="text" [(ngModel)]="getUpdateUser.datos.nombres" name="nombres" />
@@ -125,7 +140,8 @@
           <label>ACTIVO</label>
         </clr-radio-wrapper>
         <clr-radio-wrapper>
-          <input type="radio" clrRadio name="activo" required [value]="false" [(ngModel)]="getUpdateUser.datos.activo" />
+          <input type="radio" clrRadio name="activo" required [value]="false"
+            [(ngModel)]="getUpdateUser.datos.activo" />
           <label>INACTIVO</label>
         </clr-radio-wrapper>
         <clr-control-helper>Helper text</clr-control-helper>
@@ -155,8 +171,10 @@
 <clr-modal [(clrModalOpen)]="variablesModals.cambioEstado">
   <h3 class="modal-title">Cambiar estado</h3>
   <div class="modal-body" *ngIf="getUpdateUser">
-    <p *ngIf="getUpdateUser.datos.activo === true">Seguro que desea cambiar el estado del Usuario: {{getUpdateUser.datos.email}} a Inactivo</p>
-    <p *ngIf="getUpdateUser.datos.activo === false">Seguro que desea cambiar el estado del Usuario: {{getUpdateUser.datos.email}} a Activo</p>
+    <p *ngIf="getUpdateUser.datos.activo === true">Seguro que desea cambiar el estado del Usuario:
+      {{getUpdateUser.datos.email}} a Inactivo</p>
+    <p *ngIf="getUpdateUser.datos.activo === false">Seguro que desea cambiar el estado del Usuario:
+      {{getUpdateUser.datos.email}} a Activo</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="variablesModals.cambioEstado = false">Cancel</button>
@@ -171,19 +189,98 @@
     <form clrForm [formGroup]="registerForm" (ngSubmit)="changePassword(getUpdateUser.id)">
       <clr-password-container>
         <label>Contraseña Nueva</label>
-        <input type="password" formControlName="password" name="passwordact" clrPassword
-          placeholder="Contraseña" />
+        <input type="password" formControlName="password" name="passwordact" clrPassword placeholder="Contraseña" />
       </clr-password-container>
       <clr-password-container>
-        <label >Confirmar Contraseña Nueva</label>
-        <input type="password" formControlName="confirmPassword"  [(ngModel)]="newPassword.password" name="password" clrPassword
-          placeholder="Contraseña" />
-            <clr-control-error *ngIf="f.confirmPassword.errors && f.confirmPassword.errors.mustMatch !== null">¡Las contraseña deben coincidir!</clr-control-error>
+        <label>Confirmar Contraseña Nueva</label>
+        <input type="password" formControlName="confirmPassword" [(ngModel)]="newPassword.password" name="password"
+          clrPassword placeholder="Contraseña" />
+        <clr-control-error *ngIf="f.confirmPassword.errors && f.confirmPassword.errors.mustMatch !== null">¡Las
+          contraseña deben coincidir!</clr-control-error>
       </clr-password-container>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline" (click)="variablesModals.pass = false">Cancel</button>
-        <button type="submit" class="btn btn-primary" >Cambiar Contraseña</button>
+        <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
       </div>
     </form>
+  </div>
+</clr-modal>
+
+<!-- Enviar Correo No. Token Modal -->
+<clr-modal [(clrModalOpen)]="variablesModals.enviarEmail">
+  <h3 class="modal-title">Ingrese Token para Enviar Correo</h3>
+  <div class="modal-body">
+    <form clrForm>
+      <clr-input-container>
+        <label>Numero Token</label>
+        <input clrInput type="number" [(ngModel)]="tokenEmail" name="tokenEmail" />
+      </clr-input-container>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="variablesModals.enviarEmail = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="sendMails()">Enviar</button>
+  </div>
+</clr-modal>
+
+
+<!-- Definir usuarios a votar Modal -->
+<clr-modal [(clrModalOpen)]="variablesModals.setEmtidos">
+  <h3 class="modal-title">Definir usuarios a votar en vuelta</h3>
+  <div class="modal-body">
+    <form clrForm>
+      <clr-select-container>
+        <label>Vuelta</label>
+        <select clrSelect name="ronda"  [(ngModel)]="setVuelta">
+          <option *ngFor="let tr of tiposRondas" [value]="tr.nombre" >{{tr.nombre}}</option>
+        </select>
+      </clr-select-container>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="variablesModals.setEmtidos = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="verificacion()">Listo</button>
+  </div>
+</clr-modal>
+
+<!-- Confirmar Definir usuarios a votar Modal -->
+<clr-modal [(clrModalOpen)]="variablesModals.setEmitidosConf">
+  <h3 class="modal-title">Definir Quorum</h3>
+  <div class="modal-body">
+    <div class="modal-body" *ngIf="setVuelta && usuariosActivosTamano">
+      <p>Seguro que desea definir el quorum de {{usuariosActivosTamano.length}} en la "{{setVuelta}}"</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="variablesModals.setEmitidosConf = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="setAbstinencia()">Enviar</button>
+  </div>
+</clr-modal>
+
+<!-- Cambiar Estado Usuarios Activo -->
+<clr-modal [(clrModalOpen)]="variablesModals.masiveTrue">
+  <h3 class="modal-title">Cambiar Estado a Activo</h3>
+  <div class="modal-body">
+    <div class="modal-body" *ngIf="selected.length > 0">
+      <p>Seguro que desea cambiar el estado a Activo de {{selected.length}} Usuarios</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="variablesModals.masiveTrue = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="cambiarEstadoMasivoTrue()">Cambiar</button>
+  </div>
+</clr-modal>
+
+<!-- Cambiar Estado Usuarios False -->
+<clr-modal [(clrModalOpen)]="variablesModals.masiveFalse">
+  <h3 class="modal-title">Cambiar Estado a Activo</h3>
+  <div class="modal-body">
+    <div class="modal-body" *ngIf="selected.length > 0">
+      <p>Seguro que desea cambiar el estado a Inactivo de {{selected.length}} Usuarios</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="variablesModals.masiveFalse = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="cambiarEstadoMasivoFalse()">Cambiar</button>
   </div>
 </clr-modal>

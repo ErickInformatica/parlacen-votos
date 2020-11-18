@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { TokenService } from '../../services/token.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-header',
@@ -21,8 +22,12 @@ export class HeaderComponent implements OnInit {
     password: '',
     newPassword: ''
   }
+  public items
+  public ChartStats
 
-  constructor(public userService: UserService,
+  constructor(
+    private db: AngularFirestore,
+    public userService: UserService,
     private _tokenService: TokenService,
     private formBuilder: FormBuilder,
     private _router: Router) {
@@ -40,9 +45,19 @@ export class HeaderComponent implements OnInit {
         validator: MustMatch('newPassword', 'confirmPassword'),
       }
     );
+    this.getChartStats()
   }
 
   get f() { return this.registerForm.controls; }
+
+  getChartStats(){
+    this.items = this.db.collection('ChartStats');
+  this.items.valueChanges().subscribe((res) => {
+    this.ChartStats = res;
+    console.log(res);
+
+  });
+  }
 
   changePasswordUser(){
     if (this.registerForm.invalid) {
@@ -97,9 +112,8 @@ export class HeaderComponent implements OnInit {
   }
 
   cerrarSesion(){
-    localStorage.clear()
-
-      this._router.navigate(['']);
+    sessionStorage.clear()
+    this._router.navigate(['']);
 
   }
 

@@ -22,7 +22,7 @@ export class LogeadoGuard implements CanActivate{
     }
 
     getIdentity(){
-        var identity = JSON.parse(localStorage.getItem('identity'));
+        var identity = JSON.parse(sessionStorage.getItem('identity'));
 
         if(identity != "undefined"){
             this.identity = identity;

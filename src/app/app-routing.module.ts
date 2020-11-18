@@ -24,11 +24,13 @@ import { NotLoginUserGuard } from './services/notLoginUser.guard';
 import { LoginRolsGuard } from './services/loginRols.guard';
 import { NotLoginAdminGuard } from './services/notLoginAdmin.guard';
 import { NotLoginSAGuard } from './services/notLoginSA.guard';
+import { WinnersComponent } from './components/winners/winners.component';
 
 const routes: Routes = [
     {path: '', component: LoginComponent, canActivate:[LoginRolsGuard]},
     {path: 'registro', component: RegistroComponent, canActivate:[LoginRolsGuard]},
     { path: 'graficas', component: ChartsComponent },
+    { path: 'candidatosElectos', component: WinnersComponent },
     {path: '', redirectTo: '', pathMatch: 'full'},
     {path: 'admin', component: HomeComponent, canActivate: [NotLoginAdminGuard] ,children: [
       { path: '', component: WelcomeUserComponent },

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UserService } from '../../../services/user.service';
 import { VotoService } from '../../../services/votos.service';
+import { ClrLoadingState } from '@clr/angular';
 @Component({
   selector: 'app-voto-secretario',
   templateUrl: './voto-secretario.component.html',
@@ -10,6 +11,7 @@ import { VotoService } from '../../../services/votos.service';
   providers: [UserService, VotoService],
 })
 export class VotoSecretarioComponent implements OnInit {
+  validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
   public votoModel = {
     idCandidato: '',
     tipoVoto: '',
@@ -60,13 +62,15 @@ export class VotoSecretarioComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
         })
+        this.validateBtnState = ClrLoadingState.SUCCESS;
       });
     });
   }
 
   addVoto() {
-
+    this.validateBtnState = ClrLoadingState.LOADING;
     if(this.votoModel.idCandidato === '' && this.votoModel.tipoVoto === ''){
+      this.validateBtnState = ClrLoadingState.SUCCESS;
       return Swal.fire({
         position: 'top-end',
         icon: 'warning',
@@ -76,6 +80,7 @@ export class VotoSecretarioComponent implements OnInit {
       })
     }
     this.addPromise().then((res) => {
+      this.validateBtnState = ClrLoadingState.SUCCESS;
       this.getVotosSecretario();
       this.votoModel.tipoVoto = ''
       this.votoModel.idCandidato = ''
@@ -83,7 +88,7 @@ export class VotoSecretarioComponent implements OnInit {
   }
 
   cerrarSesion(){
-    localStorage.clear()
+    sessionStorage.clear()
     setTimeout(() => {
       this.modalFinal = false
       this._router.navigate(['']);
@@ -114,6 +119,7 @@ export class VotoSecretarioComponent implements OnInit {
             }
           });
           if (this.filterXPaisGuatemala.length > 0) {
+            this.filterXPaisGuatemala.sort((a, b) => (a.datos.orden > b.datos.orden) ? 1 : -1)
             this.imagenTitulo = this.filterXPaisGuatemala[0].datos.datosPais.imagenPais;
             this.nombrePais = this.filterXPaisGuatemala[0].datos.datosPais.nombrePais;
             this.votoModel.pais = this.filterXPaisGuatemala[0].datos.datosPais.nombrePais;
@@ -128,6 +134,7 @@ export class VotoSecretarioComponent implements OnInit {
             }
           });
           if (this.filterXPaisHonduras.length > 0) {
+            this.filterXPaisHonduras.sort((a, b) => (a.datos.orden > b.datos.orden) ? 1 : -1)
             this.imagenTitulo = this.filterXPaisHonduras[0].datos.datosPais.imagenPais;
             this.votoModel.pais = this.filterXPaisHonduras[0].datos.datosPais.nombrePais;
             this.nombrePais = this.filterXPaisHonduras[0].datos.datosPais.nombrePais;
@@ -145,6 +152,7 @@ export class VotoSecretarioComponent implements OnInit {
             }
           });
           if (this.filterXPaisNicaragua.length > 0) {
+            this.filterXPaisNicaragua.sort((a, b) => (a.datos.orden > b.datos.orden) ? 1 : -1)
             this.imagenTitulo = this.filterXPaisNicaragua[0].datos.datosPais.imagenPais;
             this.nombrePais = this.filterXPaisNicaragua[0].datos.datosPais.nombrePais;
             this.votoModel.pais = this.filterXPaisNicaragua[0].datos.datosPais.nombrePais;
@@ -163,6 +171,7 @@ export class VotoSecretarioComponent implements OnInit {
           });
 
           if (this.filterXPaisPanama.length > 0) {
+            this.filterXPaisPanama.sort((a, b) => (a.datos.orden > b.datos.orden) ? 1 : -1)
             this.imagenTitulo = this.filterXPaisPanama[0].datos.datosPais.imagenPais;
             this.nombrePais = this.filterXPaisPanama[0].datos.datosPais.nombrePais;
             this.votoModel.pais = this.filterXPaisPanama[0].datos.datosPais.nombrePais;
@@ -185,6 +194,7 @@ export class VotoSecretarioComponent implements OnInit {
           });
 
           if (this.filterXPaisDominicana.length > 0) {
+            this.filterXPaisDominicana.sort((a, b) => (a.datos.orden > b.datos.orden) ? 1 : -1)
             this.imagenTitulo = this.filterXPaisDominicana[0].datos.datosPais.imagenPais;
             this.nombrePais = this.filterXPaisDominicana[0].datos.datosPais.nombrePais;
             this.votoModel.pais = this.filterXPaisDominicana[0].datos.datosPais.nombrePais;

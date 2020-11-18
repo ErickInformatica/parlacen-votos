@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ClrDatagrid } from '@clr/angular';
+import { ClrDatagrid, ClrLoadingState } from '@clr/angular';
 import Swal from 'sweetalert2';
 import { CandidatoService } from '../../../services/candidato.service';
 import { UserService } from '../../../services/user.service';
@@ -12,6 +12,7 @@ import { UserService } from '../../../services/user.service';
   providers: [UserService, CandidatoService],
 })
 export class CandidatosChangeRondaComponent implements OnInit {
+  validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
   public variablesModals = {
     edit: false,
     delete: false,
@@ -26,8 +27,8 @@ export class CandidatosChangeRondaComponent implements OnInit {
     { pais: 'Guatemala' },
     { pais: 'El Salvador' },
     { pais: 'Nicaragua' },
-    { pais: 'Panama' },
-    { pais: 'Republica Dominicana' },
+    { pais: 'Panamá' },
+    { pais: 'República Dominicana' },
     { pais: 'Honduras' },
   ];
 
@@ -111,6 +112,16 @@ export class CandidatosChangeRondaComponent implements OnInit {
           .map((checked, i) => (checked ? this.ArrayFinal[i].id : null))
           .filter((v) => v !== null);
       }
+      if(this.updateCandidato.candidatosId.length === 0){
+        this.validateBtnState = ClrLoadingState.SUCCESS;
+        return Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Debe seleccionar algun candidato a cambiar',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
       this._candidatoService
         .updateRonda(this.token, this.updateCandidato)
         .subscribe(
@@ -151,9 +162,22 @@ export class CandidatosChangeRondaComponent implements OnInit {
   }
 
   updateRonda() {
+    this.validateBtnState = ClrLoadingState.LOADING;
+    if(this.updateCandidato.ronda === this.updateCandidato.rondaAntigua){
+      this.validateBtnState = ClrLoadingState.SUCCESS;
+      return Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'No puede seleccionar la misma vuelta para cambiar',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
     this.pruebaPromise().then(() => {
       this.getPromise().then(() => {
         this.filters();
+        this.updateCandidato.candidatosId = []
+        this.validateBtnState = ClrLoadingState.SUCCESS;
       });
     });
   }

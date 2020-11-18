@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { TokenService } from '../../../services/token.service';
 import Swal from 'sweetalert2';
+import { ClrLoadingState } from '@clr/angular';
 
 @Component({
   selector: 'app-token',
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
   providers: [TokenService, UserService]
 })
 export class TokenComponent implements OnInit {
-
+  validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
   public variablesModals = {
     edit: false,
     delete: false,
@@ -53,6 +54,7 @@ export class TokenComponent implements OnInit {
   }
 
   newToken(){
+    this.validateBtnState = ClrLoadingState.LOADING;
     this._tokenService.addTokens(this.token, this.addToken).subscribe(
       res=>{
         this.getTokens()
@@ -63,6 +65,8 @@ export class TokenComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
+        this.validateBtnState = ClrLoadingState.SUCCESS;
+        this.variablesModals.add= false
       }, err =>{
         Swal.fire({
           position: 'top-end',

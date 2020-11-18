@@ -24,8 +24,8 @@ export class Papeleta2Component implements OnInit {
     { pais: 'Guatemala' },
     { pais: 'El Salvador' },
     { pais: 'Nicaragua' },
-    { pais: 'Panama' },
-    { pais: 'Republica Dominicana' },
+    { pais: 'Panamá' },
+    { pais: 'República Dominicana' },
   ];
 
   public tokenSel = ''
@@ -126,8 +126,6 @@ export class Papeleta2Component implements OnInit {
       datosCandidatos = datosCandidatos.filter((elem) => {
         return elem.ronda == this.rondaPais;
       });
-
-      console.log(datosCandidatos);
 
     this.filtrarTokensArray = this.removeDuplicates(datosCandidatos, 'datosToken.token');
 

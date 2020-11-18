@@ -38,6 +38,7 @@ import { UserHomeComponent } from './components/user-home/user-home.component';
 import { LoginRolsGuard } from './services/loginRols.guard';
 import { NotLoginAdminGuard } from './services/notLoginAdmin.guard';
 import { NotLoginSAGuard } from './services/notLoginSA.guard';
+import { WinnersComponent } from './components/winners/winners.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { NotLoginSAGuard } from './services/notLoginSA.guard';
     TokenComponent,
     RegistroComponent,
     PaisComponent,
-    UserHomeComponent
+    UserHomeComponent,
+    WinnersComponent
   ],
   imports: [
     BrowserModule,

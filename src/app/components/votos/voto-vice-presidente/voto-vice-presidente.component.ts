@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UserService } from '../../../services/user.service';
 import { VotoService } from '../../../services/votos.service';
-
+import { ClrLoadingState } from '@clr/angular';
 @Component({
   selector: 'app-voto-vice-presidente',
   templateUrl: './voto-vice-presidente.component.html',
@@ -11,6 +11,7 @@ import { VotoService } from '../../../services/votos.service';
   providers: [UserService, VotoService],
 })
 export class VotoVicePresidenteComponent implements OnInit {
+  validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
   public votoModel = {
     idCandidato: '',
     tipoVoto: '',
@@ -61,13 +62,16 @@ export class VotoVicePresidenteComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000,
           });
+          this.validateBtnState = ClrLoadingState.SUCCESS;
         }
       );
     });
   }
 
   addVoto() {
+    this.validateBtnState = ClrLoadingState.LOADING;
     if (this.votoModel.idCandidato === '' && this.votoModel.tipoVoto === '') {
+      this.validateBtnState = ClrLoadingState.SUCCESS;
       return Swal.fire({
         position: 'top-end',
         icon: 'warning',
@@ -77,6 +81,7 @@ export class VotoVicePresidenteComponent implements OnInit {
       });
     }
     this.addPromise().then((res) => {
+      this.validateBtnState = ClrLoadingState.SUCCESS;
       this.getVotosPresidente();
       this.votoModel.tipoVoto = ''
       this.votoModel.idCandidato = ''
@@ -94,6 +99,7 @@ export class VotoVicePresidenteComponent implements OnInit {
             }
           });
           if (this.filterXPaisSalvador.length > 0) {
+            this.filterXPaisSalvador.sort((a, b) => (a.datos.orden > b.datos.orden) ? 1 : -1)
             this.imagenTitulo = this.filterXPaisSalvador[0].datos.datosPais.imagenPais;
             this.votoModel.pais = this.filterXPaisSalvador[0].datos.datosPais.nombrePais;
             this.nombrePais = this.filterXPaisSalvador[0].datos.datosPais.nombrePais;
@@ -106,6 +112,7 @@ export class VotoVicePresidenteComponent implements OnInit {
               }
             });
             if (this.filterXPaisGuatemala.length > 0) {
+              this.filterXPaisGuatemala.sort((a, b) => (a.datos.orden > b.datos.orden) ? 1 : -1)
               this.imagenTitulo = this.filterXPaisGuatemala[0].datos.datosPais.imagenPais;
               this.nombrePais = this.filterXPaisGuatemala[0].datos.datosPais.nombrePais;
               this.votoModel.pais = this.filterXPaisGuatemala[0].datos.datosPais.nombrePais;
@@ -122,6 +129,7 @@ export class VotoVicePresidenteComponent implements OnInit {
               }
             });
             if (this.filterXPaisNicaragua.length > 0) {
+              this.filterXPaisNicaragua.sort((a, b) => (a.datos.orden > b.datos.orden) ? 1 : -1)
               this.imagenTitulo = this.filterXPaisNicaragua[0].datos.datosPais.imagenPais;
               this.nombrePais = this.filterXPaisNicaragua[0].datos.datosPais.nombrePais;
               this.votoModel.pais = this.filterXPaisNicaragua[0].datos.datosPais.nombrePais;
@@ -139,6 +147,7 @@ export class VotoVicePresidenteComponent implements OnInit {
             });
 
             if (this.filterXPaisPanama.length > 0) {
+              this.filterXPaisPanama.sort((a, b) => (a.datos.orden > b.datos.orden) ? 1 : -1)
               this.imagenTitulo = this.filterXPaisPanama[0].datos.datosPais.imagenPais;
               this.nombrePais = this.filterXPaisPanama[0].datos.datosPais.nombrePais;
               this.votoModel.pais = this.filterXPaisPanama[0].datos.datosPais.nombrePais;
@@ -160,6 +169,7 @@ export class VotoVicePresidenteComponent implements OnInit {
             });
 
             if (this.filterXPaisDominicana.length > 0) {
+              this.filterXPaisDominicana.sort((a, b) => (a.datos.orden > b.datos.orden) ? 1 : -1)
               this.imagenTitulo = this.filterXPaisDominicana[0].datos.datosPais.imagenPais;
               this.nombrePais = this.filterXPaisDominicana[0].datos.datosPais.nombrePais;
               this.votoModel.pais = this.filterXPaisDominicana[0].datos.datosPais.nombrePais;
@@ -171,7 +181,6 @@ export class VotoVicePresidenteComponent implements OnInit {
         }
       },
       (err) => {
-        console.log(err);
 
         if (
           err.error.message === 'No hay candidatos a votar' ||

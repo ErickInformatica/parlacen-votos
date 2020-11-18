@@ -63,6 +63,7 @@ export class CandidatosComponent implements OnInit {
     ronda: '',
     pais: '',
     puestoPostulado: '',
+    orden: 0
   };
   public paisesData;
   public candidatoDeleteModel;

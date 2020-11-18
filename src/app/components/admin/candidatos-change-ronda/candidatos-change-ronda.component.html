@@ -67,7 +67,7 @@
                   </div>
                 </div>
               </form>
-              <button type="button" class="btn btn-primary floatLeftButton" (click)="updateRonda()">Siguiente</button>
+              <button [clrLoading]="validateBtnState" type="button" class="btn btn-primary floatLeftButton" (click)="updateRonda()">Siguiente</button>
             </clr-tab-content>
           </clr-tab>
         </clr-tabs>

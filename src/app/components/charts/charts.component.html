@@ -39,10 +39,20 @@
                           <td headers="co1 c1" *ngFor="let num of chartDataPresidente">{{num.data[i]}}</td>
                         </tr>
                         <tr>
-                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader">Votos Emitidos</th>
                           <th class="tbHeader" *ngFor="let num of chartDataPresidente">{{sumdata(num.data)}}</th>
                         </tr>
+                        <tr>
+                          <th >Votos no Emitidos</th>
+                          <th *ngFor="let num of chartDataPresidente">{{abstinencia(num.data)}} </th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataPresidente">{{sumdata(num.data) + abstinencia(num.data)}}</th>
+                        </tr>
+
                       </ng-container>
+
                       <!-- Salvador VICE -->
                       <ng-container *ngIf="chartDataViceSalvador.length > 0 && chartLabelsViceSalvador.length >0">
                         <tr>
@@ -60,8 +70,16 @@
                           <td headers="co1 c1" *ngFor="let num of chartDataViceSalvador">{{num.data[i]}}</td>
                         </tr>
                         <tr>
-                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader">Votos Emitidos</th>
                           <th class="tbHeader" *ngFor="let num of chartDataViceSalvador">{{sumdata(num.data)}}</th>
+                        </tr>
+                        <tr>
+                          <th >Votos No Emitidos</th>
+                          <th *ngFor="let num of chartDataViceSalvador">{{abstinencia(num.data)}} </th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataViceSalvador">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                         </tr>
                       </ng-container>
                       <!-- Guatemala VICE -->
@@ -78,8 +96,16 @@
                           <td headers="co1 c1" *ngFor="let num of chartDataViceGuatemala">{{num.data[i]}}</td>
                         </tr>
                         <tr>
-                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader">Votos Emitidos</th>
                           <th class="tbHeader" *ngFor="let num of chartDataViceGuatemala">{{sumdata(num.data)}}</th>
+                        </tr>
+                        <tr>
+                          <th >Votos No Emitidos</th>
+                          <th *ngFor="let num of chartDataViceGuatemala">{{abstinencia(num.data)}} </th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataViceGuatemala">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                         </tr>
                       </ng-container>
                       <!-- NICARAGUA VICE -->
@@ -97,8 +123,16 @@
                           <td headers="co1 c1" *ngFor="let num of chartDataViceNicaragua">{{num.data[i]}}</td>
                         </tr>
                         <tr>
-                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader">Votos Emitidos</th>
                           <th class="tbHeader" *ngFor="let num of chartDataViceNicaragua">{{sumdata(num.data)}}</th>
+                        </tr>
+                        <tr>
+                          <th >Votos No Emitidos</th>
+                          <th *ngFor="let num of chartDataViceNicaragua">{{abstinencia(num.data)}} </th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataViceNicaragua">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                         </tr>
                       </ng-container>
                       <!-- Panama VICE -->
@@ -115,8 +149,16 @@
                           <td headers="co1 c1" *ngFor="let num of chartDataVicePanama">{{num.data[i]}}</td>
                         </tr>
                         <tr>
-                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader">Votos Emitidos</th>
                           <th class="tbHeader" *ngFor="let num of chartDataVicePanama">{{sumdata(num.data)}}</th>
+                        </tr>
+                        <tr>
+                          <th >Votos No Emitidos</th>
+                          <th *ngFor="let num of chartDataVicePanama">{{abstinencia(num.data)}} </th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataVicePanama">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                         </tr>
                       </ng-container>
                       <!-- Dominicana VICE -->
@@ -133,8 +175,16 @@
                           <td headers="co1 c1" *ngFor="let num of chartDataViceDominicana">{{num.data[i]}}</td>
                         </tr>
                         <tr>
-                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader">Votos Emitidos</th>
                           <th class="tbHeader" *ngFor="let num of chartDataViceDominicana">{{sumdata(num.data)}}</th>
+                        </tr>
+                        <tr>
+                          <th >Votos No Emitidos</th>
+                          <th *ngFor="let num of chartDataViceDominicana">{{abstinencia(num.data)}} </th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataViceDominicana">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                         </tr>
                       </ng-container>
 
@@ -156,8 +206,16 @@
                           <td *ngFor="let num of chartDataSecSalvador">{{num.data[i]}}</td>
                         </tr>
                         <tr>
-                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader">Votos Emitidos</th>
                           <th class="tbHeader" *ngFor="let num of chartDataSecSalvador">{{sumdata(num.data)}}</th>
+                        </tr>
+                        <tr>
+                          <th >Votos No Emitidos</th>
+                          <th *ngFor="let num of chartDataSecSalvador">{{abstinencia(num.data)}} </th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataSecSalvador">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                         </tr>
                       </ng-container>
                       <!-- Guatemala SEC -->
@@ -174,8 +232,16 @@
                           <td *ngFor="let num of chartDataSecGuatemala">{{num.data[i]}}</td>
                         </tr>
                         <tr>
-                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader">Votos Emitidos</th>
                           <th class="tbHeader" *ngFor="let num of chartDataSecGuatemala">{{sumdata(num.data)}}</th>
+                        </tr>
+                        <tr>
+                          <th >Votos No Emitidos</th>
+                          <th *ngFor="let num of chartDataSecGuatemala">{{abstinencia(num.data)}} </th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataSecGuatemala">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                         </tr>
                       </ng-container>
                       <!-- Honduras SEC -->
@@ -192,14 +258,22 @@
                           <td *ngFor="let num of chartDataSecHonduras">{{num.data[i]}}</td>
                         </tr>
                         <tr>
-                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader">Votos Emitidos</th>
                           <th class="tbHeader" *ngFor="let num of chartDataSecHonduras">{{sumdata(num.data)}}</th>
+                        </tr>
+                        <tr>
+                          <th >Votos No Emitidos</th>
+                          <th *ngFor="let num of chartDataSecHonduras">{{abstinencia(num.data)}} </th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataSecHonduras">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                         </tr>
                       </ng-container>
                       <!-- Nicaragua SEC -->
                       <ng-container *ngIf="chartDataSecNicaragua.length > 0 && chartLabelsSecNicaragua.length >0">
                         <tr>
-                          <th class="tbHeader" colspan="5">Nicargua</th>
+                          <th class="tbHeader" colspan="5">Nicaragua</th>
                         </tr>
                         <tr>
                           <th id="blank" class="tbHeader">Nombre Candidato</th>
@@ -210,26 +284,16 @@
                           <td *ngFor="let num of chartDataSecNicaragua">{{num.data[i]}}</td>
                         </tr>
                         <tr>
-                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader">Votos Emitidos</th>
                           <th class="tbHeader" *ngFor="let num of chartDataSecNicaragua">{{sumdata(num.data)}}</th>
                         </tr>
-                      </ng-container>
-                      <!-- Dominicana SEC -->
-                      <ng-container *ngIf="chartDataSecDominicana.length > 0 && chartLabelsSecDominicana.length >0">
                         <tr>
-                          <th class="tbHeader" colspan="5">Republica Dominicana</th>
-                        </tr>
-                        <tr>
-                          <th class="tbHeader" id="blank">Nombre Candidato</th>
-                          <th class="tbHeader" id="co1" headers="blank">Cantidad de Votos</th>
-                        </tr>
-                        <tr *ngFor="let item of chartLabelsSecDominicana; let i = index">
-                          <th id="c1" headers="blank">{{item}}</th>
-                          <td headers="co1 c1" *ngFor="let num of chartDataSecDominicana">{{num.data[i]}}</td>
+                          <th >Votos No Emitidos</th>
+                          <th *ngFor="let num of chartDataSecNicaragua">{{abstinencia(num.data)}} </th>
                         </tr>
                         <tr>
                           <th class="tbHeader">TOTAL</th>
-                          <th class="tbHeader" *ngFor="let num of chartDataSecDominicana">{{sumdata(num.data)}}</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataSecNicaragua">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                         </tr>
                       </ng-container>
                       <!-- Panama SEC -->
@@ -246,10 +310,45 @@
                           <td *ngFor="let num of chartDataSecPanama">{{num.data[i]}}</td>
                         </tr>
                         <tr>
-                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader">Votos Emitidos</th>
                           <th class="tbHeader" *ngFor="let num of chartDataSecPanama">{{sumdata(num.data)}}</th>
                         </tr>
+                        <tr>
+                          <th >Votos No Emitidos</th>
+                          <th *ngFor="let num of chartDataSecPanama">{{abstinencia(num.data)}} </th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataSecPanama">{{sumdata(num.data) + abstinencia(num.data)}}</th>
+                        </tr>
                       </ng-container>
+                      <!-- Dominicana SEC -->
+                      <ng-container *ngIf="chartDataSecDominicana.length > 0 && chartLabelsSecDominicana.length >0">
+                        <tr>
+                          <th class="tbHeader" colspan="5">Republica Dominicana</th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader" id="blank">Nombre Candidato</th>
+                          <th class="tbHeader" id="co1" headers="blank">Cantidad de Votos</th>
+                        </tr>
+                        <tr *ngFor="let item of chartLabelsSecDominicana; let i = index">
+                          <th id="c1" headers="blank">{{item}}</th>
+                          <td headers="co1 c1" *ngFor="let num of chartDataSecDominicana">{{num.data[i]}}</td>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">Votos Emitidos</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataSecDominicana">{{sumdata(num.data)}}</th>
+                        </tr>
+                        <tr>
+                          <th >Votos No Emitidos</th>
+                          <th *ngFor="let num of chartDataSecDominicana">{{abstinencia(num.data)}} </th>
+                        </tr>
+                        <tr>
+                          <th class="tbHeader">TOTAL</th>
+                          <th class="tbHeader" *ngFor="let num of chartDataSecDominicana">{{sumdata(num.data) + abstinencia(num.data)}}</th>
+                        </tr>
+                      </ng-container>
+
 
 
                       <!-- Total Votos -->
@@ -609,8 +708,7 @@
         <clr-tab-content id="link1" *clrIfActive>
           <div class="clr-row clr-justify-content-center">
             <div class="clr-col-lg-12 clr-align-self-center clr-col-12"
-              *ngIf="chartDataPresidente.length > 0 && chartLabelsPresidente.length >0">
-
+              *ngIf="chartDataPresidente[0].data.length > 0 && chartLabelsPresidente.length >0">
               <table class="table table-compact">
                 <thead>
                   <tr>
@@ -618,20 +716,29 @@
                   </tr>
                   <tr>
                     <th *ngFor="let item of chartLabelsPresidente; let i = index">{{item}}</th>
-                    <th>Total de Aforum</th>
+                    <th>Votos Emitidos</th>
+                    <ng-container *ngFor="let num of chartDataPresidente">
+                      <th *ngIf="abstinencia(num.data) > 0">Votos no Emitidos</th>
+                    </ng-container>
+                    <th>TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let num of chartDataPresidente">
                     <td *ngFor="let fin of num.data">{{fin}}</td>
                     <td>{{sumdata(num.data)}}</td>
+                    <ng-container *ngFor="let num of chartDataPresidente">
+                      <td *ngIf="abstinencia(num.data) >
+                        0">{{abstinencia(num.data)}}</td>
+                    </ng-container>
+                    <th *ngFor="let num of chartDataPresidente">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
           <div class="clr-row clr-justify-content-center">
-            <div class="clr-col-lg-4 clr-align-self-center clr-col-12">
+            <div class="clr-col-lg-4 clr-align-self-center clr-col-12" *ngIf="chartDataPresidente[0].data.length > 0 && chartLabelsPresidente.length >0">
               <h1 class="pAlingCenter">Honduras</h1>
               <div style="display: block;">
                 <canvas baseChart width="400" height="400" chartType="pie" [datasets]="chartDataPresidente"
@@ -659,6 +766,10 @@
                   </tr>
                   <tr>
                     <th *ngFor="let item of chartLabelsViceSalvador; let i = index">{{item}}</th>
+                    <th>Votos Emitidos</th>
+                    <ng-container *ngFor="let num of chartDataViceSalvador">
+                      <th *ngIf="abstinencia(num.data) > 0">Votos no Emitidos</th>
+                    </ng-container>
                     <th>TOTAL</th>
                   </tr>
                 </thead>
@@ -666,6 +777,11 @@
                   <tr *ngFor="let num of chartDataViceSalvador">
                     <td *ngFor="let fin of num.data">{{fin}}</td>
                     <td>{{sumdata(num.data)}}</td>
+                    <ng-container *ngFor="let num of chartDataViceSalvador">
+                      <td *ngIf="abstinencia(num.data) >
+                        0">{{abstinencia(num.data)}}</td>
+                    </ng-container>
+                    <th *ngFor="let num of chartDataViceSalvador">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                   </tr>
                 </tbody>
               </table>
@@ -694,13 +810,22 @@
                   </tr>
                   <tr>
                     <th *ngFor="let item of chartLabelsViceGuatemala; let i = index">{{item}}</th>
-                    <th>Total de Aforum</th>
+                    <th>Votos Emitidos</th>
+                    <ng-container *ngFor="let num of chartDataViceGuatemala">
+                      <th *ngIf="abstinencia(num.data) > 0">Votos no Emitidos</th>
+                    </ng-container>
+                    <th>TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let num of chartDataViceGuatemala">
                     <td *ngFor="let fin of num.data">{{fin}}</td>
                     <td>{{sumdata(num.data)}}</td>
+                    <ng-container *ngFor="let num of chartDataViceGuatemala">
+                      <td *ngIf="abstinencia(num.data) >
+                        0">{{abstinencia(num.data)}}</td>
+                    </ng-container>
+                    <th *ngFor="let num of chartDataViceGuatemala">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                   </tr>
                 </tbody>
               </table>
@@ -728,13 +853,22 @@
                   </tr>
                   <tr>
                     <th *ngFor="let item of chartLabelsViceNicaragua; let i = index">{{item}}</th>
-                    <th>Total de Aforum</th>
+                    <th>Votos Emitidos</th>
+                    <ng-container *ngFor="let num of chartDataViceNicaragua">
+                      <th *ngIf="abstinencia(num.data) > 0">Votos no Emitidos</th>
+                    </ng-container>
+                    <th>TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let num of chartDataViceNicaragua">
                     <td *ngFor="let fin of num.data">{{fin}}</td>
                     <td>{{sumdata(num.data)}}</td>
+                    <ng-container *ngFor="let num of chartDataViceNicaragua">
+                      <td *ngIf="abstinencia(num.data) >
+                        0">{{abstinencia(num.data)}}</td>
+                    </ng-container>
+                    <th *ngFor="let num of chartDataViceNicaragua">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                   </tr>
                 </tbody>
               </table>
@@ -762,13 +896,22 @@
                   </tr>
                   <tr>
                     <th *ngFor="let item of chartLabelsVicePanama; let i = index">{{item}}</th>
-                    <th>Total de Aforum</th>
+                    <th>Votos Emitidos</th>
+                    <ng-container *ngFor="let num of chartDataVicePanama">
+                      <th *ngIf="abstinencia(num.data) > 0">Votos no Emitidos</th>
+                    </ng-container>
+                    <th>TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let num of chartDataVicePanama">
                     <td *ngFor="let fin of num.data">{{fin}}</td>
                     <td>{{sumdata(num.data)}}</td>
+                    <ng-container *ngFor="let num of chartDataVicePanama">
+                      <td *ngIf="abstinencia(num.data) >
+                        0">{{abstinencia(num.data)}}</td>
+                    </ng-container>
+                    <th *ngFor="let num of chartDataVicePanama">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                   </tr>
                 </tbody>
               </table>
@@ -796,6 +939,10 @@
                   </tr>
                   <tr>
                     <th *ngFor="let item of chartLabelsViceDominicana; let i = index">{{item}}</th>
+                    <th>Votos Emitidos</th>
+                    <ng-container *ngFor="let num of chartDataViceDominicana">
+                      <th *ngIf="abstinencia(num.data) > 0">Votos no Emitidos</th>
+                    </ng-container>
                     <th>TOTAL</th>
                   </tr>
                 </thead>
@@ -803,6 +950,11 @@
                   <tr *ngFor="let num of chartDataViceDominicana">
                     <td *ngFor="let fin of num.data">{{fin}}</td>
                     <td>{{sumdata(num.data)}}</td>
+                    <ng-container *ngFor="let num of chartDataViceDominicana">
+                      <td *ngIf="abstinencia(num.data) >
+                        0">{{abstinencia(num.data)}}</td>
+                    </ng-container>
+                    <th *ngFor="let num of chartDataViceDominicana">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                   </tr>
                 </tbody>
               </table>
@@ -819,7 +971,6 @@
               </div>
             </div>
           </div>
-
         </clr-tab-content>
       </clr-tab>
       <clr-tab>
@@ -837,13 +988,22 @@
                   </tr>
                   <tr>
                     <th *ngFor="let item of chartLabelsSecSalvador; let i = index">{{item}}</th>
-                    <th>Total de Aforum</th>
+                    <th>Votos Emitidos</th>
+                    <ng-container *ngFor="let num of chartDataSecSalvador">
+                      <th *ngIf="abstinencia(num.data) > 0">Votos no Emitidos</th>
+                    </ng-container>
+                    <th>TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let num of chartDataSecSalvador">
                     <td *ngFor="let fin of num.data">{{fin}}</td>
                     <td>{{sumdata(num.data)}}</td>
+                    <ng-container *ngFor="let num of chartDataSecSalvador">
+                      <td *ngIf="abstinencia(num.data) >
+                        0">{{abstinencia(num.data)}}</td>
+                    </ng-container>
+                    <th *ngFor="let num of chartDataSecSalvador">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                   </tr>
                 </tbody>
               </table>
@@ -871,13 +1031,22 @@
                   </tr>
                   <tr>
                     <th *ngFor="let item of chartLabelsSecGuatemala; let i = index">{{item}}</th>
-                    <th>Total de Aforum</th>
+                    <th>Votos Emitidos</th>
+                    <ng-container *ngFor="let num of chartDataSecGuatemala">
+                      <th *ngIf="abstinencia(num.data) > 0">Votos no Emitidos</th>
+                    </ng-container>
+                    <th>TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let num of chartDataSecGuatemala">
                     <td *ngFor="let fin of num.data">{{fin}}</td>
                     <td>{{sumdata(num.data)}}</td>
+                    <ng-container *ngFor="let num of chartDataSecGuatemala">
+                      <td *ngIf="abstinencia(num.data) >
+                        0">{{abstinencia(num.data)}}</td>
+                    </ng-container>
+                    <th *ngFor="let num of chartDataSecGuatemala">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                   </tr>
                 </tbody>
               </table>
@@ -905,13 +1074,22 @@
                   </tr>
                   <tr>
                     <th *ngFor="let item of chartLabelsSecHonduras; let i = index">{{item}}</th>
-                    <th>Total de Aforum</th>
+                    <th>Votos Emitidos</th>
+                    <ng-container *ngFor="let num of chartDataSecHonduras">
+                      <th *ngIf="abstinencia(num.data) > 0">Votos no Emitidos</th>
+                    </ng-container>
+                    <th>TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let num of chartDataSecHonduras">
                     <td *ngFor="let fin of num.data">{{fin}}</td>
                     <td>{{sumdata(num.data)}}</td>
+                    <ng-container *ngFor="let num of chartDataSecHonduras">
+                      <td *ngIf="abstinencia(num.data) >
+                        0">{{abstinencia(num.data)}}</td>
+                    </ng-container>
+                    <th *ngFor="let num of chartDataSecHonduras">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                   </tr>
                 </tbody>
               </table>
@@ -939,13 +1117,22 @@
                   </tr>
                   <tr>
                     <th *ngFor="let item of chartLabelsSecNicaragua; let i = index">{{item}}</th>
-                    <th>Total de Aforum</th>
+                    <th>Votos Emitidos</th>
+                    <ng-container *ngFor="let num of chartDataSecNicaragua">
+                      <th *ngIf="abstinencia(num.data) > 0">Votos no Emitidos</th>
+                    </ng-container>
+                    <th>TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let num of chartDataSecNicaragua">
                     <td *ngFor="let fin of num.data">{{fin}}</td>
                     <td>{{sumdata(num.data)}}</td>
+                    <ng-container *ngFor="let num of chartDataSecNicaragua">
+                      <td *ngIf="abstinencia(num.data) >
+                        0">{{abstinencia(num.data)}}</td>
+                    </ng-container>
+                    <th *ngFor="let num of chartDataSecNicaragua">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                   </tr>
                 </tbody>
               </table>
@@ -973,13 +1160,22 @@
                   </tr>
                   <tr>
                     <th *ngFor="let item of chartLabelsSecPanama; let i = index">{{item}}</th>
-                    <th>Total de Aforum</th>
+                    <th>Votos Emitidos</th>
+                    <ng-container *ngFor="let num of chartDataSecPanama">
+                      <th *ngIf="abstinencia(num.data) > 0">Votos no Emitidos</th>
+                    </ng-container>
+                    <th>TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let num of chartDataSecPanama">
                     <td *ngFor="let fin of num.data">{{fin}}</td>
                     <td>{{sumdata(num.data)}}</td>
+                    <ng-container *ngFor="let num of chartDataSecPanama">
+                      <td *ngIf="abstinencia(num.data) >
+                        0">{{abstinencia(num.data)}}</td>
+                    </ng-container>
+                    <th *ngFor="let num of chartDataSecPanama">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                   </tr>
                 </tbody>
               </table>
@@ -1007,13 +1203,22 @@
                   </tr>
                   <tr>
                     <th *ngFor="let item of chartLabelsSecDominicana; let i = index">{{item}}</th>
-                    <th>Total de Aforum</th>
+                    <th>Votos Emitidos</th>
+                    <ng-container *ngFor="let num of chartDataSecDominicana">
+                      <th *ngIf="abstinencia(num.data) > 0">Votos no Emitidos</th>
+                    </ng-container>
+                    <th>TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let num of chartDataSecDominicana">
                     <td *ngFor="let fin of num.data">{{fin}}</td>
                     <td>{{sumdata(num.data)}}</td>
+                    <ng-container *ngFor="let num of chartDataSecDominicana">
+                      <td *ngIf="abstinencia(num.data) >
+                        0">{{abstinencia(num.data)}}</td>
+                    </ng-container>
+                    <th *ngFor="let num of chartDataSecDominicana">{{sumdata(num.data) + abstinencia(num.data)}}</th>
                   </tr>
                 </tbody>
               </table>

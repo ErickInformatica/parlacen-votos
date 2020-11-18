@@ -78,6 +78,9 @@
         <li><a routerLink="/admin/graficas" *ngIf="UserService.getIdentity().datos.rol === 'ADMIN'"
             routerLinkActive="active" [routerLinkActiveOptions]="{exact:
             true}" class="nav-link">Graficas</a></li>
+        <li>
+          <button type="button" (click)="COCharts()" *ngIf="UserService.getIdentity() && UserService.getIdentity().datos.rol === 'SA' " class="btn btn-icon btn-warning" aria-label="settings" style="margin-left: 10px; margin-top: 10px;">I/O Graficas</button>
+        </li>
       </ul>
     </section>
   </section>

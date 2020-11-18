@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit {
       res=>{
         this.identity = res.user
         this.token =res.token
-        localStorage.setItem('identity', JSON.stringify(this.identity));
-        localStorage.setItem('token', JSON.stringify(this.token));
+        sessionStorage.setItem('identity', JSON.stringify(this.identity));
+        sessionStorage.setItem('token', JSON.stringify(this.token));
         this._router.navigate(['/home'])
       }, err => {
         Swal.fire({

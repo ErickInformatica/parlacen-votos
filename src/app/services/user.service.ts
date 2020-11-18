@@ -32,6 +32,13 @@ export class UserService {
     });
   }
 
+  noEmitidos(token,vuelta): Observable<any> {
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.get(this.url + '/noEmitidos/'+vuelta, {
+      headers: headersToken,
+    });
+  }
+
   udpateUser(token,id, datos): Observable<any> {
     let params = JSON.stringify(datos);
     let headersToken = this.headers.set('Authorization', token)
@@ -80,6 +87,30 @@ export class UserService {
     });
   }
 
+  sendMails(token, emails): Observable<any> {
+    let params = JSON.stringify(emails);
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.post(this.url + '/sendMails', params, {
+      headers: headersToken,
+    });
+  }
+
+  COCharts(token, emails={}): Observable<any> {
+    let params = JSON.stringify(emails);
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.put(this.url + '/COCharts', params, {
+      headers: headersToken,
+    });
+  }
+
+  changeMasiveUsers(token, users): Observable<any> {
+    let params = JSON.stringify(users);
+    let headersToken = this.headers.set('Authorization', token)
+    return this._http.put(this.url + '/cambiarEstadoMasivo', params, {
+      headers: headersToken,
+    });
+  }
+
   register(user): Observable<any> {
     let params = JSON.stringify(user);
 
@@ -98,7 +129,7 @@ export class UserService {
   }
 
   getIdentity() {
-    var identity2 = JSON.parse(localStorage.getItem('identity'));
+    var identity2 = JSON.parse(sessionStorage.getItem('identity'));
 
     if (identity2 != null) {
       this.identity = identity2;
@@ -109,7 +140,7 @@ export class UserService {
     return this.identity;
   }
   getUserIdentity() {
-    var identity2 = JSON.parse(localStorage.getItem('identity'));
+    var identity2 = JSON.parse(sessionStorage.getItem('identity'));
 
     if (identity2 != null) {
       this.identityUser = identity2;
@@ -121,7 +152,7 @@ export class UserService {
   }
 
   getAdminIdentity() {
-    var identity2 = JSON.parse(localStorage.getItem('identity'));
+    var identity2 = JSON.parse(sessionStorage.getItem('identity'));
 
     if (identity2 != null) {
       this.identityAdmin = identity2;
@@ -133,7 +164,7 @@ export class UserService {
   }
 
   getSAIdentity() {
-    var identity2 = JSON.parse(localStorage.getItem('identity'));
+    var identity2 = JSON.parse(sessionStorage.getItem('identity'));
 
     if (identity2 != null) {
       this.identitySA = identity2;
@@ -145,7 +176,7 @@ export class UserService {
   }
 
   getToken() {
-    var token2 = localStorage.getItem('token');
+    var token2 = sessionStorage.getItem('token');
 
     if (token2 != null) {
       this.token = token2;

@@ -53,10 +53,15 @@
       true}">
       <span class="nav-text">Graficas</span>
     </a>
-    <a class="nav-link" *ngIf="!userService.getIdentity()" routerLink="/graficas"
+    <a class="nav-link" *ngIf="ChartStats && ChartStats[0].estadoCharts === true" routerLink="/graficas"
       routerLinkActive="active" [routerLinkActiveOptions]="{exact:
       true}">
       <span class="nav-text">Graficas</span>
+    </a>
+    <a class="nav-link" *ngIf="!userService.getIdentity()" routerLink="/candidatosElectos"
+      routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+      true}">
+      <span class="nav-text">Candidatos Electos</span>
     </a>
     <button type="button" (click)="modalTokens = true" *ngIf="userService.getIdentity() && userService.getIdentity().datos.rol === 'SA' " class="btn btn-icon btn-warning" aria-label="settings" style="margin-left: 10px; margin-top: 10px;">Cerrar Votaciones</button>
   </div>
