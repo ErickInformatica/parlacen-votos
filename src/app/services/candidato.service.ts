@@ -30,7 +30,7 @@ export class CandidatoService {
   }
 
 
-  getCandidatos(token): Observable<an..y> {
+  getCandidatos(token): Observable<any> {
     let headersToken = this.headers.set('Authorization', token)
     return this._http.get(this.url + '/candidatos', {
       headers: headersToken,
